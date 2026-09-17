@@ -1,0 +1,232 @@
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- значки частиц: форма = тип, цвет приходит снаружи через --c -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="cloud">
+      <stop offset="0" stop-color="#4aa8ff" stop-opacity=".85"/>
+      <stop offset=".45" stop-color="#4aa8ff" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#4aa8ff" stop-opacity="0"/>
+    </radialGradient>
+    <symbol id="g-u" viewBox="0 0 100 100"><polygon class="sh" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t" x="50" y="51">u</text></symbol>
+    <symbol id="g-d" viewBox="0 0 100 100"><polygon class="sh" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t" x="50" y="51">d</text></symbol>
+    <symbol id="g-c" viewBox="0 0 100 100"><polygon class="sh" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t" x="50" y="50">c</text></symbol>
+    <symbol id="g-s" viewBox="0 0 100 100"><polygon class="sh" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t" x="50" y="50">s</text></symbol>
+    <symbol id="g-t" viewBox="0 0 100 100"><polygon class="sh" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t" x="50" y="51">t</text></symbol>
+    <symbol id="g-b" viewBox="0 0 100 100"><polygon class="sh" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t" x="50" y="51">b</text></symbol>
+    <symbol id="g-au" viewBox="0 0 100 100"><polygon class="sh sh-anti" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t t-anti" x="50" y="55">u</text><line class="bar" x1="37" y1="31" x2="63" y2="31"/></symbol>
+    <symbol id="g-ad" viewBox="0 0 100 100"><polygon class="sh sh-anti" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t t-anti" x="50" y="55">d</text><line class="bar" x1="37" y1="27" x2="63" y2="27"/></symbol>
+    <symbol id="g-as" viewBox="0 0 100 100"><polygon class="sh sh-anti" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t t-anti" x="50" y="55">s</text><line class="bar" x1="37" y1="31" x2="63" y2="31"/></symbol>
+    <symbol id="g-ac" viewBox="0 0 100 100"><polygon class="sh sh-anti" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t t-anti" x="50" y="55">c</text><line class="bar" x1="37" y1="31" x2="63" y2="31"/></symbol>
+    <symbol id="g-ab" viewBox="0 0 100 100"><polygon class="sh sh-anti" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t t-anti" x="50" y="55">b</text><line class="bar" x1="37" y1="27" x2="63" y2="27"/></symbol>
+    <symbol id="g-at" viewBox="0 0 100 100"><polygon class="sh sh-anti" points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5"/><text class="t t-anti" x="50" y="55">t</text><line class="bar" x1="37" y1="28" x2="63" y2="28"/></symbol>
+    <symbol id="g-e" viewBox="0 0 100 100"><circle class="sh" cx="50" cy="50" r="44"/><text class="t" x="50" y="50">e</text></symbol>
+    <symbol id="g-mu" viewBox="0 0 100 100"><circle class="sh" cx="50" cy="50" r="44"/><text class="t" x="50" y="50">μ</text></symbol>
+    <symbol id="g-tau" viewBox="0 0 100 100"><circle class="sh" cx="50" cy="50" r="44"/><text class="t" x="50" y="50">τ</text></symbol>
+    <symbol id="g-pos" viewBox="0 0 100 100"><circle class="sh sh-anti" cx="50" cy="50" r="44"/><text class="t t-sm t-anti" x="50" y="51">e⁺</text></symbol>
+    <symbol id="g-nue" viewBox="0 0 100 100"><circle class="sh sh-dash" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="50">ν<tspan class="t-sub" dy="9">e</tspan></text></symbol>
+    <symbol id="g-numu" viewBox="0 0 100 100"><circle class="sh sh-dash" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="50">ν<tspan class="t-sub" dy="9">μ</tspan></text></symbol>
+    <symbol id="g-nutau" viewBox="0 0 100 100"><circle class="sh sh-dash" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="50">ν<tspan class="t-sub" dy="9">τ</tspan></text></symbol>
+    <symbol id="g-anue" viewBox="0 0 100 100"><circle class="sh sh-dash" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="53">ν<tspan class="t-sub" dy="9">e</tspan></text><line class="bar bar-ink" x1="32" y1="34" x2="52" y2="34"/></symbol>
+    <symbol id="g-g" viewBox="0 0 100 100"><polygon class="sh" points="50,4 96,50 50,96 4,50"/><text class="t" x="50" y="48">g</text></symbol>
+    <symbol id="g-ph" viewBox="0 0 100 100"><polygon class="sh" points="50,4 96,50 50,96 4,50"/><text class="t" x="50" y="48">γ</text></symbol>
+    <symbol id="g-w" viewBox="0 0 100 100"><polygon class="sh" points="50,4 96,50 50,96 4,50"/><text class="t t-sm" x="50" y="50">W</text></symbol>
+    <symbol id="g-z" viewBox="0 0 100 100"><polygon class="sh" points="50,4 96,50 50,96 4,50"/><text class="t" x="50" y="50">Z</text></symbol>
+    <symbol id="g-h" viewBox="0 0 100 100"><polygon class="sh sh-foil" points="50,4 96,50 50,96 4,50"/><text class="t" x="50" y="50">H</text></symbol>
+    <symbol id="g-grav" viewBox="0 0 100 100"><polygon class="sh sh-dash" points="50,4 96,50 50,96 4,50"/><text class="t" x="50" y="50">G</text></symbol>
+  </defs>
+</svg>
+
+<div class="sky" aria-hidden="true"></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<nav class="nav" lang="ru" aria-label="Разделы">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><i></i><span>Конструктор материи</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="#s-compo">Матрёшка</a>
+      <a href="#s-catalog">17 деталей</a>
+      <a href="#s-forces">Силы</a>
+      <a href="#s-birth">Превращения</a>
+      <a href="#s-bang">Большой взрыв</a>
+      <a href="#s-myths">Мифы</a>
+      <a href="#s-open">Загадки</a>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
+</nav>
+
+<header class="hero" id="top" lang="ru">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="kick reveal">Элементарные частицы · простым языком</p>
+      <h1 class="reveal" style="--i:1">Конструктор <span class="grad">материи</span></h1>
+      <p class="lead reveal" style="--i:2">Яблоко, воздух, звёзды и&nbsp;вы сами собраны из&nbsp;<b>трёх деталей и&nbsp;клея</b>. Разберём мир до&nbsp;последнего винтика: что из&nbsp;чего состоит, кто за&nbsp;что отвечает и&nbsp;откуда всё взялось.</p>
+      <p class="hint reveal" style="--i:3">Нажимайте на&nbsp;всё, что светится,&nbsp;— откроется описание</p>
+      <p class="hero-meta reveal" style="--i:4"><span><b>17</b> частиц</span><span><b>4</b> силы</span><span><b>13,8</b> млрд лет истории</span></p>
+    </div>
+
+    <div class="reveal" style="--i:2">
+      <div class="orbit-box" role="group" aria-label="Из чего собрано обычное вещество">
+        <div class="ring r2"></div>
+        <div class="ring r1"></div>
+        <div class="core">обычное<br>вещество</div>
+        <div class="sat c-strong" style="--a:-90deg; --r:23cqw; --dur:60s"><button type="button" data-info="u" data-group="kit" aria-label="u-кварк"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-u"/></svg></button></div>
+        <div class="sat c-strong" style="--a:30deg; --r:23cqw; --dur:60s"><button type="button" data-info="d" data-group="kit" aria-label="d-кварк"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-d"/></svg></button></div>
+        <div class="sat c-em" style="--a:150deg; --r:23cqw; --dur:60s"><button type="button" data-info="e" data-group="kit" aria-label="Электрон"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-e"/></svg></button></div>
+        <div class="sat c-strong" style="--a:200deg; --r:41cqw; --dur:110s"><button type="button" data-info="g" data-group="kit" aria-label="Глюон"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-g"/></svg></button><small>клей</small></div>
+        <div class="sat c-em" style="--a:20deg; --r:41cqw; --dur:110s"><button type="button" data-info="ph" data-group="kit" aria-label="Фотон"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-ph"/></svg></button><small>клей</small></div>
+      </div>
+      <p class="orbit-cap"><b>u-кварк + d-кварк + электрон</b>, а&nbsp;держат их <b>глюоны</b> и&nbsp;<b>фотоны</b></p>
+    </div>
+  </div>
+</header>
+
+<main lang="ru">
+
+<!-- ═════════ 01 МАТРЁШКА ═════════ -->
+<section class="scene" id="s-compo">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">01</span> Что из чего состоит</p>
+      <h2>Матрёшка: от&nbsp;яблока до&nbsp;кварка</h2>
+      <p class="sub">Любой предмет&nbsp;— вложенные друг в&nbsp;друга куклы. Семь шагов вглубь, и&nbsp;детали перестают разбираться.</p>
+    </div>
+
+    <div class="ladder reveal">
+      <div class="rung"><button type="button" class="nd rung-btn c-weak" data-info="l-apple" data-group="ladder" style="--i:0" aria-label="Яблоко"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ic ic-c ic-fill" d="M36 24C27 13 8 20 10 41c2 17 15 26 26 20 11 6 24-3 26-20 2-21-17-28-26-17Z"/><path class="ic" d="M36 24c0-7 3-12 8-15"/><path class="ic" d="M45 12c6-3 12-1 14 3-6 3-11 2-14-3Z"/></svg></button><div class="rung-txt"><b>Яблоко</b><span>≈ 10<sup>−1</sup> м</span></div></div>
+      <div class="rung-rail" style="--n:0"><div class="rail"></div><em>×400</em></div>
+      <div class="rung"><button type="button" class="nd rung-btn c-weak" data-info="l-cell" data-group="ladder" style="--i:1" aria-label="Клетка"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ic ic-c ic-fill" d="M12 22c8-12 38-14 48-2 8 10 4 32-8 38-14 7-36 4-42-8-4-9-3-20 2-28Z"/><ellipse class="ic" cx="42" cy="38" rx="9" ry="7"/><circle class="ic" cx="24" cy="30" r="2"/><circle class="ic" cx="27" cy="48" r="2.5"/></svg></button><div class="rung-txt"><b>Клетка</b><span>≈ 2×10<sup>−4</sup> м</span></div></div>
+      <div class="rung-rail" style="--n:1"><div class="rail"></div><em>×700 000</em></div>
+      <div class="rung"><button type="button" class="nd rung-btn c-weak" data-info="l-mol" data-group="ladder" style="--i:2" aria-label="Молекула воды"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ic" d="M36 30 19 50M36 30l17 20"/><circle class="ic ic-c ic-fill" cx="36" cy="30" r="14"/><circle class="ic ic-c ic-fill" cx="17" cy="52" r="8.5"/><circle class="ic ic-c ic-fill" cx="55" cy="52" r="8.5"/></svg></button><div class="rung-txt"><b>Молекула</b><span>≈ 3×10<sup>−10</sup> м</span></div></div>
+      <div class="rung-rail" style="--n:2"><div class="rail"></div><em>×3</em></div>
+      <div class="rung"><button type="button" class="nd rung-btn c-em" data-info="l-atom" data-group="ladder" style="--i:3" aria-label="Атом"><svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="34" fill="url(#cloud)"/><circle cx="36" cy="36" r="3" fill="#ff6bd6"/></svg></button><div class="rung-txt"><b>Атом</b><span>≈ 10<sup>−10</sup> м</span></div></div>
+      <div class="rung-rail" style="--n:3"><div class="rail"></div><em>×10 000+</em></div>
+      <div class="rung"><button type="button" class="nd rung-btn c-strong" data-info="l-nucleus" data-group="ladder" style="--i:4" aria-label="Ядро"><svg viewBox="0 0 72 72" aria-hidden="true"><g class="ic ic-c"><circle class="ic-fill" cx="36" cy="21" r="9"/><circle cx="49" cy="28.5" r="9"/><circle class="ic-fill" cx="49" cy="43.5" r="9"/><circle cx="36" cy="51" r="9"/><circle class="ic-fill" cx="23" cy="43.5" r="9"/><circle cx="23" cy="28.5" r="9"/><circle class="ic-fill" cx="36" cy="36" r="9"/></g></svg></button><div class="rung-txt"><b>Ядро</b><span>≈ 10<sup>−15</sup>–10<sup>−14</sup> м</span></div></div>
+      <div class="rung-rail" style="--n:4"><div class="rail"></div><em>×3</em></div>
+      <div class="rung"><button type="button" class="nd rung-btn c-strong" data-info="l-proton" data-group="ladder" style="--i:5" aria-label="Протон"><svg viewBox="0 0 72 72" aria-hidden="true"><circle class="bag" cx="36" cy="36" r="33"/><use href="#g-u" x="24" y="7" width="24" height="24"/><use href="#g-u" x="9" y="36" width="24" height="24"/><use href="#g-d" x="39" y="36" width="24" height="24"/></svg></button><div class="rung-txt"><b>Протон</b><span>≈ 1,7×10<sup>−15</sup> м</span></div></div>
+      <div class="rung-rail" style="--n:5"><div class="rail"></div><em>×1000+</em></div>
+      <div class="rung"><button type="button" class="nd rung-btn c-strong" data-info="l-quark" data-group="ladder" style="--i:6" aria-label="Кварк"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ic" style="stroke-dasharray:2 4;opacity:.5" d="M36 2v68M2 36h68"/><use href="#g-u" x="20" y="20" width="32" height="32"/></svg></button><div class="rung-txt"><b>Кварк</b><span>&lt; 10<sup>−18</sup> м</span></div></div>
+    </div>
+
+    <h3 class="subhead reveal">Три сборки из&nbsp;кварков</h3>
+    <p class="subnote reveal">Пунктир&nbsp;— граница, за&nbsp;которую кварки не&nbsp;выходят. Бегущие линии&nbsp;— глюоны. Залитый значок с&nbsp;чертой&nbsp;— античастица.</p>
+    <div class="compo reveal">
+      <button type="button" class="nd" data-info="c-proton" data-group="compo">
+        <svg viewBox="0 0 240 196" aria-hidden="true"><g transform="translate(0 6)"><circle class="bag" cx="120" cy="98" r="84"/><path class="spring" d="M120 58 78 132M120 58l42 74M78 132h84"/><g class="qk" style="--i:0"><use href="#g-u" x="94" y="32" width="52" height="52"/></g><g class="qk" style="--i:1"><use href="#g-u" x="52" y="106" width="52" height="52"/></g><g class="qk" style="--i:2"><use href="#g-d" x="136" y="106" width="52" height="52"/></g></g></svg>
+        <b>Протон = u u d</b><span>+2/3 +2/3 −1/3 = +1</span>
+      </button>
+      <button type="button" class="nd" data-info="c-neutron" data-group="compo">
+        <svg viewBox="0 0 240 196" aria-hidden="true"><g transform="translate(0 6)"><circle class="bag" cx="120" cy="98" r="84"/><path class="spring" d="M120 58 78 132M120 58l42 74M78 132h84"/><g class="qk" style="--i:0"><use href="#g-u" x="94" y="32" width="52" height="52"/></g><g class="qk" style="--i:1"><use href="#g-d" x="52" y="106" width="52" height="52"/></g><g class="qk" style="--i:2"><use href="#g-d" x="136" y="106" width="52" height="52"/></g></g></svg>
+        <b>Нейтрон = u d d</b><span>+2/3 −1/3 −1/3 = 0</span>
+      </button>
+      <button type="button" class="nd" data-info="c-pion" data-group="compo">
+        <svg viewBox="0 0 240 196" aria-hidden="true"><g transform="translate(0 6)"><ellipse class="bag" cx="120" cy="98" rx="92" ry="58"/><path class="spring" d="M80 98h80"/><g class="qk" style="--i:0"><use href="#g-u" x="48" y="72" width="52" height="52"/></g><g class="qk" style="--i:2"><use href="#g-ad" x="140" y="72" width="52" height="52"/></g></g></svg>
+        <b>Пион π⁺ = u + анти-d</b><span>+2/3 +1/3 = +1</span>
+      </button>
+      <button type="button" class="nd" data-info="c-mass" data-group="compo">
+        <svg viewBox="0 0 240 196" aria-hidden="true"><circle cx="120" cy="98" r="80" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="22"/><circle cx="120" cy="98" r="80" fill="none" stroke="#ff6bd6" stroke-width="22" stroke-dasharray="497.6 502.7" transform="rotate(-90 120 98)" style="filter:drop-shadow(0 0 8px #ff6bd6)"/><circle cx="120" cy="98" r="80" fill="none" stroke="#ffd36a" stroke-width="22" stroke-dasharray="5 502.7" stroke-dashoffset="-497.6" transform="rotate(-90 120 98)"/><text x="120" y="92" text-anchor="middle" style="font:800 40px var(--display);fill:#fff">99%</text><text class="lbl-soft" x="120" y="118" text-anchor="middle">энергия клея</text></svg>
+        <b>Откуда масса</b><span>кварки дают лишь ≈ 1%</span>
+      </button>
+    </div>
+
+    <h3 class="subhead reveal">Соберите частицу сами</h3>
+    <p class="subnote reveal">Нажимайте на&nbsp;кварки&nbsp;— они лягут в&nbsp;ячейки. У&nbsp;каждого кварка есть скрытый заряд сильной силы&nbsp;— «цвет», и&nbsp;в&nbsp;готовой частице он должен полностью гаситься. Поэтому природа выпускает только три кварка, три антикварка или пару «кварк + антикварк».</p>
+    <div class="panel builder reveal" id="builder">
+      <div class="b-col">
+        <span class="b-label">Кварки</span>
+        <div class="b-palette" id="pal-q"></div>
+        <span class="b-label">Антикварки</span>
+        <div class="b-palette" id="pal-a"></div>
+        <span class="b-label">Готовые рецепты</span>
+        <div class="b-presets">
+          <button type="button" class="btn" data-preset="u,u,d">протон</button>
+          <button type="button" class="btn" data-preset="u,d,d">нейтрон</button>
+          <button type="button" class="btn" data-preset="u,ad">пион π⁺</button>
+          <button type="button" class="btn" data-preset="s,s,s">омега-минус</button>
+        </div>
+      </div>
+      <div class="b-col">
+        <span class="b-label">Сборка</span>
+        <div class="b-slots" id="slots"><span class="b-slot"></span><span class="b-slot"></span><span class="b-slot"></span></div>
+        <div class="b-actions">
+          <button type="button" class="btn" id="b-undo">убрать последний</button>
+          <button type="button" class="btn" id="b-clear">очистить</button>
+        </div>
+        <div class="b-out" id="b-out" aria-live="polite">
+          <span class="b-sum">+2/3 +2/3 −1/3 = +1</span>
+          <span class="b-name">Протон</span>
+          <span class="b-note">Барион&nbsp;— частица из&nbsp;трёх кварков. Ядро атома водорода и&nbsp;главная деталь всех остальных ядер. Стабилен.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 02 КАТАЛОГ ═════════ -->
+<section class="scene" id="s-catalog">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">02</span> Какие бывают</p>
+      <h2>Все 17 деталей</h2>
+      <p class="sub">Полный каталог называется Стандартной моделью: 12 частиц вещества и&nbsp;5 бозонов, которые переносят силы и&nbsp;раздают массу.</p>
+    </div>
+    <p class="legend reveal">
+      <span class="c-strong"><i></i>чувствует сильную силу</span>
+      <span class="c-em"><i></i>главная сила&nbsp;— электромагнитная</span>
+      <span class="c-weak"><i></i>только слабая</span>
+      <span class="c-higgs"><i></i>поле Хиггса</span>
+      <span>шестиугольник&nbsp;— кварк · круг&nbsp;— лептон · ромб&nbsp;— бозон</span>
+    </p>
+    <div class="forces-bar reveal" role="group" aria-label="Подсветить частицы, которые чувствуют силу">
+      <button type="button" class="f-btn c-strong" data-force="strong" aria-pressed="false">сильная</button>
+      <button type="button" class="f-btn c-em" data-force="em" aria-pressed="false">электромагнитная</button>
+      <button type="button" class="f-btn c-weak" data-force="weak" aria-pressed="false">слабая</button>
+      <button type="button" class="f-btn c-grav" data-force="grav" aria-pressed="false">гравитация</button>
+      <button type="button" class="f-btn c-higgs" data-force="higgs" aria-pressed="false">поле Хиггса: масса</button>
+    </div>
+    <p class="f-say reveal" id="f-say" aria-live="polite">Выберите силу&nbsp;— останутся гореть только те, кто её чувствует. Нажмите на&nbsp;частицу&nbsp;— всплывёт её карточка. Строки&nbsp;— поколения: чем ниже, тем тяжелее. Столбцы&nbsp;— электрический заряд.</p>
+
+    <div class="panel sm reveal" id="sm">
+      <div class="sm-grid">
+        <span></span>
+        <span class="sm-colhead" style="grid-column: span 2">кварки</span>
+        <span class="sm-colhead" style="grid-column: span 2">лептоны</span>
+        <span></span>
+        <span class="sm-colhead">заряд +2/3</span>
+        <span class="sm-colhead">заряд −1/3</span>
+        <span class="sm-colhead">заряд −1</span>
+        <span class="sm-colhead">заряд 0</span>
+
+        <span class="sm-gen" title="первое поколение">I</span>
+        <button type="button" class="chip c-strong" data-info="u" data-group="sm" data-feels="strong em weak grav higgs" style="--ms:.59"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-u"/></svg><span class="nm">верхний</span></button>
+        <button type="button" class="chip c-strong" data-info="d" data-group="sm" data-feels="strong em weak grav higgs" style="--ms:.64"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-d"/></svg><span class="nm">нижний</span></button>
+        <button type="button" class="chip c-em" data-info="e" data-group="sm" data-feels="em weak grav higgs" style="--ms:.5"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-e"/></svg><span class="nm">электрон</span></button>
+        <button type="button" class="chip c-weak" data-info="nue" data-group="sm" data-feels="weak grav maybe" style="--ms:.4"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-nue"/></svg><span class="nm">e-нейтрино</span></button>
+
+        <span class="sm-gen" title="второе поколение">II</span>
+        <button type="button" class="chip c-strong" data-info="c" data-group="sm" data-feels="strong em weak grav higgs" style="--ms:.99"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-c"/></svg><span class="nm">очарованный</span></button>
+        <button type="button" class="chip c-strong" data-info="s" data-group="sm" data-feels="strong em weak grav higgs" style="--ms:.83"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-s"/></svg><span class="nm">странный</span></button>
+        <button type="button" class="chip c-em" data-info="mu" data-group="sm" data-feels="em weak grav higgs" style="--ms:.84"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-mu"/></svg><span class="nm">мюон</span></button>
+        <button type="button" class="chip c-weak" data-info="numu" data-group="sm" data-feels="weak grav maybe" style="--ms:.4"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-numu"/></svg><span class="nm">μ-нейтрино</span></button>
+
+        <span class="sm-gen" title="третье поколение">III</span>
+        <button type="button" class="chip c-strong" data-info="t" data-group="sm" data-feels="strong em weak grav higgs" style="--ms:1.3"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-t"/></svg><span class="nm">истинный</span></button>
+        <button type="button" class="chip c-strong" data-info="b" data-group="sm" data-feels="strong em weak grav higgs" style="--ms:1.07"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-b"/></svg><span class="nm">прелестный</span></button>
+        <button type="button" class="chip c-em" data-info="tau" data-group="sm" data-feels="em weak grav higgs" style="--ms:1.01"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-tau"/></svg><span class="nm">тау</span></button>
+        <button type="button" class="chip c-weak" data-info="nutau" data-group="sm" data-feels="weak grav maybe" style="--ms:.4"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-nutau"/></svg><span class="nm">τ-нейтрино</span></button>
+      </div>
+
+      <div class="sm-bosons">
+        <span class="sm-sub">Бозоны: курьеры сил и&nbsp;поле Хиггса</span>
+        <button type="button" class="chip c-strong" data-info="g" data-group="sm" data-feels="strong grav"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-g"/></svg><span class="nm">глюон</span></button>
+        <button type="button" class="chip c-em" data-info="ph" data-group="sm" data-feels="grav" data-carries="em"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-ph"/></svg><span class="nm">фотон</span></button>
+        <button type="button" class="chip c-weak" data-info="w" data-group="sm" data-feels="em weak grav higgs" style="--ms:1.25"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-w"/></svg><span class="nm">W⁺ и W⁻</span></button>
+        <button type="button" class="chip c-weak" data-info="z" data-group="sm" data-feels="weak grav higgs" style="--ms:1.26"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-z"/></svg><span class="nm">Z</span></button>
+        <button type="button" class="chip c-higgs" data-info="h" data-group="sm" data-feels="weak grav higgs" style="--ms:1.28"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-h"/></svg><span class="nm">Хиггс</span></button>
+        <span class="sm-sub">Вне каталога: гипотеза</span>
+        <button type="button" class="chip c-grav" data-info="grav" data-group="sm" data-feels="grav"><svg class="gl" viewBox="0 0 100 100" aria-hidden="true"><use href="#g-grav"/></svg><span class="nm">гравитон?</span></button>
+      </div>
+    </div>
+  </div>
+</section>

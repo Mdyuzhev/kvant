@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Элементарные частицы простым языком: что из чего состоит, кто за что отвечает и как всё рождается. Печатная версия.">
+<title>Конструктор материи — печатная версия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=Unbounded:wght@600;800&display=swap">
+<style>
+/* ───────── Токены: «офсет в три краски» ─────────
+   красная = сильное · синяя = электромагнитное · фиолетовая = слабое · золото = Хиггс */
+:root {
+  color-scheme: light;
+  --paper: #E6E9E4;
+  --plate: #DEE2D9;
+  --ink: #17181A;
+  --ink-soft: #4B4E48;
+  --line: #B8BDB2;
+  --red: #A62A24;
+  --red-wash: #F1D9D4;
+  --blue: #154A87;
+  --blue-wash: #D7E3EF;
+  --violet: #6A3E82;
+  --violet-wash: #E7DDEC;
+  --gold-ink: #7A5C1E;
+  --foil: linear-gradient(118deg, #C9A24A 0%, #E7C77A 32%, #F3DFA6 50%, #E7C77A 68%, #C9A24A 100%);
+  --foil-ink: #17181A;
+  --hatch-opacity: .55;
+
+  --f-display: 'Unbounded', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --f-body: 'Golos Text', 'PT Sans', 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', 'JetBrains Mono', Consolas, monospace;
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --measure: 40rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14161A;
+    --plate: #1D2025;
+    --ink: #ECE9E0;
+    --ink-soft: #A9ACA2;
+    --line: #383B37;
+    --red: #E2685C;
+    --red-wash: #2E1B19;
+    --blue: #4C8FD6;
+    --blue-wash: #17242F;
+    --violet: #A87BC2;
+    --violet-wash: #241C2C;
+    --gold-ink: #D2AE5C;
+    --hatch-opacity: .6;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14161A;
+  --plate: #1D2025;
+  --ink: #ECE9E0;
+  --ink-soft: #A9ACA2;
+  --line: #383B37;
+  --red: #E2685C;
+  --red-wash: #2E1B19;
+  --blue: #4C8FD6;
+  --blue-wash: #17242F;
+  --violet: #A87BC2;
+  --violet-wash: #241C2C;
+  --gold-ink: #D2AE5C;
+  --hatch-opacity: .6;
+}
+
+/* ───────── Основа ───────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--f-body);
+  overflow-wrap: break-word;
+}
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3, h4 { text-wrap: balance; }
+a { color: inherit; text-decoration-color: var(--line); text-underline-offset: .18em; }
+a:hover { text-decoration-color: currentColor; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+sup, sub { line-height: 0; font-size: .72em; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.wrap { max-width: 1120px; margin-inline: auto; padding-inline: var(--gutter); }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.num { font-family: var(--f-mono); font-size: .94em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.c-red { color: var(--red); }
+.c-blue { color: var(--blue); }
+.c-violet { color: var(--violet); }
+.c-gold { color: var(--gold-ink); }
+.eyebrow {
+  font: 500 .8125rem/1.3 var(--f-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ───────── Приводка: тонкая полоса разделов ───────── */
+.register {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  display: flex;
+  gap: 3px;
+  height: 4px;
+  background: var(--paper);
+}
+.register i { flex: 1; background: var(--line); }
+.register i.done { background: var(--ink-soft); }
+.register i.now { background: var(--ink); }
+
+/* ───────── Шапка ───────── */
+.hero { padding-block: clamp(2rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem); }
+.hero-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: end; }
+@media (min-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); } }
+.hero-text { display: grid; gap: 1.25rem; min-width: 0; }
+.hero h1 {
+  font: 800 clamp(1.875rem, 1rem + 3.3vw, 3.5rem)/1.04 var(--f-display);
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.hero .lead { font-size: clamp(1.125rem, 1rem + .5vw, 1.3125rem); line-height: 1.5; max-width: 34rem; }
+.toc { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; font: 500 .875rem/1.4 var(--f-mono); }
+.toc a { text-decoration: none; border-bottom: 1px solid var(--line); padding-block: .15rem; }
+.toc a:hover { border-bottom-color: var(--ink); }
+
+/* Комплект поставки */
+.kit { border: 1px solid var(--ink); padding: 1rem 1.125rem 1.125rem; display: grid; gap: .875rem; }
+.kit-head { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: .5rem; }
+.kit-head b { font: 600 .8125rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .04em; }
+.kit-row { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: .875rem; align-items: center; }
+.kit-row + .kit-row { border-top: 1px dashed var(--line); padding-top: .875rem; }
+.kit-row + .kit-head { margin-top: .5rem; }
+.kit-row .glyph { width: 3.25rem; height: 3.25rem; }
+.kit-row p { font-size: .9375rem; line-height: 1.4; }
+.kit-row p b { display: block; font-weight: 700; }
+.kit-sub { font: 500 .75rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin-top: .25rem; }
+
+/* ───────── Глифы частиц ───────── */
+.glyph { position: relative; display: block; }
+.glyph svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* Значки живут в <symbol>; толщина обводки приходит снаружи через --sw */
+.s { stroke-width: var(--sw, 3); vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.s-red { stroke: var(--red); }
+.s-blue { stroke: var(--blue); }
+.s-violet { stroke: var(--violet); }
+.s-gold { stroke: #8C6A22; }
+.s-soft { stroke: var(--ink-soft); }
+.s-dash { stroke-dasharray: 5 4; }
+.f-none { fill: transparent; }
+.f-red { fill: var(--red-wash); }
+.f-blue { fill: var(--blue-wash); }
+.f-violet { fill: var(--violet-wash); }
+.f-anti { fill: var(--red); }
+.t { font: 600 36px var(--f-mono); text-anchor: middle; dominant-baseline: central; fill: var(--ink); }
+.t-sm { font-size: 28px; }
+.t-sub { font-size: 18px; }
+.t-anti { fill: var(--paper); }
+.t-foil { fill: var(--foil-ink); }
+.halo-red, .halo-blue, .halo-violet { paint-order: stroke; stroke-width: 8px; stroke-linejoin: round; }
+.halo-red { stroke: var(--red-wash); }
+.halo-blue { stroke: var(--blue-wash); }
+.halo-violet { stroke: var(--violet-wash); }
+.bar { stroke: var(--paper); stroke-width: 3.5; stroke-linecap: round; }
+.bar-ink { stroke: var(--ink); stroke-width: 2.5; }
+
+/* ───────── Разделы ───────── */
+.sec { padding-block: clamp(2.5rem, 6vw, 4.5rem) 0; }
+.sec-head { display: grid; gap: .625rem; margin-bottom: clamp(1.5rem, 3vw, 2.25rem); max-width: 46rem; }
+.sec-head h2 { font: 800 clamp(1.5rem, 1.15rem + 1.7vw, 2.25rem)/1.12 var(--f-display); letter-spacing: -.005em; }
+.sec-head .lead { font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem); line-height: 1.5; color: var(--ink); }
+.foil-title { display: inline; background: var(--foil); color: var(--foil-ink); padding: .05em .3em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+.prose { display: grid; gap: clamp(1.75rem, 3vw, 2.5rem); }
+.block { display: grid; gap: .875rem 2.5rem; align-items: start; }
+@media (min-width: 900px) { .block { grid-template-columns: minmax(0, var(--measure)) minmax(0, 17rem); } }
+.block-main { display: grid; gap: .625rem; max-width: var(--measure); }
+.block h3 { font: 600 clamp(1.0625rem, 1rem + .4vw, 1.25rem)/1.25 var(--f-display); }
+.block-main ul { display: grid; gap: .4rem; }
+.block-main ul li { padding-left: 1.25rem; position: relative; }
+.block-main ul li::before { content: ""; position: absolute; left: 0; top: .62em; width: .5rem; height: .5rem; border: 1.5px solid var(--ink); transform: rotate(45deg) scale(.8); }
+
+.analogy { border-left: 2px solid var(--ink); padding-left: .875rem; display: grid; gap: .35rem; font-size: .9375rem; line-height: 1.5; max-width: var(--measure); }
+.analogy.red { border-left-color: var(--red); }
+.analogy.blue { border-left-color: var(--blue); }
+.analogy.violet { border-left-color: var(--violet); }
+.analogy.gold { border-left-color: var(--gold-ink); }
+.analogy .tag, .limp .tag { font: 500 .6875rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); display: block; }
+.limp { color: var(--ink-soft); }
+
+/* ───────── Вкладки-плашки с диаграммами ───────── */
+.plate { background: var(--plate); border-block: 1px solid var(--line); margin-block: clamp(2rem, 4vw, 3rem); padding-block: clamp(1.5rem, 3.5vw, 2.5rem); }
+.plate-head { display: grid; gap: .35rem; margin-bottom: 1.25rem; max-width: 46rem; }
+.plate-head h3 { font: 600 clamp(1.0625rem, 1rem + .45vw, 1.3125rem)/1.25 var(--f-display); }
+.plate-head p { font-size: .9375rem; color: var(--ink-soft); line-height: 1.5; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Лестница масштабов */
+.ladder { display: grid; gap: 0; }
+.rung { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: .25rem 1rem; padding-block: .875rem; border-top: 1px solid var(--line); align-items: start; }
+.rung:first-child { border-top: 0; }
+.rung .pic { width: 4rem; height: 4rem; grid-row: span 3; }
+.rung .pic svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.rung .step { font: 500 .75rem/1.3 var(--f-mono); letter-spacing: .04em; color: var(--ink-soft); }
+.rung h4 { font: 600 1rem/1.25 var(--f-display); }
+.rung .size { font: 500 .9375rem/1.3 var(--f-mono); }
+.rung p { font-size: .9375rem; line-height: 1.45; grid-column: 2; }
+@media (min-width: 760px) {
+  .ladder { max-width: 54rem; }
+  .rung { grid-template-columns: 4.5rem 14rem minmax(0, 1fr); gap: .1rem 1.5rem; align-items: center; }
+  .rung .pic { width: 4.5rem; height: 4.5rem; grid-row: 1 / span 3; }
+  .rung .step, .rung h4, .rung .size { grid-column: 2; }
+  .rung p { grid-column: 3; grid-row: 1 / span 3; font-size: 1rem; }
+}
+.pic .ln { fill: none; stroke: var(--ink); stroke-width: 1.6; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.pic .ln-red { stroke: var(--red); }
+.pic .ln-blue { stroke: var(--blue); }
+
+/* Состав: протон, нейтрон, мезон */
+.compo { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.compo figure { display: grid; gap: .625rem; justify-items: start; }
+.compo svg { width: 100%; max-width: 17rem; height: auto; display: block; overflow: visible; }
+.compo figcaption { font-size: .9375rem; line-height: 1.45; }
+.compo figcaption b { font-family: var(--f-display); font-weight: 600; font-size: .9375rem; display: block; margin-bottom: .15rem; }
+.bag { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 2 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.spring { fill: none; stroke: var(--red); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.lbl { font: 500 13px var(--f-mono); fill: var(--ink); }
+.lbl-soft { font: 500 12px var(--f-mono); fill: var(--ink-soft); }
+
+/* ───────── Конструктор адронов ───────── */
+.builder { display: grid; gap: 1.25rem; }
+@media (min-width: 860px) { .builder { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; } }
+.b-col { display: grid; gap: .75rem; }
+.b-label { font: 500 .75rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.b-palette { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .375rem; max-width: 26rem; }
+.b-chip { appearance: none; background: none; border: 0; padding: 0; cursor: pointer; display: grid; justify-items: center; gap: .15rem; min-height: 44px; }
+.b-chip .glyph { width: 100%; max-width: 3.25rem; aspect-ratio: 1; }
+.b-chip small { font: 500 .8125rem/1.2 var(--f-mono); color: var(--ink-soft); }
+.b-chip:hover { --sw: 4.5; }
+.b-slots { display: flex; gap: .625rem; align-items: center; flex-wrap: wrap; }
+.b-slot { width: 4.25rem; height: 4.25rem; border: 1.5px dashed var(--line); display: grid; place-items: center; }
+.b-slot .glyph { width: 3.5rem; height: 3.5rem; }
+.b-slot:empty::after { content: "?"; font: 500 1.125rem var(--f-mono); color: var(--line); }
+.b-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.btn { appearance: none; background: transparent; border: 1px solid var(--ink); padding: .5rem .875rem; font: 500 .8125rem/1.2 var(--f-mono); cursor: pointer; min-height: 44px; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.b-out { border-top: 1px solid var(--ink); padding-top: .875rem; display: grid; gap: .35rem; min-height: 7.5rem; align-content: start; }
+.b-sum { font: 500 1rem/1.4 var(--f-mono); }
+.b-name { font: 600 1.125rem/1.25 var(--f-display); }
+.b-note { font-size: .9375rem; line-height: 1.45; color: var(--ink-soft); }
+.b-presets { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+/* ───────── Таблица Стандартной модели ───────── */
+.decoder { display: flex; flex-wrap: wrap; gap: .35rem 1.5rem; font: 500 .8125rem/1.4 var(--f-mono); color: var(--ink-soft); margin-bottom: 1rem; }
+.decoder b { color: var(--ink); font-weight: 600; }
+.forces-bar { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .75rem; }
+.f-btn { appearance: none; background: transparent; border: 1.5px solid var(--fc, var(--ink)); color: var(--ink); padding: .45rem .8rem; font: 500 .8125rem/1.2 var(--f-mono); cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; gap: .5rem; }
+.f-btn::before { content: ""; width: .625rem; height: .625rem; background: var(--fc, var(--ink)); flex: none; }
+.f-btn[data-force="strong"] { --fc: var(--red); }
+.f-btn[data-force="em"] { --fc: var(--blue); }
+.f-btn[data-force="weak"] { --fc: var(--violet); }
+.f-btn[data-force="higgs"] { --fc: var(--gold-ink); }
+.f-btn[data-force="grav"] { border-style: dashed; }
+.f-btn[data-force="grav"]::before { background: transparent; border: 1.5px dashed var(--ink); }
+.f-btn[aria-pressed="true"] { background: var(--fc, var(--ink)); color: var(--paper); }
+.f-btn[aria-pressed="true"]::before { background: var(--paper); border-color: var(--paper); }
+.f-say { font-size: .9375rem; line-height: 1.5; min-height: 4.5em; max-width: 46rem; margin-bottom: 1.25rem; border-left: 2px solid var(--fc-now, var(--ink)); padding-left: .875rem; }
+
+.sm-layout { display: grid; gap: 1.5rem 2.5rem; align-items: start; }
+@media (min-width: 960px) { .sm-layout { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); } }
+.sm { display: grid; gap: 1.25rem; }
+.sm-grid { display: grid; grid-template-columns: 1.75rem repeat(4, minmax(0, 1fr)); gap: .5rem .375rem; align-items: start; }
+.sm-colhead { font: 500 .6875rem/1.25 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); text-align: center; align-self: end; padding-bottom: .25rem; }
+.sm-gen { font: 600 .875rem/1 var(--f-display); align-self: center; color: var(--ink-soft); }
+.sm-bosons { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .375rem; border-top: 1px solid var(--ink); padding-top: .875rem; }
+.sm-sub { font: 500 .6875rem/1.25 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); grid-column: 1 / -1; }
+.chip { appearance: none; background: none; border: 0; padding: .125rem 0 .25rem; cursor: pointer; display: grid; justify-items: center; gap: .2rem; position: relative; min-width: 0; }
+.chip .glyph { width: 100%; max-width: 4.5rem; aspect-ratio: 1; }
+.chip .nm { font-size: .75rem; line-height: 1.15; text-align: center; hyphens: auto; max-width: 100%; }
+.chip .chg { font: 500 .6875rem/1 var(--f-mono); color: var(--ink-soft); }
+.chip:hover { --sw: 4.5; }
+.chip[aria-pressed="true"] { --sw: 5.5; }
+.chip[aria-pressed="true"] .nm { font-weight: 700; text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: 2px; }
+.sm-bosons .chip[data-id="grav"] { grid-column: 1; }
+/* режим силы: гаснут те, кто её не чувствует */
+.sm[data-force] .chip { opacity: .22; filter: grayscale(.7); }
+.sm[data-force="strong"] .chip[data-feels~="strong"],
+.sm[data-force="em"] .chip[data-feels~="em"],
+.sm[data-force="weak"] .chip[data-feels~="weak"],
+.sm[data-force="grav"] .chip[data-feels~="grav"],
+.sm[data-force="higgs"] .chip[data-feels~="higgs"],
+.sm[data-force="em"] .chip[data-carries~="em"] { opacity: 1; filter: none; }
+.sm[data-force="higgs"] .chip .glyph { transform: scale(var(--ms, 1)); }
+.sm[data-force="higgs"] .chip[data-feels~="maybe"] { opacity: .6; filter: none; }
+.sm[data-force="higgs"] .sm-grid, .sm[data-force="higgs"] .sm-bosons { column-gap: 1.5rem; }
+
+.detail { border: 1px solid var(--ink); padding: 1.125rem 1.25rem 1.25rem; display: grid; gap: .75rem; background: var(--paper); }
+.detail-top { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1rem; align-items: center; }
+.detail-top .glyph { width: 4rem; height: 4rem; }
+.detail h4 { font: 600 1.1875rem/1.2 var(--f-display); }
+.detail .fam { font: 500 .75rem/1.3 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+.detail .role { font-size: 1rem; line-height: 1.5; }
+.detail dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .3rem 1rem; font-size: .875rem; line-height: 1.4; border-top: 1px solid var(--line); padding-top: .75rem; }
+.detail dt { font: 500 .75rem/1.6 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); }
+.detail dd { font-family: var(--f-mono); font-size: .875rem; }
+.detail .fun { font-size: .9375rem; line-height: 1.5; color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: .75rem; }
+
+/* ───────── Полосы сил ───────── */
+.strips { display: grid; gap: .625rem; }
+.strip { padding: 1.125rem 1.25rem 1.25rem; display: grid; gap: .875rem 2rem; background: var(--sw, transparent); border: 1.5px solid transparent; }
+.strip.strong { --sw: var(--red-wash); --sc: var(--red); }
+.strip.em { --sw: var(--blue-wash); --sc: var(--blue); }
+.strip.weak { --sw: var(--violet-wash); --sc: var(--violet); }
+.strip.grav { border: 1.5px dashed var(--ink-soft); }
+@media (min-width: 860px) { .strip { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) minmax(0, 17rem); align-items: start; } }
+.strip-id { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: .75rem; align-items: center; }
+.strip-id .glyph { width: 3.25rem; height: 3.25rem; }
+.strip-id h3 { font: 600 1.0625rem/1.2 var(--f-display); color: var(--sc, var(--ink)); }
+.strip-id small { font: 500 .75rem/1.35 var(--f-mono); color: var(--ink-soft); display: block; margin-top: .2rem; }
+.strip-body { display: grid; gap: .5rem; font-size: .9688rem; line-height: 1.5; }
+.strip-body .who { font-size: .875rem; color: var(--ink-soft); }
+.meters { display: grid; gap: .625rem; }
+.meter { display: grid; gap: .25rem; }
+.meter-top { display: flex; justify-content: space-between; gap: .75rem; font: 500 .75rem/1.3 var(--f-mono); color: var(--ink-soft); }
+.meter-top b { color: var(--ink); font-weight: 600; }
+.meter-bar { height: .5rem; border: 1px solid var(--ink-soft); position: relative; }
+.meter-bar i { position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--sc, var(--ink)); }
+.meter-note { font: 400 .75rem/1.35 var(--f-mono); color: var(--ink-soft); }
+
+/* Хиггс */
+.foil-box { background: var(--foil); color: var(--foil-ink); padding: 1.125rem 1.25rem; display: grid; gap: .4rem; max-width: var(--measure); }
+.foil-box .big { font: 800 clamp(1.5rem, 1.2rem + 1.4vw, 2.125rem)/1.1 var(--f-display); }
+.foil-box p { font-size: .9688rem; line-height: 1.45; }
+
+/* ───────── Схемы рождения и распада ───────── */
+.schemes { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+.schemes figure { display: grid; gap: .75rem; align-content: start; }
+.schemes svg { width: 100%; height: auto; display: block; overflow: visible; max-width: 26rem; }
+.schemes figcaption { font-size: .9375rem; line-height: 1.45; }
+.schemes figcaption b { font: 600 .9375rem/1.3 var(--f-display); display: block; margin-bottom: .2rem; }
+.wave { fill: none; stroke: var(--blue); stroke-width: 1.8; vector-effect: non-scaling-stroke; }
+.wave-v { stroke: var(--violet); stroke-dasharray: 5 4; }
+.track { fill: none; stroke: var(--ink); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.arrowhead { fill: var(--ink); }
+
+/* ───────── Лента Большого взрыва ───────── */
+.tl { display: grid; position: relative; }
+.tl li { display: grid; grid-template-columns: minmax(0, 7.5rem) 1.5rem minmax(0, 1fr); gap: 0 .75rem; align-items: start; }
+.tl .when { font: 500 .875rem/1.35 var(--f-mono); text-align: right; padding-top: .1rem; }
+.tl .when small { display: block; font-size: .6875rem; color: var(--ink-soft); font-weight: 400; }
+.tl .dot { position: relative; align-self: stretch; }
+.tl .dot::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: var(--tw, 2px); background: var(--ink); transform: translateX(-50%); }
+.tl .dot::after { content: ""; position: absolute; left: 50%; top: .3rem; width: .75rem; height: .75rem; background: var(--paper); border: 2px solid var(--ink); transform: translate(-50%, 0) rotate(45deg); }
+.on-plate .tl .dot::after { background: var(--plate); }
+.tl li:last-child .dot::before { bottom: auto; height: .6rem; }
+.tl .what { padding-bottom: 1.5rem; display: grid; gap: .25rem; max-width: 36rem; }
+.tl .what b { font: 600 1rem/1.3 var(--f-display); }
+.tl .what p { font-size: .9375rem; line-height: 1.5; }
+@media (max-width: 520px) { .tl li { grid-template-columns: 5.25rem 1.25rem minmax(0, 1fr); gap: 0 .5rem; } .tl .when { font-size: .8125rem; } }
+
+/* ───────── Мифы ───────── */
+.myths { display: grid; gap: 0; }
+.myth { display: grid; gap: .5rem 2.5rem; padding-block: 1.25rem; border-top: 1px solid var(--line); }
+.myth:last-child { border-bottom: 1px solid var(--line); }
+@media (min-width: 800px) { .myth { grid-template-columns: minmax(0, 20rem) minmax(0, var(--measure)); } }
+.myth .claim { font: 500 1.0625rem/1.4 var(--f-body); color: var(--ink-soft); }
+.myth .claim .tag { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.myth .tag { font: 500 .6875rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .25rem; color: var(--ink-soft); }
+.myth .truth .tag { color: var(--ink); }
+.myth .truth { font-size: 1rem; line-height: 1.55; }
+
+/* ───────── Состав Вселенной ───────── */
+.budget { display: grid; gap: .5rem; max-width: 46rem; }
+.budget-bar { display: flex; height: 2.25rem; border: 1px solid var(--ink); }
+.budget-bar i { display: block; height: 100%; }
+.budget-bar .b-ord { width: 5%; background: var(--ink); }
+.budget-bar .b-dm { width: 27%; background: repeating-linear-gradient(45deg, var(--ink-soft) 0 2px, transparent 2px 7px); border-right: 1px solid var(--ink); }
+.budget-bar .b-de { width: 68%; }
+.budget-key { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; font: 500 .8125rem/1.4 var(--f-mono); }
+.budget-key span::before { content: ""; display: inline-block; width: .75rem; height: .75rem; margin-right: .4rem; border: 1px solid var(--ink); vertical-align: -.08em; }
+.budget-key .k-ord::before { background: var(--ink); }
+.budget-key .k-dm::before { background: repeating-linear-gradient(45deg, var(--ink-soft) 0 2px, transparent 2px 5px); }
+
+/* Хронология открытий */
+.years { display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr)); gap: 0 2rem; }
+.years li { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: .75rem; padding-block: .5rem; border-bottom: 1px solid var(--line); font-size: .9375rem; line-height: 1.4; }
+.years .y { font: 600 .9375rem/1.4 var(--f-mono); }
+.years small { display: block; color: var(--ink-soft); font-size: .8125rem; }
+
+/* ───────── Словарик ───────── */
+.gloss { display: grid; gap: 0; }
+.gloss > div { display: grid; gap: .15rem 2rem; padding-block: .75rem; border-top: 1px solid var(--line); }
+.gloss > div:last-child { border-bottom: 1px solid var(--line); }
+@media (min-width: 700px) { .gloss > div { grid-template-columns: 13rem minmax(0, var(--measure)); } }
+.gloss dt { font: 600 .9375rem/1.4 var(--f-display); }
+.gloss dd { font-size: .9688rem; line-height: 1.5; }
+
+/* ───────── Подвал ───────── */
+.foot { margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--ink); padding-block: 1.5rem 2.5rem; font-size: .875rem; line-height: 1.5; color: var(--ink-soft); }
+.foot .wrap { display: grid; gap: .5rem; }
+.foot p { max-width: 46rem; }
+
+/* ───────── Движение ───────── */
+@media (prefers-reduced-motion: no-preference) {
+  .chip, .chip .glyph { transition: opacity .2s ease-out, filter .2s ease-out, transform .3s ease-out; }
+  .register i { transition: background-color .2s ease-out; }
+}
+</style>
+</head>
+<body>
+<!-- Общие SVG-детали: штриховки знака заряда и значки всех частиц -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="h-red" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" style="fill:var(--red-wash)"/>
+      <rect width="2.4" height="7" style="fill:var(--red);opacity:var(--hatch-opacity)"/>
+    </pattern>
+    <pattern id="h-blue" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" style="fill:var(--blue-wash)"/>
+      <rect width="2.4" height="7" style="fill:var(--blue);opacity:var(--hatch-opacity)"/>
+    </pattern>
+    <pattern id="h-violet" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="7" style="fill:var(--violet-wash)"/>
+      <rect width="2.4" height="7" style="fill:var(--violet);opacity:var(--hatch-opacity)"/>
+    </pattern>
+    <pattern id="dots" width="5" height="5" patternUnits="userSpaceOnUse">
+      <circle cx="2.5" cy="2.5" r="1.15" style="fill:var(--blue)"/>
+    </pattern>
+    <radialGradient id="fadeg">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="fade"><circle cx="36" cy="36" r="33" fill="url(#fadeg)"/></mask>
+    <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#C9A24A"/>
+      <stop offset=".32" stop-color="#E7C77A"/>
+      <stop offset=".5" stop-color="#F3DFA6"/>
+      <stop offset=".68" stop-color="#E7C77A"/>
+      <stop offset="1" stop-color="#C9A24A"/>
+    </linearGradient>
+
+    <!-- кварки: шестиугольник. штрих = «+», заливка = «−» -->
+    <symbol id="g-u" viewBox="0 0 100 100"><polygon class="s s-red" points="50,4 90,27 90,73 50,96 10,73 10,27" fill="url(#h-red)"/><text class="t halo-red" x="50" y="51">u</text></symbol>
+    <symbol id="g-c" viewBox="0 0 100 100"><polygon class="s s-red" points="50,4 90,27 90,73 50,96 10,73 10,27" fill="url(#h-red)"/><text class="t halo-red" x="50" y="50">c</text></symbol>
+    <symbol id="g-t" viewBox="0 0 100 100"><polygon class="s s-red" points="50,4 90,27 90,73 50,96 10,73 10,27" fill="url(#h-red)"/><text class="t halo-red" x="50" y="51">t</text></symbol>
+    <symbol id="g-d" viewBox="0 0 100 100"><polygon class="s s-red f-red" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t" x="50" y="51">d</text></symbol>
+    <symbol id="g-s" viewBox="0 0 100 100"><polygon class="s s-red f-red" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t" x="50" y="50">s</text></symbol>
+    <symbol id="g-b" viewBox="0 0 100 100"><polygon class="s s-red f-red" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t" x="50" y="51">b</text></symbol>
+    <!-- антикварки: «негатив» -->
+    <symbol id="g-au" viewBox="0 0 100 100"><polygon class="s s-red f-anti" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t t-anti" x="50" y="54">u</text><line class="bar" x1="38" y1="31" x2="62" y2="31"/></symbol>
+    <symbol id="g-ad" viewBox="0 0 100 100"><polygon class="s s-red f-anti" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t t-anti" x="50" y="54">d</text><line class="bar" x1="38" y1="27" x2="62" y2="27"/></symbol>
+    <symbol id="g-as" viewBox="0 0 100 100"><polygon class="s s-red f-anti" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t t-anti" x="50" y="54">s</text><line class="bar" x1="38" y1="31" x2="62" y2="31"/></symbol>
+    <symbol id="g-ac" viewBox="0 0 100 100"><polygon class="s s-red f-anti" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t t-anti" x="50" y="54">c</text><line class="bar" x1="38" y1="31" x2="62" y2="31"/></symbol>
+    <symbol id="g-ab" viewBox="0 0 100 100"><polygon class="s s-red f-anti" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t t-anti" x="50" y="54">b</text><line class="bar" x1="38" y1="27" x2="62" y2="27"/></symbol>
+    <symbol id="g-at" viewBox="0 0 100 100"><polygon class="s s-red f-anti" points="50,4 90,27 90,73 50,96 10,73 10,27"/><text class="t t-anti" x="50" y="54">t</text><line class="bar" x1="38" y1="28" x2="62" y2="28"/></symbol>
+    <!-- лептоны: круг -->
+    <symbol id="g-e" viewBox="0 0 100 100"><circle class="s s-blue f-blue" cx="50" cy="50" r="44"/><text class="t" x="50" y="50">e</text></symbol>
+    <symbol id="g-mu" viewBox="0 0 100 100"><circle class="s s-blue f-blue" cx="50" cy="50" r="44"/><text class="t" x="50" y="50">μ</text></symbol>
+    <symbol id="g-tau" viewBox="0 0 100 100"><circle class="s s-blue f-blue" cx="50" cy="50" r="44"/><text class="t" x="50" y="50">τ</text></symbol>
+    <symbol id="g-pos" viewBox="0 0 100 100"><circle class="s s-blue" cx="50" cy="50" r="44" fill="url(#h-blue)"/><text class="t t-sm halo-blue" x="50" y="51">e⁺</text></symbol>
+    <symbol id="g-nue" viewBox="0 0 100 100"><circle class="s s-violet s-dash f-none" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="50">ν<tspan class="t-sub" dy="9">e</tspan></text></symbol>
+    <symbol id="g-numu" viewBox="0 0 100 100"><circle class="s s-violet s-dash f-none" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="50">ν<tspan class="t-sub" dy="9">μ</tspan></text></symbol>
+    <symbol id="g-nutau" viewBox="0 0 100 100"><circle class="s s-violet s-dash f-none" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="50">ν<tspan class="t-sub" dy="9">τ</tspan></text></symbol>
+    <symbol id="g-anue" viewBox="0 0 100 100"><circle class="s s-violet s-dash f-none" cx="50" cy="50" r="44"/><text class="t t-sm" x="46" y="52">ν<tspan class="t-sub" dy="9">e</tspan></text><line class="bar bar-ink" x1="33" y1="35" x2="51" y2="35"/></symbol>
+    <!-- бозоны: ромб -->
+    <symbol id="g-g" viewBox="0 0 100 100"><polygon class="s s-red f-none" points="50,3 97,50 50,97 3,50"/><text class="t" x="50" y="48">g</text></symbol>
+    <symbol id="g-ph" viewBox="0 0 100 100"><polygon class="s s-blue f-none" points="50,3 97,50 50,97 3,50"/><text class="t" x="50" y="48">γ</text></symbol>
+    <symbol id="g-w" viewBox="0 0 100 100"><polygon points="50,3 3,50 50,97" fill="url(#h-violet)"/><polygon class="f-violet" points="50,3 97,50 50,97"/><polygon class="s s-violet f-none" points="50,3 97,50 50,97 3,50"/><text class="t t-sm halo-violet" x="50" y="50">W</text></symbol>
+    <symbol id="g-z" viewBox="0 0 100 100"><polygon class="s s-violet f-none" points="50,3 97,50 50,97 3,50"/><text class="t" x="50" y="50">Z</text></symbol>
+    <symbol id="g-h" viewBox="0 0 100 100"><polygon class="s s-gold" points="50,3 97,50 50,97 3,50" fill="url(#foil)"/><text class="t t-foil" x="50" y="50">H</text></symbol>
+    <symbol id="g-grav" viewBox="0 0 100 100"><polygon class="s s-soft s-dash f-none" points="50,3 97,50 50,97 3,50"/><text class="t" x="50" y="50">G</text></symbol>
+  </defs>
+</svg>
+
+<div class="register" id="register" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<header class="hero" lang="ru">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow">Элементарные частицы · 17 деталей · 4 силы</p>
+      <h1>Конструктор материи</h1>
+      <p class="lead">Яблоко, воздух, звёзды и вы сами собраны из&nbsp;трёх деталей и&nbsp;клея. Разбираем мир до&nbsp;последнего винтика: что из&nbsp;чего состоит, какая частица за&nbsp;что отвечает и&nbsp;откуда всё это взялось.</p>
+      <nav class="toc" aria-label="Разделы">
+        <a href="#s-compo">Что из чего</a>
+        <a href="#s-matter">17 деталей</a>
+        <a href="#s-forces">Кто за что отвечает</a>
+        <a href="#s-birth">Как рождаются</a>
+        <a href="#s-bang">Большой взрыв</a>
+        <a href="#s-myths">Мифы</a>
+        <a href="#s-open">Загадки</a>
+        <a href="#s-gloss">Словарик</a>
+      </nav>
+    </div>
+
+    <div class="kit" role="group" aria-label="Из чего собрано обычное вещество">
+      <div class="kit-head"><b>Комплект поставки</b><span class="kit-sub">обычное вещество</span></div>
+      <div class="kit-row"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-u"/></svg></span><p><b>u-кварк</b>по два в&nbsp;каждом протоне, по одному в&nbsp;нейтроне</p></div>
+      <div class="kit-row"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-d"/></svg></span><p><b>d-кварк</b>по два в&nbsp;каждом нейтроне, по одному в&nbsp;протоне</p></div>
+      <div class="kit-row"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-e"/></svg></span><p><b>электрон</b>облако вокруг ядра: химия и&nbsp;электричество</p></div>
+      <div class="kit-head"><b>Клей</b><span class="kit-sub">держит детали вместе</span></div>
+      <div class="kit-row"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-g"/></svg></span><p><b>глюон</b>склеивает кварки в&nbsp;протоны и&nbsp;нейтроны</p></div>
+      <div class="kit-row"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-ph"/></svg></span><p><b>фотон</b>удерживает электроны возле ядра</p></div>
+    </div>
+  </div>
+</header>
+
+<main lang="ru">
+
+<!-- ═════════ 1. ЧТО ИЗ ЧЕГО СОСТОИТ ═════════ -->
+<section class="sec" id="s-compo">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Вопрос первый: из чего?</p>
+      <h2>Что из&nbsp;чего состоит</h2>
+      <p class="lead">Любой предмет&nbsp;— матрёшка. Открываем куклу за&nbsp;куклой, пока не&nbsp;дойдём до&nbsp;деталей, которые уже не&nbsp;разбираются.</p>
+    </div>
+  </div>
+
+  <div class="plate on-plate">
+    <div class="wrap">
+      <div class="plate-head">
+        <h3>Лестница вглубь: от&nbsp;яблока до&nbsp;кварка</h3>
+        <p>Семь ступеней. На&nbsp;каждой мир становится мельче&nbsp;— иногда в&nbsp;три раза, иногда в&nbsp;миллион.</p>
+      </div>
+      <ol class="ladder">
+        <li class="rung">
+          <span class="pic"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ln" style="fill:var(--red-wash)" d="M36 24C27 13 8 20 10 41c2 17 15 26 26 20 11 6 24-3 26-20 2-21-17-28-26-17Z"/><path class="ln" d="M36 24c0-7 3-12 8-15"/><path class="ln" style="fill:var(--paper)" d="M45 12c6-3 12-1 14 3-6 3-11 2-14-3Z"/></svg></span>
+          <span class="step">ступень 1</span>
+          <h4>Яблоко</h4>
+          <span class="size">≈ 10<sup>−1</sup> м</span>
+          <p>Восемь сантиметров. На&nbsp;85% это вода, остальное&nbsp;— сахара и&nbsp;клетчатка.</p>
+        </li>
+        <li class="rung">
+          <span class="pic"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ln" style="fill:var(--paper)" d="M12 22c8-12 38-14 48-2 8 10 4 32-8 38-14 7-36 4-42-8-4-9-3-20 2-28Z"/><ellipse class="ln" style="fill:var(--line)" cx="42" cy="38" rx="9" ry="7"/><circle class="ln" cx="24" cy="30" r="2"/><circle class="ln" cx="27" cy="48" r="2.5"/><circle class="ln" cx="50" cy="22" r="1.5"/></svg></span>
+          <span class="step">в ~400 раз мельче</span>
+          <h4>Клетка</h4>
+          <span class="size">≈ 2×10<sup>−4</sup> м</span>
+          <p>Клетки мякоти крупные&nbsp;— пятая часть миллиметра, почти видны глазом.</p>
+        </li>
+        <li class="rung">
+          <span class="pic"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ln" d="M36 30 19 50M36 30l17 20"/><circle class="ln" style="fill:var(--paper)" cx="36" cy="30" r="15"/><circle class="ln" style="fill:var(--paper)" cx="17" cy="52" r="9"/><circle class="ln" style="fill:var(--paper)" cx="55" cy="52" r="9"/><text class="lbl" x="36" y="35" text-anchor="middle">O</text><text class="lbl" x="17" y="56.5" text-anchor="middle">H</text><text class="lbl" x="55" y="56.5" text-anchor="middle">H</text></svg></span>
+          <span class="step">в ~700 000 раз мельче</span>
+          <h4>Молекула воды</h4>
+          <span class="size">≈ 3×10<sup>−10</sup> м</span>
+          <p>Два атома водорода и&nbsp;один кислорода, сцепленные электронами.</p>
+        </li>
+        <li class="rung">
+          <span class="pic"><svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="33" fill="url(#dots)" mask="url(#fade)"/><circle cx="36" cy="36" r="2.4" style="fill:var(--red)"/></svg></span>
+          <span class="step">в ~3 раза мельче</span>
+          <h4>Атом</h4>
+          <span class="size">≈ 10<sup>−10</sup> м</span>
+          <p>Крошечное ядро и&nbsp;размытое облако электронов вокруг. Не&nbsp;орбиты&nbsp;— именно облако.</p>
+        </li>
+        <li class="rung">
+          <span class="pic"><svg viewBox="0 0 72 72" aria-hidden="true"><g class="ln ln-red"><circle cx="36" cy="21" r="9" fill="url(#h-red)"/><circle cx="49" cy="28.5" r="9" style="fill:var(--plate)"/><circle cx="49" cy="43.5" r="9" fill="url(#h-red)"/><circle cx="36" cy="51" r="9" style="fill:var(--plate)"/><circle cx="23" cy="43.5" r="9" fill="url(#h-red)"/><circle cx="23" cy="28.5" r="9" style="fill:var(--plate)"/><circle cx="36" cy="36" r="9" fill="url(#h-red)"/></g></svg></span>
+          <span class="step">в десятки тысяч раз мельче</span>
+          <h4>Ядро</h4>
+          <span class="size">≈ 10<sup>−15</sup>–10<sup>−14</sup> м</span>
+          <p>Плотный комок протонов (штрих&nbsp;— заряд «+») и&nbsp;нейтронов. Здесь почти вся масса атома.</p>
+        </li>
+        <li class="rung">
+          <span class="pic"><svg viewBox="0 0 72 72" aria-hidden="true"><circle class="bag" cx="36" cy="36" r="32"/><use href="#g-u" x="25" y="8" width="22" height="22"/><use href="#g-u" x="11" y="36" width="22" height="22"/><use href="#g-d" x="39" y="36" width="22" height="22"/></svg></span>
+          <span class="step">в несколько раз мельче</span>
+          <h4>Протон</h4>
+          <span class="size">≈ 1,7×10<sup>−15</sup> м</span>
+          <p>Уже не&nbsp;шарик, а&nbsp;мешок: три кварка и&nbsp;кипящий глюонный клей.</p>
+        </li>
+        <li class="rung">
+          <span class="pic"><svg viewBox="0 0 72 72" aria-hidden="true"><path class="ln" style="stroke:var(--ink-soft);stroke-dasharray:2 4" d="M36 4v64M4 36h64"/><use href="#g-u" x="21" y="21" width="30" height="30"/></svg></span>
+          <span class="step">минимум в 1000 раз мельче</span>
+          <h4>Кварк</h4>
+          <span class="size">&lt; 10<sup>−18</sup> м</span>
+          <p>Дно лестницы. Размер измерить не&nbsp;удалось: возможно, это просто точка.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="wrap prose">
+    <div class="block">
+      <div class="block-main">
+        <h3>Атом почти пустой. Но «пустой»&nbsp;— не&nbsp;значит «ничего нет»</h3>
+        <p>Почти вся масса атома сидит в&nbsp;ядре, а&nbsp;ядро меньше атома в&nbsp;десятки тысяч раз. Между ядром и&nbsp;краем атома нет вещества в&nbsp;привычном смысле. Но&nbsp;там есть электрическое поле ядра и&nbsp;облако электрона&nbsp;— размытая область, где электрон можно застать с&nbsp;той или иной вероятностью. Именно это облако и&nbsp;не&nbsp;пускает соседние атомы внутрь.</p>
+      </div>
+      <aside class="analogy">
+        <span class="tag">Аналогия</span>
+        <p>Раздуйте атом до&nbsp;размеров стадиона&nbsp;— ядро окажется горошиной в&nbsp;центре поля.</p>
+        <p class="limp"><span class="tag">Где хромает</span>Горошина твёрдая и&nbsp;с&nbsp;чёткой границей. У&nbsp;ядра границы нет, а&nbsp;протоны и&nbsp;нейтроны в&nbsp;нём непрерывно «дрожат».</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Ядро: протоны и&nbsp;нейтроны</h3>
+        <p>Ядро собрано из&nbsp;протонов (заряд +1) и&nbsp;нейтронов (заряд 0). Одинаково заряженные протоны отталкиваются, и&nbsp;ядро должно бы разлететься. Его удерживает ядерная сила&nbsp;— отголосок той самой сильной силы, что склеивает кварки внутри каждого протона. Радиус лёгких ядер&nbsp;— около 1&nbsp;фемтометра (<span class="num">10<sup>−15</sup> м</span>), у&nbsp;тяжёлых вроде свинца&nbsp;— до&nbsp;7.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Внутри протона: три кварка и&nbsp;клей</h3>
+        <p>Протон и&nbsp;нейтрон&nbsp;— тоже сборные. В&nbsp;каждом по&nbsp;три кварка двух сортов: <b>u</b> (верхний, заряд +2/3) и&nbsp;<b>d</b> (нижний, заряд −1/3). Держат их глюоны&nbsp;— частицы сильного взаимодействия. Дробные заряды складываются в&nbsp;целые:</p>
+        <ul>
+          <li>протон = u + u + d: <span class="num">+2/3 +2/3 −1/3 = +1</span>;</li>
+          <li>нейтрон = u + d + d: <span class="num">+2/3 −1/3 −1/3 = 0</span>.</li>
+        </ul>
+        <p>Вытащить кварк наружу и&nbsp;рассмотреть отдельно нельзя. Это правило называется конфайнмент&nbsp;— «заточение».</p>
+      </div>
+      <aside class="analogy red">
+        <span class="tag">Честная оговорка</span>
+        <p>«Три кварка»&nbsp;— это постоянные жильцы. Кроме них в&nbsp;протоне всё время рождаются и&nbsp;исчезают пары кварк–антикварк и&nbsp;глюоны&nbsp;— физики называют это «морем».</p>
+      </aside>
+    </div>
+  </div>
+
+  <div class="plate on-plate">
+    <div class="wrap">
+      <div class="plate-head">
+        <h3>Три сборки из&nbsp;кварков</h3>
+        <p>Пунктир&nbsp;— граница, за&nbsp;которую кварки не&nbsp;выходят. Волнистые линии&nbsp;— глюоны. Штриховка&nbsp;— положительный заряд, сплошная заливка&nbsp;— отрицательный, «негатив»&nbsp;— античастица.</p>
+      </div>
+      <div class="compo">
+        <figure>
+          <svg viewBox="0 0 240 196" role="img" aria-label="Протон: два u-кварка и один d-кварк, заряд плюс один"><g transform="translate(0 6)">
+            <circle class="bag" cx="120" cy="98" r="84"/>
+            <path class="spring" d="M120 58Q113.0 61.9 114.8 67.3Q116.5 72.6 109.5 76.5Q102.5 80.4 104.3 85.8Q106.0 91.1 99.0 95.0Q92.0 98.9 93.8 104.3Q95.5 109.6 88.5 113.5Q81.5 117.4 83.3 122.8Q85.0 128.1 78 132"/>
+            <path class="spring" d="M120 58Q127.0 61.9 125.3 67.3Q123.5 72.6 130.5 76.5Q137.5 80.4 135.8 85.8Q134.0 91.1 141.0 95.0Q148.0 98.9 146.3 104.3Q144.5 109.6 151.5 113.5Q158.5 117.4 156.8 122.8Q155.0 128.1 162 132"/>
+            <path class="spring" d="M78 132Q83.3 126 88.5 132Q93.8 138 99 132Q104.3 126 109.5 132Q114.8 138 120 132Q125.3 126 130.5 132Q135.8 138 141 132Q146.3 126 151.5 132Q156.8 138 162 132"/>
+            <use href="#g-u" x="94" y="32" width="52" height="52"/>
+            <use href="#g-u" x="52" y="106" width="52" height="52"/>
+            <use href="#g-d" x="136" y="106" width="52" height="52"/>
+            </g><text class="lbl" x="236" y="13" text-anchor="end">заряд +1</text>
+          </svg>
+          <figcaption><b>Протон = u u d</b>Барион&nbsp;— сборка из&nbsp;трёх кварков. Стабилен: за&nbsp;всё время наблюдений ни&nbsp;один протон не&nbsp;распался.</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 240 196" role="img" aria-label="Нейтрон: один u-кварк и два d-кварка, заряд ноль"><g transform="translate(0 6)">
+            <circle class="bag" cx="120" cy="98" r="84"/>
+            <path class="spring" d="M120 58Q113.0 61.9 114.8 67.3Q116.5 72.6 109.5 76.5Q102.5 80.4 104.3 85.8Q106.0 91.1 99.0 95.0Q92.0 98.9 93.8 104.3Q95.5 109.6 88.5 113.5Q81.5 117.4 83.3 122.8Q85.0 128.1 78 132"/>
+            <path class="spring" d="M120 58Q127.0 61.9 125.3 67.3Q123.5 72.6 130.5 76.5Q137.5 80.4 135.8 85.8Q134.0 91.1 141.0 95.0Q148.0 98.9 146.3 104.3Q144.5 109.6 151.5 113.5Q158.5 117.4 156.8 122.8Q155.0 128.1 162 132"/>
+            <path class="spring" d="M78 132Q83.3 126 88.5 132Q93.8 138 99 132Q104.3 126 109.5 132Q114.8 138 120 132Q125.3 126 130.5 132Q135.8 138 141 132Q146.3 126 151.5 132Q156.8 138 162 132"/>
+            <use href="#g-u" x="94" y="32" width="52" height="52"/>
+            <use href="#g-d" x="52" y="106" width="52" height="52"/>
+            <use href="#g-d" x="136" y="106" width="52" height="52"/>
+            </g><text class="lbl" x="236" y="13" text-anchor="end">заряд 0</text>
+          </svg>
+          <figcaption><b>Нейтрон = u d d</b>Тоже барион. В&nbsp;ядре живёт сколько угодно, а&nbsp;на&nbsp;свободе распадается в&nbsp;среднем за&nbsp;14&nbsp;с&nbsp;половиной минут.</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 240 196" role="img" aria-label="Пи-плюс-мезон: u-кварк и анти-d-кварк, заряд плюс один"><g transform="translate(0 6)">
+            <ellipse class="bag" cx="120" cy="98" rx="92" ry="58"/>
+            <path class="spring" d="M80 98Q85 92 90 98Q95 104 100 98Q105 92 110 98Q115 104 120 98Q125 92 130 98Q135 104 140 98Q145 92 150 98Q155 104 160 98"/>
+            <use href="#g-u" x="48" y="72" width="52" height="52"/>
+            <use href="#g-ad" x="140" y="72" width="52" height="52"/>
+            </g><text class="lbl" x="236" y="13" text-anchor="end">заряд +1</text>
+          </svg>
+          <figcaption><b>Пион π⁺ = u + анти-d</b>Мезон&nbsp;— пара «кварк + антикварк». Живёт 26&nbsp;миллиардных долей секунды. Считаем заряд: <span class="num">+2/3 +1/3 = +1</span>.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="plate on-plate" id="builder-plate">
+    <div class="wrap">
+      <div class="plate-head">
+        <h3>Соберите частицу сами</h3>
+        <p>Нажимайте на&nbsp;кварки&nbsp;— они лягут в&nbsp;ячейки. Природа выпускает только «бесцветные» сборки: три кварка, три антикварка или пару «кварк + антикварк».</p>
+      </div>
+      <div class="builder">
+        <div class="b-col">
+          <span class="b-label">Кварки</span>
+          <div class="b-palette" id="pal-q"></div>
+          <span class="b-label">Антикварки</span>
+          <div class="b-palette" id="pal-a"></div>
+          <span class="b-label">Готовые рецепты</span>
+          <div class="b-presets">
+            <button type="button" class="btn" data-preset="u,u,d">протон</button>
+            <button type="button" class="btn" data-preset="u,d,d">нейтрон</button>
+            <button type="button" class="btn" data-preset="u,ad">пион π⁺</button>
+            <button type="button" class="btn" data-preset="s,s,s">омега-минус</button>
+          </div>
+        </div>
+        <div class="b-col">
+          <span class="b-label">Сборка</span>
+          <div class="b-slots" id="slots"><span class="b-slot"></span><span class="b-slot"></span><span class="b-slot"></span></div>
+          <div class="b-actions">
+            <button type="button" class="btn" id="b-undo">убрать последний</button>
+            <button type="button" class="btn" id="b-clear">очистить</button>
+          </div>
+          <div class="b-out" id="b-out" aria-live="polite">
+            <span class="b-sum">+2/3 +2/3 −1/3 = +1</span>
+            <span class="b-name">Протон</span>
+            <span class="b-note">Ядро атома водорода и&nbsp;главная деталь всех остальных ядер.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap prose">
+    <div class="block">
+      <div class="block-main">
+        <h3>Адроны: всё, что склеено из&nbsp;кварков</h3>
+        <p>Любую частицу из&nbsp;кварков называют адроном. Три кварка&nbsp;— барион (протон, нейтрон). Кварк с&nbsp;антикварком&nbsp;— мезон (пион, каон). Долго думали, что других вариантов нет. Но&nbsp;в&nbsp;2015&nbsp;году эксперимент LHCb в&nbsp;ЦЕРНе увидел пентакварк&nbsp;— сборку из&nbsp;пяти кварков, а&nbsp;в&nbsp;2021-м&nbsp;— тетракварк из&nbsp;четырёх, с&nbsp;двумя тяжёлыми очарованными кварками сразу. Это не&nbsp;стройматериал мира, а&nbsp;редкие гости: живут мгновение и&nbsp;рождаются только в&nbsp;столкновениях на&nbsp;ускорителе.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Откуда у&nbsp;протона масса, если кварки почти ничего не&nbsp;весят</h3>
+        <p>Два u-кварка и&nbsp;один d-кварк вместе «весят» около <span class="num">9 МэВ</span>. Протон&nbsp;— <span class="num">938 МэВ</span>. Сами детали дают примерно 1% массы. Остальные 99%&nbsp;— энергия глюонного клея и&nbsp;бешеного движения кварков внутри. По&nbsp;формуле <span class="num">E = mc²</span> энергия и&nbsp;есть масса. Так что ваш вес&nbsp;— это в&nbsp;основном не&nbsp;вещество, а&nbsp;запертая энергия.</p>
+      </div>
+      <aside class="analogy red">
+        <span class="tag">Что такое МэВ</span>
+        <p>Массу частиц меряют в&nbsp;единицах энергии&nbsp;— электронвольтах. Электрон&nbsp;— 0,511&nbsp;МэВ, протон&nbsp;— 938&nbsp;МэВ, то&nbsp;есть в&nbsp;1836 раз тяжелее. ГэВ&nbsp;— это тысяча МэВ.</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Кто по-настоящему элементарен</h3>
+        <p>На&nbsp;кварках и&nbsp;электроне лестница обрывается: внутренней структуры у&nbsp;них не&nbsp;нашли, хотя приборы «видят» до&nbsp;<span class="num">10<sup>−18</sup> м</span>. Всё остальное&nbsp;— атом, ядро, протон, нейтрон, пион&nbsp;— составное, и&nbsp;известно, из&nbsp;чего именно.</p>
+        <p><b>Шпаргалка.</b> Яблоко → клетки → молекулы → атомы → ядро и&nbsp;электроны → протоны и&nbsp;нейтроны → кварки u и&nbsp;d плюс глюоны. Дальше делить нечего.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 2. ВСЕ 17 ДЕТАЛЕЙ ═════════ -->
+<section class="sec" id="s-matter">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Вопрос второй: какие бывают?</p>
+      <h2>Все 17 деталей</h2>
+      <p class="lead">Полный каталог называется Стандартной моделью. В&nbsp;нём 12 частиц вещества&nbsp;— шесть кварков и&nbsp;шесть лептонов&nbsp;— и&nbsp;5 частиц, которые переносят силы и&nbsp;раздают массу.</p>
+    </div>
+  </div>
+
+  <div class="plate on-plate">
+    <div class="wrap">
+      <div class="plate-head">
+        <h3>Каталог деталей</h3>
+        <p>Нажмите на&nbsp;силу&nbsp;— останутся гореть только те, кто её чувствует. Нажмите на&nbsp;частицу&nbsp;— откроется её карточка.</p>
+      </div>
+      <p class="decoder"><span><b>цвет</b>&nbsp;— главная сила частицы: <span class="c-red">красный&nbsp;— сильная</span>, <span class="c-blue">синий&nbsp;— электромагнитная</span>, <span class="c-violet">фиолетовый&nbsp;— слабая</span></span><span><b>форма</b>&nbsp;— шестиугольник: кварк, круг: лептон, ромб: бозон</span><span><b>заливка</b>&nbsp;— штрих: заряд «+», сплошная: «−», пусто: 0</span></p>
+
+      <div class="forces-bar" role="group" aria-label="Подсветить частицы, которые чувствуют силу">
+        <button type="button" class="f-btn" data-force="strong" aria-pressed="false">сильная</button>
+        <button type="button" class="f-btn" data-force="em" aria-pressed="false">электромагнитная</button>
+        <button type="button" class="f-btn" data-force="weak" aria-pressed="false">слабая</button>
+        <button type="button" class="f-btn" data-force="grav" aria-pressed="false">гравитация</button>
+        <button type="button" class="f-btn" data-force="higgs" aria-pressed="false">поле Хиггса: масса</button>
+      </div>
+      <p class="f-say" id="f-say" aria-live="polite">Сейчас видны все. Строки&nbsp;— поколения: чем ниже, тем тяжелее и&nbsp;недолговечнее. Столбцы&nbsp;— электрический заряд.</p>
+
+      <div class="sm-layout">
+        <div class="sm" id="sm">
+          <div class="sm-grid">
+            <span></span>
+            <span class="sm-colhead" style="grid-column: span 2">кварки</span>
+            <span class="sm-colhead" style="grid-column: span 2">лептоны</span>
+            <span></span>
+            <span class="sm-colhead">заряд +2/3</span>
+            <span class="sm-colhead">заряд −1/3</span>
+            <span class="sm-colhead">заряд −1</span>
+            <span class="sm-colhead">заряд 0</span>
+
+            <span class="sm-gen" title="первое поколение">I</span>
+            <button type="button" class="chip" data-id="u" data-feels="strong em weak grav higgs" style="--ms:.59" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-u"/></svg></span><span class="nm">верхний</span></button>
+            <button type="button" class="chip" data-id="d" data-feels="strong em weak grav higgs" style="--ms:.64" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-d"/></svg></span><span class="nm">нижний</span></button>
+            <button type="button" class="chip" data-id="e" data-feels="em weak grav higgs" style="--ms:.5" aria-pressed="true"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-e"/></svg></span><span class="nm">электрон</span></button>
+            <button type="button" class="chip" data-id="nue" data-feels="weak grav maybe" style="--ms:.4" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-nue"/></svg></span><span class="nm">e-нейтрино</span></button>
+
+            <span class="sm-gen" title="второе поколение">II</span>
+            <button type="button" class="chip" data-id="c" data-feels="strong em weak grav higgs" style="--ms:.99" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-c"/></svg></span><span class="nm">очарованный</span></button>
+            <button type="button" class="chip" data-id="s" data-feels="strong em weak grav higgs" style="--ms:.83" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-s"/></svg></span><span class="nm">странный</span></button>
+            <button type="button" class="chip" data-id="mu" data-feels="em weak grav higgs" style="--ms:.84" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-mu"/></svg></span><span class="nm">мюон</span></button>
+            <button type="button" class="chip" data-id="numu" data-feels="weak grav maybe" style="--ms:.4" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-numu"/></svg></span><span class="nm">μ-нейтрино</span></button>
+
+            <span class="sm-gen" title="третье поколение">III</span>
+            <button type="button" class="chip" data-id="t" data-feels="strong em weak grav higgs" style="--ms:1.3" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-t"/></svg></span><span class="nm">истинный</span></button>
+            <button type="button" class="chip" data-id="b" data-feels="strong em weak grav higgs" style="--ms:1.07" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-b"/></svg></span><span class="nm">прелестный</span></button>
+            <button type="button" class="chip" data-id="tau" data-feels="em weak grav higgs" style="--ms:1.01" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-tau"/></svg></span><span class="nm">тау</span></button>
+            <button type="button" class="chip" data-id="nutau" data-feels="weak grav maybe" style="--ms:.4" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-nutau"/></svg></span><span class="nm">τ-нейтрино</span></button>
+          </div>
+
+          <div class="sm-bosons">
+            <span class="sm-sub">Бозоны: переносчики сил и&nbsp;поле Хиггса</span>
+            <button type="button" class="chip" data-id="g" data-feels="strong grav" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-g"/></svg></span><span class="nm">глюон</span></button>
+            <button type="button" class="chip" data-id="ph" data-feels="grav" data-carries="em" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-ph"/></svg></span><span class="nm">фотон</span></button>
+            <button type="button" class="chip" data-id="w" data-feels="em weak grav higgs" style="--ms:1.25" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-w"/></svg></span><span class="nm">W⁺ и W⁻</span></button>
+            <button type="button" class="chip" data-id="z" data-feels="weak grav higgs" style="--ms:1.26" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-z"/></svg></span><span class="nm">Z</span></button>
+            <button type="button" class="chip" data-id="h" data-feels="weak grav higgs" style="--ms:1.28" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-h"/></svg></span><span class="nm">Хиггс</span></button>
+            <span class="sm-sub">Вне каталога: гипотеза</span>
+            <button type="button" class="chip" data-id="grav" data-feels="grav" data-carries="grav" aria-pressed="false"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-grav"/></svg></span><span class="nm">гравитон?</span></button>
+          </div>
+        </div>
+
+        <article class="detail" id="detail" aria-live="polite">
+          <div class="detail-top">
+            <span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use id="d-use" href="#g-e"/></svg></span>
+            <div><p class="fam" id="d-fam">лептон · I поколение</p><h4 id="d-name">Электрон</h4></div>
+          </div>
+          <p class="role" id="d-role">Отвечает за&nbsp;химию и&nbsp;электричество. Облака электронов вокруг ядер&nbsp;— это и&nbsp;есть «поверхность» всех предметов, которых вы касаетесь.</p>
+          <dl>
+            <dt>заряд</dt><dd id="d-q">−1</dd>
+            <dt>масса</dt><dd id="d-m">0,511 МэВ — в 1836 раз легче протона</dd>
+            <dt>живёт</dt><dd id="d-life">вечно: стабилен</dd>
+            <dt>открыт</dt><dd id="d-disc">1897, Дж. Дж. Томсон</dd>
+          </dl>
+          <p class="fun" id="d-fun">«Электрон»&nbsp;— от&nbsp;греческого слова «янтарь»: натёртый янтарь притягивает пылинки, и&nbsp;это заметили ещё древние греки.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap prose">
+    <div class="block">
+      <div class="block-main">
+        <h3>Два семейства: кварки и&nbsp;лептоны</h3>
+        <p>Кварки чувствуют сильную силу и&nbsp;потому всегда склеены в&nbsp;протоны, нейтроны и&nbsp;прочие адроны. Лептоны к&nbsp;ней глухи. Поэтому электрон не&nbsp;прилипает к&nbsp;ядру, а&nbsp;висит вокруг облаком, а&nbsp;нейтрино вообще пролетает сквозь планеты.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Три поколения: тяжёлые копии</h3>
+        <p>Второе и&nbsp;третье поколения повторяют первое, только тяжелее. У&nbsp;электрона есть «старшие братья»: мюон (в&nbsp;207 раз тяжелее) и&nbsp;тау (в&nbsp;3477 раз). У&nbsp;кварков u и&nbsp;d&nbsp;— копии c, s и&nbsp;t, b. Истинный кварк тяжелее верхнего почти в&nbsp;80&nbsp;000 раз.</p>
+        <p>Тяжёлые копии нестабильны: за&nbsp;доли секунды они распадаются в&nbsp;частицы первого поколения. Поэтому весь привычный мир собран только из&nbsp;верхней строки каталога, а&nbsp;остальное рождается на&nbsp;миг в&nbsp;космических лучах и&nbsp;ускорителях. Зачем природе три комплекта, никто не&nbsp;знает.</p>
+      </div>
+      <aside class="analogy">
+        <span class="tag">Аналогия</span>
+        <p>Электрон&nbsp;— велосипед, мюон&nbsp;— мотоцикл, тау&nbsp;— гоночный болид. Все едут одинаково, но&nbsp;чем мощнее модель, тем быстрее она ломается.</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>«Цвет» кварков и&nbsp;почему кварк не&nbsp;вытащить</h3>
+        <p>У&nbsp;кварков есть особый заряд для сильной силы. Его в&nbsp;шутку назвали цветом: «красный», «зелёный», «синий». К&nbsp;настоящему цвету это отношения не&nbsp;имеет. Правило простое: наружу природа выпускает только «белые» сборки&nbsp;— три разных цвета вместе или цвет с&nbsp;антицветом.</p>
+        <p>Сила между кварками не&nbsp;слабеет с&nbsp;расстоянием. Тянете кварк из&nbsp;протона&nbsp;— в&nbsp;глюонной «струне» копится энергия. В&nbsp;какой-то момент её хватает, чтобы по&nbsp;<span class="num">E = mc²</span> родить новую пару кварк–антикварк. Струна рвётся, но&nbsp;на&nbsp;концах обрыва уже сидят новые кварки. Вместо свободного кварка вы получаете два новых адрона. За&nbsp;полвека поисков одиночный кварк не&nbsp;увидел никто.</p>
+      </div>
+      <aside class="analogy red">
+        <span class="tag">Аналогия</span>
+        <p>Резинка: чем сильнее тянешь, тем сильнее тянет назад.</p>
+        <p class="limp"><span class="tag">Где хромает</span>Порванная резинка оставляет два свободных конца. Глюонная струна&nbsp;— никогда: на&nbsp;каждом обрыве сразу вырастает новый кварк.</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Нейтрино: частицы-призраки</h3>
+        <p>У&nbsp;нейтрино нет ни&nbsp;электрического заряда, ни&nbsp;цвета. Остаются только слабая сила и&nbsp;гравитация, поэтому вещество для них почти прозрачно. Через ноготь вашего большого пальца каждую секунду пролетает около 65&nbsp;миллиардов нейтрино от&nbsp;Солнца&nbsp;— и&nbsp;ни&nbsp;одно вас не&nbsp;задевает.</p>
+        <p>Долго считали, что массы у&nbsp;нейтрино нет совсем. Но&nbsp;в&nbsp;1998&nbsp;году японский эксперимент Super-Kamiokande увидел, что нейтрино на&nbsp;лету меняют сорт: электронное превращается в&nbsp;мюонное и&nbsp;обратно. Такое возможно, только если масса есть. Она ничтожна&nbsp;— меньше <span class="num">0,45 эВ</span>, минимум в&nbsp;миллион раз меньше, чем у&nbsp;электрона,&nbsp;— и&nbsp;точно её до&nbsp;сих пор не&nbsp;измерили.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Античастицы: двойники с&nbsp;обратным зарядом</h3>
+        <p>У&nbsp;каждой частицы вещества есть античастица: та же масса, но&nbsp;заряд наоборот. У&nbsp;электрона это позитрон с&nbsp;зарядом +1. Его предсказал Поль Дирак, а&nbsp;в&nbsp;1932&nbsp;году нашёл в&nbsp;космических лучах Карл Андерсон. Когда частица встречает свою античастицу, обе исчезают и&nbsp;превращаются в&nbsp;энергию&nbsp;— обычно в&nbsp;два фотона. Это называется аннигиляция.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Почему вещество занимает место</h3>
+        <p>Все 12 частиц вещества&nbsp;— фермионы. Это «индивидуалисты»: два одинаковых фермиона не&nbsp;могут находиться в&nbsp;одном и&nbsp;том же состоянии. Правило называется принципом Паули. Из-за него электроны в&nbsp;атоме не&nbsp;сваливаются все на&nbsp;нижний этаж, а&nbsp;рассаживаются по&nbsp;разным. Кладёте руку на&nbsp;стол&nbsp;— электроны руки и&nbsp;стола отталкиваются электрически и&nbsp;вдобавок не&nbsp;могут занять чужие места. Рука не&nbsp;проваливается.</p>
+      </div>
+      <aside class="analogy blue">
+        <span class="tag">Аналогия</span>
+        <p>Кинозал, где на&nbsp;каждое кресло продано не&nbsp;больше двух билетов. Сесть на&nbsp;колени соседу нельзя&nbsp;— только занимать ряд за&nbsp;рядом.</p>
+        <p class="limp"><span class="tag">Где хромает</span>В&nbsp;зале кресел конечное число, а&nbsp;состояний у&nbsp;электронов бесконечно много. Запрещено лишь занимать одно и&nbsp;то же.</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Откуда такие имена</h3>
+        <p>Слово «кварк» Марри Гелл-Ман взял из&nbsp;романа Джойса «Поминки по&nbsp;Финнегану». «Странными» частицы прозвали в&nbsp;1950-х: они рождались быстро, а&nbsp;распадались необъяснимо медленно. «Очарованный» кварк так изящно достроил симметрию между кварками и&nbsp;лептонами, что физики сочли это очаровательным. А&nbsp;«верхний» и&nbsp;«нижний»&nbsp;— просто метки: верха и&nbsp;низа у&nbsp;кварков нет.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="plate on-plate">
+    <div class="wrap">
+      <div class="plate-head">
+        <h3>115 лет охоты: как собирали каталог</h3>
+        <p>От&nbsp;первой детали до&nbsp;последней прошло больше века. Почти каждая строка&nbsp;— Нобелевская премия.</p>
+      </div>
+      <ol class="years">
+        <li><span class="y">1897</span><span>Электрон<small>Дж. Дж. Томсон, Кембридж</small></span></li>
+        <li><span class="y">1923</span><span>Фотон<small>идея Эйнштейна 1905 года, опыт Комптона</small></span></li>
+        <li><span class="y">1936</span><span>Мюон<small>Андерсон и Неддермайер, космические лучи</small></span></li>
+        <li><span class="y">1956</span><span>Электронное нейтрино<small>Коуэн и Райнес, у ядерного реактора</small></span></li>
+        <li><span class="y">1962</span><span>Мюонное нейтрино<small>Ледерман, Шварц, Стейнбергер</small></span></li>
+        <li><span class="y">1968</span><span>Кварки u, d и s<small>опыты SLAC; идея Гелл-Мана и Цвейга, 1964</small></span></li>
+        <li><span class="y">1974</span><span>Очарованный кварк<small>SLAC и Брукхейвен, частица J/ψ</small></span></li>
+        <li><span class="y">1975</span><span>Тау-лептон<small>Мартин Перл, SLAC</small></span></li>
+        <li><span class="y">1977</span><span>Прелестный кварк<small>группа Ледермана, Фермилаб</small></span></li>
+        <li><span class="y">1979</span><span>Глюон<small>коллайдер PETRA, DESY, Гамбург</small></span></li>
+        <li><span class="y">1983</span><span>W- и Z-бозоны<small>ЦЕРН, эксперименты UA1 и UA2</small></span></li>
+        <li><span class="y">1995</span><span>Истинный кварк<small>Фермилаб, коллайдер «Тэватрон»</small></span></li>
+        <li><span class="y">2000</span><span>Тау-нейтрино<small>эксперимент DONUT, Фермилаб</small></span></li>
+        <li><span class="y">2012</span><span>Бозон Хиггса<small>ЦЕРН, эксперименты ATLAS и CMS</small></span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 3. КТО ЗА ЧТО ОТВЕЧАЕТ ═════════ -->
+<section class="sec" id="s-forces">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Вопрос третий: кто за&nbsp;что отвечает?</p>
+      <h2>Четыре силы и&nbsp;их курьеры</h2>
+      <p class="lead">Детали сами по&nbsp;себе ничего не&nbsp;строят. Их&nbsp;нужно притягивать, отталкивать, склеивать и&nbsp;превращать друг в&nbsp;друга. Этим занимаются четыре силы, и&nbsp;у&nbsp;каждой есть частица-курьер.</p>
+    </div>
+    <div class="prose">
+      <div class="block">
+        <div class="block-main">
+          <h3>Сила&nbsp;— это обмен частицами</h3>
+          <p>Два электрона отталкиваются, потому что перебрасываются фотонами. Такие фотоны-посредники называют виртуальными: поймать их по&nbsp;отдельности нельзя, они существуют слишком недолго. Но&nbsp;результат обмена вполне измерим&nbsp;— это и&nbsp;есть сила.</p>
+        </div>
+        <aside class="analogy">
+          <span class="tag">Аналогия</span>
+          <p>Двое в&nbsp;лодках кидают друг другу тяжёлый мяч. От&nbsp;отдачи лодки расходятся&nbsp;— вот и&nbsp;отталкивание.</p>
+          <p class="limp"><span class="tag">Где хромает</span>Притяжение мячом не&nbsp;объяснить: пришлось бы бросать его от&nbsp;партнёра, а&nbsp;ловить с&nbsp;другой стороны. В&nbsp;квантовом мире такой трюк возможен, в&nbsp;быту аналога нет.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="plate on-plate">
+    <div class="wrap">
+      <div class="plate-head">
+        <h3>Сила → курьер → за&nbsp;что отвечает</h3>
+        <p>Шкала силы логарифмическая: от&nbsp;1 до&nbsp;10<sup>−40</sup>, каждое деление&nbsp;— в&nbsp;10 раз. Сравнение приблизительное, по&nbsp;порядку величины.</p>
+      </div>
+      <div class="strips">
+        <article class="strip strong">
+          <div class="strip-id"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-g"/></svg></span><div><h3>Сильная</h3><small>курьер: глюон, 8 разновидностей</small></div></div>
+          <div class="strip-body">
+            <p>Склеивает кварки в&nbsp;протоны и&nbsp;нейтроны. Её отголосок удерживает сами протоны и&nbsp;нейтроны в&nbsp;ядре&nbsp;— вопреки электрическому отталкиванию. Отвечает за&nbsp;99% массы всего, что вы видите.</p>
+            <p class="who">Кто чувствует: только кварки и&nbsp;сами глюоны.</p>
+          </div>
+          <div class="meters">
+            <div class="meter"><div class="meter-top"><span>сила</span><b>1</b></div><div class="meter-bar"><i style="--w:100%"></i></div></div>
+            <p class="meter-note">дальность: ≈ 10<sup>−15</sup> м, размер протона</p>
+          </div>
+        </article>
+        <article class="strip em">
+          <div class="strip-id"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-ph"/></svg></span><div><h3>Электромагнитная</h3><small>курьер: фотон</small></div></div>
+          <div class="strip-body">
+            <p>Держит электроны у&nbsp;ядер, а&nbsp;атомы&nbsp;— в&nbsp;молекулах. Это свет, электрический ток, магниты, вся химия, трение и&nbsp;упругость. Почти всё, что вы ощущаете в&nbsp;быту, кроме веса.</p>
+            <p class="who">Кто чувствует: все частицы с&nbsp;электрическим зарядом.</p>
+          </div>
+          <div class="meters">
+            <div class="meter"><div class="meter-top"><span>сила</span><b>≈ 1/100</b></div><div class="meter-bar"><i style="--w:95%"></i></div></div>
+            <p class="meter-note">дальность: бесконечная, слабеет с&nbsp;расстоянием</p>
+          </div>
+        </article>
+        <article class="strip weak">
+          <div class="strip-id"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-w"/></svg></span><div><h3>Слабая</h3><small>курьеры: W⁺, W⁻ и Z</small></div></div>
+          <div class="strip-body">
+            <p>Единственная сила, которая умеет превращать одну частицу в&nbsp;другую: d-кварк в&nbsp;u-кварк, мюон в&nbsp;электрон. Это радиоактивный бета-распад, первый шаг горения Солнца и&nbsp;радиоуглеродные часы археологов.</p>
+            <p class="who">Кто чувствует: все 12 частиц вещества.</p>
+          </div>
+          <div class="meters">
+            <div class="meter"><div class="meter-top"><span>сила</span><b>≈ 1/1 000 000</b></div><div class="meter-bar"><i style="--w:85%"></i></div></div>
+            <p class="meter-note">дальность: ≈ 10<sup>−18</sup> м, в&nbsp;тысячу раз меньше протона</p>
+          </div>
+        </article>
+        <article class="strip grav">
+          <div class="strip-id"><span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-grav"/></svg></span><div><h3>Гравитация</h3><small>курьер: гравитон&nbsp;— гипотеза</small></div></div>
+          <div class="strip-body">
+            <p>Держит вас на&nbsp;стуле, планеты на&nbsp;орбитах, галактики в&nbsp;куче. Между отдельными частицами она невообразимо слаба и&nbsp;заметна только потому, что всегда притягивает и&nbsp;складывается по&nbsp;всем частицам планеты. В&nbsp;Стандартную модель не&nbsp;входит.</p>
+            <p class="who">Кто чувствует: всё, у&nbsp;чего есть энергия, то&nbsp;есть вообще всё.</p>
+          </div>
+          <div class="meters">
+            <div class="meter"><div class="meter-top"><span>сила</span><b>≈ 10<sup>−38</sup></b></div><div class="meter-bar"><i style="--w:5%"></i></div></div>
+            <p class="meter-note">дальность: бесконечная</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap prose">
+    <div class="block">
+      <div class="block-main">
+        <h3>Почему глюоны липкие, а&nbsp;фотоны нет</h3>
+        <p>У&nbsp;фотона нет электрического заряда, поэтому свет проходит сквозь свет, не&nbsp;замечая его. А&nbsp;глюон сам несёт цветовой заряд, то&nbsp;есть чувствует ту же силу, которую переносит. Глюоны липнут друг к&nbsp;другу и&nbsp;стягиваются между кварками в&nbsp;тугую струну. Отсюда и&nbsp;конфайнмент.</p>
+      </div>
+      <aside class="analogy red">
+        <span class="tag">Аналогия</span>
+        <p>Ядерная сила&nbsp;— как остаточный магнетизм двух слепленных магнитов. Главная сила заперта внутри протонов, но&nbsp;наружу просачивается достаточно, чтобы удержать ядро.</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Без слабой силы Солнце бы не&nbsp;зажглось</h3>
+        <p>Солнце светит за&nbsp;счёт слияния ядер. Самый первый шаг&nbsp;— слияние двух протонов, и&nbsp;для него один из&nbsp;протонов должен на&nbsp;лету превратиться в&nbsp;нейтрон. Превращать частицы умеет только слабая сила. Она срабатывает редко, и&nbsp;именно поэтому Солнце не&nbsp;взорвалось разом, а&nbsp;ровно горит уже 4,6&nbsp;миллиарда лет.</p>
+        <p>Тот же механизм тикает в&nbsp;радиоуглеродных часах: углерод-14 превращается в&nbsp;азот-14 с&nbsp;периодом полураспада 5730 лет. По&nbsp;остатку углерода-14 археологи узнают возраст находки.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Почему слабая сила слабая</h3>
+        <p>Дело в&nbsp;курьерах. W и&nbsp;Z&nbsp;— тяжеловесы: в&nbsp;86 и&nbsp;97 раз тяжелее протона. Чем тяжелее курьер, тем короче его маршрут: W и&nbsp;Z успевают пройти лишь <span class="num">10<sup>−18</sup> м</span>. Частицам надо сойтись почти вплотную, а&nbsp;это случается редко. При огромных энергиях разница стирается: слабая и&nbsp;электромагнитная силы оказываются двумя сторонами одной&nbsp;— электрослабой.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3><span class="foil-title">Поле Хиггса: откуда масса у&nbsp;самих деталей</span></h3>
+        <p>Поле Хиггса заполняет всю Вселенную ровным слоем, всегда и&nbsp;везде. Частицы, которые за&nbsp;него «цепляются», труднее разогнать и&nbsp;затормозить. Это сопротивление мы и&nbsp;называем массой. Кто цепляется сильнее, тот тяжелее: истинный кварк&nbsp;— сильнее всех, электрон&nbsp;— едва-едва. Фотон и&nbsp;глюон поля Хиггса не&nbsp;замечают и&nbsp;остаются без массы.</p>
+        <p>Бозон Хиггса&nbsp;— это всплеск самого поля, как волна на&nbsp;воде. Его предсказали в&nbsp;1964&nbsp;году, а&nbsp;поймали только 4&nbsp;июля 2012&nbsp;года на&nbsp;Большом адронном коллайдере. Масса&nbsp;— <span class="num">125 ГэВ</span>, как у&nbsp;133 протонов. Живёт около <span class="num">10<sup>−22</sup> с</span>.</p>
+        <div class="foil-box">
+          <span class="big">≈ 1%</span>
+          <p>Такую долю вашей массы даёт поле Хиггса&nbsp;— массы самих кварков и&nbsp;электронов. Остальные 99%&nbsp;— энергия глюонного клея внутри протонов и&nbsp;нейтронов.</p>
+        </div>
+      </div>
+      <aside class="analogy gold">
+        <span class="tag">Аналогия</span>
+        <p>Знаменитость идёт через вечеринку. Вокруг собирается толпа, и&nbsp;звезде трудно и&nbsp;разогнаться, и&nbsp;остановиться&nbsp;— будто она потяжелела. Незнакомец проходит тот же зал свободно.</p>
+        <p class="limp"><span class="tag">Где хромает</span>Толпа сбегается к&nbsp;звезде, а&nbsp;поле Хиггса никуда не&nbsp;сбегается: оно разлито равномерно и&nbsp;постоянно.</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Бозоны&nbsp;— коллективисты</h3>
+        <p>Все курьеры сил и&nbsp;бозон Хиггса&nbsp;— бозоны. В&nbsp;отличие от&nbsp;фермионов-индивидуалистов, им принцип Паули не&nbsp;писан: сколько угодно бозонов могут набиться в&nbsp;одно и&nbsp;то же состояние. Так работает лазер: миллиарды фотонов с&nbsp;одинаковой частотой летят строем в&nbsp;одну сторону. С&nbsp;электронами такой фокус не&nbsp;пройдёт.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 4. КАК РОЖДАЮТСЯ И ИСЧЕЗАЮТ ═════════ -->
+<section class="sec" id="s-birth">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Вопрос четвёртый: откуда берутся?</p>
+      <h2>Как частицы рождаются, превращаются и&nbsp;исчезают</h2>
+      <p class="lead">Частицы не&nbsp;вечны и&nbsp;не&nbsp;берутся из&nbsp;ниоткуда. Они рождаются из&nbsp;энергии, превращаются друг в&nbsp;друга и&nbsp;снова становятся энергией&nbsp;— по&nbsp;строгим правилам.</p>
+    </div>
+    <div class="prose">
+      <div class="block">
+        <div class="block-main">
+          <h3>Частица&nbsp;— не&nbsp;шарик, а&nbsp;рябь на&nbsp;поле</h3>
+          <p>Всё пространство заполнено полями: электронным, кварковыми, электромагнитным и&nbsp;так далее&nbsp;— по&nbsp;одному на&nbsp;каждый вид частиц. Частица&nbsp;— это квант, наименьший возможный всплеск своего поля. Ударьте по&nbsp;пруду&nbsp;— побежит волна. Вложите в&nbsp;электронное поле достаточно энергии&nbsp;— появится электрон.</p>
+          <p>Отсюда два следствия. Все электроны во&nbsp;Вселенной абсолютно одинаковы: это всплески одного и&nbsp;того же поля. И&nbsp;частицы могут рождаться и&nbsp;исчезать: рябь можно поднять и&nbsp;погасить, а&nbsp;твёрдый шарик из&nbsp;ничего не&nbsp;сделаешь.</p>
+        </div>
+        <aside class="analogy">
+          <span class="tag">Где хромает пруд</span>
+          <p>У&nbsp;пруда есть вода, а&nbsp;у&nbsp;квантового поля никакой «воды» нет&nbsp;— оно само и&nbsp;есть основа. И&nbsp;ещё: волну на&nbsp;воде можно поднять любой высоты, а&nbsp;поле выдаёт всплески только целыми порциями. Эти порции и&nbsp;есть частицы.</p>
+        </aside>
+      </div>
+
+      <div class="block">
+        <div class="block-main">
+          <h3>E = mc² работает в&nbsp;обе стороны</h3>
+          <p>Энергия может стать веществом. Фотон высокой энергии (гамма-квант), пролетая рядом с&nbsp;атомным ядром, способен исчезнуть&nbsp;— а&nbsp;вместо него рождаются электрон и&nbsp;позитрон. Всегда парой: частица и&nbsp;античастица, чтобы суммарный заряд остался нулём.</p>
+          <p>И&nbsp;обратно: электрон встречает позитрон, оба исчезают, а&nbsp;их энергия разлетается двумя гамма-квантами в&nbsp;противоположные стороны. На&nbsp;этом построена ПЭТ-томография. Пациенту вводят вещество, испускающее позитроны, кольцо детекторов ловит пары фотонов и&nbsp;вычисляет, откуда они вылетели. Антивещество работает в&nbsp;обычных больницах каждый день.</p>
+        </div>
+        <aside class="analogy blue">
+          <span class="tag">Зачем рядом ядро</span>
+          <p>В&nbsp;пустоте фотон в&nbsp;пару не&nbsp;превратится: не&nbsp;сойдутся одновременно энергия и&nbsp;импульс. Нужен третий участник, который примет на&nbsp;себя отдачу. Обычно это ядро атома.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="plate on-plate">
+    <div class="wrap">
+      <div class="plate-head">
+        <h3>Три превращения</h3>
+        <p>Синяя волна&nbsp;— фотон, фиолетовая&nbsp;— W-бозон, прямые линии&nbsp;— частицы вещества.</p>
+      </div>
+      <div class="schemes">
+        <figure>
+          <svg viewBox="0 0 290 180" role="img" aria-label="Рождение пары: фотон рядом с ядром превращается в электрон и позитрон">
+            <path class="wave" d="M10 90Q16.1 97 22.2 90Q28.3 83 34.4 90Q40.6 97 46.7 90Q52.8 83 58.9 90Q65 97 71.1 90Q77.2 83 83.3 90Q89.4 97 95.6 90Q101.7 83 107.8 90Q113.9 97 120 90"/>
+            <circle cx="126" cy="118" r="10" fill="url(#h-red)" style="stroke:var(--red);stroke-width:1.6"/>
+            <text class="lbl-soft" x="126" y="146" text-anchor="middle">ядро</text>
+            <path class="track" d="M120 90C165 78 205 58 238 36"/>
+            <path class="track" d="M120 90C165 102 205 122 238 144"/>
+            <use href="#g-e" x="234" y="12" width="40" height="40"/>
+            <use href="#g-pos" x="234" y="128" width="40" height="40"/>
+            <text class="lbl" x="12" y="70">γ</text>
+          </svg>
+          <figcaption><b>Энергия → вещество</b>Гамма-квант рождает пару: электрон и&nbsp;позитрон. Нужна энергия не&nbsp;меньше 1,022&nbsp;МэВ&nbsp;— массы двух электронов.</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 290 180" role="img" aria-label="Аннигиляция: электрон и позитрон превращаются в два фотона">
+            <path class="track" d="M52 40 150 90"/>
+            <path class="track" d="M52 140 150 90"/>
+            <use href="#g-e" x="14" y="14" width="40" height="40"/>
+            <use href="#g-pos" x="14" y="126" width="40" height="40"/>
+            <path class="wave" d="M150 90Q158.9 92.2 162.5 83.8Q166.1 75.3 175 77.5Q183.9 79.7 187.5 71.3Q191.1 62.8 200 65Q208.9 67.2 212.5 58.8Q216.1 50.3 225 52.5Q233.9 54.7 237.5 46.3Q241.1 37.8 250 40"/>
+            <path class="wave" d="M150 90Q153.6 98.5 162.5 96.3Q171.4 94 175 102.5Q178.6 111 187.5 108.8Q196.4 106.5 200 115Q203.6 123.5 212.5 121.3Q221.4 119 225 127.5Q228.6 136 237.5 133.8Q246.4 131.5 250 140"/>
+            <text class="lbl" x="258" y="40">γ</text>
+            <text class="lbl" x="258" y="148">γ</text>
+          </svg>
+          <figcaption><b>Вещество → энергия</b>Аннигиляция: электрон и&nbsp;позитрон исчезают, остаются два фотона по&nbsp;0,511&nbsp;МэВ. Их и&nbsp;ловит ПЭТ-томограф.</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 320 200" role="img" aria-label="Распад нейтрона: d-кварк превращается в u-кварк, испуская W-минус-бозон, который распадается на электрон и антинейтрино">
+            <circle class="bag" cx="60" cy="66" r="50"/>
+            <use href="#g-u" x="44" y="24" width="32" height="32"/>
+            <use href="#g-d" x="24" y="66" width="32" height="32"/>
+            <use href="#g-d" x="64" y="66" width="32" height="32"/>
+            <text class="lbl-soft" x="60" y="134" text-anchor="middle">нейтрон</text>
+            <path class="track" d="M118 66h26"/><path class="arrowhead" d="M152 66l-10-5v10Z"/>
+            <circle class="bag" cx="212" cy="66" r="50"/>
+            <use href="#g-u" x="196" y="24" width="32" height="32"/>
+            <use href="#g-d" x="176" y="66" width="32" height="32"/>
+            <use href="#g-u" x="216" y="66" width="32" height="32"/>
+            <text class="lbl-soft" x="196" y="134" text-anchor="middle">протон</text>
+            <path class="wave wave-v" d="M236 100Q246 103 244 112Q242 121 252 124Q262 127 260 136Q258 145 268 148"/>
+            <text class="lbl" x="224" y="140">W⁻</text>
+            <path class="track" d="M268 148 292 130"/>
+            <path class="track" d="M268 148 292 172"/>
+            <use href="#g-e" x="288" y="108" width="30" height="30"/>
+            <use href="#g-anue" x="288" y="160" width="30" height="30"/>
+          </svg>
+          <figcaption><b>Одна частица → другая</b>Распад нейтрона: d-кварк становится u-кварком и&nbsp;выбрасывает W⁻. Тот мгновенно распадается на&nbsp;электрон и&nbsp;антинейтрино. Был нейтрон&nbsp;— стал протон.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap prose">
+    <div class="block">
+      <div class="block-main">
+        <h3>Нейтрон: смертный на&nbsp;свободе, вечный в&nbsp;ядре</h3>
+        <p>Свободный нейтрон живёт в&nbsp;среднем <span class="num">878 секунд</span>&nbsp;— меньше 15&nbsp;минут. А&nbsp;в&nbsp;стабильном ядре тот же нейтрон существует миллиарды лет. Причина в&nbsp;энергии: в&nbsp;ядре нейтрон так выгодно связан с&nbsp;соседями, что распадаться ему энергетически некуда. Закон сохранения энергии попросту запрещает этот шаг.</p>
+      </div>
+      <aside class="analogy violet">
+        <span class="tag">Открытая загадка</span>
+        <p>Два способа измерения дают 878 и&nbsp;888 секунд. Расхождение в&nbsp;1% до&nbsp;сих пор не&nbsp;объяснено.</p>
+      </aside>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Мюоны: дождь, который идёт сквозь вас</h3>
+        <p>Протоны из&nbsp;космоса врезаются в&nbsp;верхние слои атмосферы, и&nbsp;каждый удар рождает ливень новых частиц: пионов, каонов, мюонов. Мюон живёт 2,2&nbsp;микросекунды. Даже со&nbsp;скоростью света за&nbsp;это время пролетишь всего 660&nbsp;метров, а&nbsp;до&nbsp;земли&nbsp;— километров пятнадцать.</p>
+        <p>Но&nbsp;мюоны долетают. По&nbsp;теории относительности у&nbsp;быстро летящей частицы время идёт медленнее, и&nbsp;с&nbsp;нашей точки зрения мюон живёт в&nbsp;десятки раз дольше. Через вашу ладонь каждую секунду проходит один-два мюона.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Зачем нужны огромные коллайдеры</h3>
+        <p>Чтобы родить тяжёлую частицу, в&nbsp;одну точку надо вложить энергию не&nbsp;меньше её массы&nbsp;— снова <span class="num">E = mc²</span>. Большой адронный коллайдер в&nbsp;ЦЕРНе&nbsp;— кольцо длиной 27&nbsp;км. В&nbsp;нём протоны разгоняют почти до&nbsp;скорости света и&nbsp;сталкивают лоб в&nbsp;лоб с&nbsp;энергией <span class="num">13,6 ТэВ</span>. В&nbsp;каждом столкновении из&nbsp;энергии рождаются десятки новых частиц.</p>
+        <p>Бозон Хиггса до&nbsp;детектора не&nbsp;долетает: слишком мало живёт. В&nbsp;2012&nbsp;году физики увидели не&nbsp;его, а&nbsp;след&nbsp;— избыток событий, в&nbsp;которых рождались два фотона или четыре лептона с&nbsp;суммарной энергией около 125&nbsp;ГэВ. Горб на&nbsp;графике стоял ровно там, где его ждала теория.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-main">
+        <h3>Частицы рождаются прямо сейчас, рядом с&nbsp;вами</h3>
+        <ul>
+          <li><b>Солнце</b> каждую секунду рождает нейтрино: 65&nbsp;миллиардов на&nbsp;каждый квадратный сантиметр вашего тела.</li>
+          <li><b>Банан</b> содержит радиоактивный калий-40: около 15&nbsp;распадов в&nbsp;секунду. Обычно вылетают электрон и&nbsp;антинейтрино, а&nbsp;примерно в&nbsp;одном случае из&nbsp;ста тысяч&nbsp;— позитрон, настоящее антивещество.</li>
+          <li><b>Атмосфера</b> над головой непрерывно производит мюоны.</li>
+          <li><b>Ускорители</b> ежедневно рождают частицы, которых в&nbsp;природе почти не&nbsp;осталось со&nbsp;времён Большого взрыва.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 5. БОЛЬШОЙ ВЗРЫВ ═════════ -->
+<section class="sec" id="s-bang">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Откуда взялся сам конструктор</p>
+      <h2>Лента Большого взрыва</h2>
+      <p class="lead">История Вселенной&nbsp;— это история остывания. Чем холоднее становилось, тем более сложные сборки могли уцелеть.</p>
+    </div>
+  </div>
+  <div class="plate on-plate">
+    <div class="wrap">
+      <ol class="tl">
+        <li><span class="when">первые микро­секунды</span><span class="dot"></span><div class="what"><b>Кварк-глюонный суп</b><p>Кварки и&nbsp;глюоны летают свободно. Слишком жарко&nbsp;— триллионы градусов,&nbsp;— чтобы они слиплись во&nbsp;что-нибудь.</p></div></li>
+        <li><span class="when">≈ 10<sup>−5</sup> с</span><span class="dot"></span><div class="what"><b>Рождаются протоны и&nbsp;нейтроны</b><p>Суп остывает, кварки навсегда запираются по&nbsp;трое. Протоны в&nbsp;вашем теле&nbsp;— родом отсюда.</p></div></li>
+        <li><span class="when">≈ 1 с</span><span class="dot"></span><div class="what"><b>Нейтрино уходят в&nbsp;свободный полёт</b><p>Вещество становится для них прозрачным. Эти нейтрино летят до&nbsp;сих пор&nbsp;— поймать их пока не&nbsp;удалось.</p></div></li>
+        <li><span class="when">3–20 минут</span><span class="dot"></span><div class="what"><b>Первые ядра</b><p>Протоны и&nbsp;нейтроны слипаются в&nbsp;ядра гелия. Итог: примерно три четверти водорода и&nbsp;четверть гелия по&nbsp;массе.</p></div></li>
+        <li><span class="when">380 000 лет</span><span class="dot"></span><div class="what"><b>Первые атомы</b><p>Становится достаточно прохладно, чтобы электроны сели на&nbsp;ядра. Свет впервые летит свободно&nbsp;— это реликтовое излучение, его видно и&nbsp;сегодня.</p></div></li>
+        <li><span class="when">100–200 млн лет</span><span class="dot"></span><div class="what"><b>Первые звёзды</b><p>В&nbsp;их недрах из&nbsp;водорода и&nbsp;гелия варятся углерод, кислород, железо. Всё, что тяжелее гелия в&nbsp;вашем теле, сделано в&nbsp;звёздах.</p></div></li>
+        <li><span class="when">13,8 млрд лет<small>сегодня</small></span><span class="dot"></span><div class="what"><b>Вы читаете эту страницу</b><p>Каждому протону в&nbsp;вас&nbsp;— 13,8&nbsp;миллиарда лет. Атомы собирались и&nbsp;разбирались много раз, а&nbsp;детали всё те же.</p></div></li>
+      </ol>
+    </div>
+  </div>
+  <div class="wrap prose">
+    <div class="block">
+      <div class="block-main">
+        <h3>Куда делось антивещество</h3>
+        <p>Энергия рождает частицы и&nbsp;античастицы поровну. Если бы их было строго поровну, они бы полностью уничтожили друг друга, и&nbsp;во&nbsp;Вселенной остался бы один свет. Но&nbsp;на&nbsp;каждый миллиард античастиц почему-то пришёлся миллиард и&nbsp;одна частица. Эта «одна лишняя из&nbsp;миллиарда»&nbsp;— всё вещество, которое мы видим: звёзды, планеты, мы. Откуда взялся перекос, физика пока не&nbsp;знает.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 6. МИФЫ ═════════ -->
+<section class="sec" id="s-myths">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Работа над ошибками</p>
+      <h2>Восемь живучих мифов</h2>
+      <p class="lead">Школьные картинки удобны, но&nbsp;наука давно ушла от&nbsp;них вперёд.</p>
+    </div>
+    <div class="myths">
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Электроны летают вокруг ядра, как планеты вокруг Солнца.</p>
+        <p class="truth"><span class="tag">На самом деле</span>У&nbsp;электрона в&nbsp;атоме нет траектории. Есть облако вероятности: оно показывает, где электрон можно застать, а&nbsp;не&nbsp;по&nbsp;какой линии он движется. Планетарную модель предложил Резерфорд в&nbsp;1911-м, Бор подправил её в&nbsp;1913-м, но&nbsp;уже в&nbsp;1920-х квантовая механика от&nbsp;неё отказалась.</p>
+      </div>
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Частицы&nbsp;— это крошечные твёрдые шарики.</p>
+        <p class="truth"><span class="tag">На самом деле</span>У&nbsp;элементарной частицы нет ни&nbsp;формы, ни&nbsp;поверхности. Это всплеск поля, который в&nbsp;одних опытах ведёт себя как точка, а&nbsp;в&nbsp;других&nbsp;— как волна. Шарики на&nbsp;этой странице&nbsp;— условные значки, как кружки городов на&nbsp;карте.</p>
+      </div>
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Бозон Хиггса даёт массу всему на&nbsp;свете.</p>
+        <p class="truth"><span class="tag">На самом деле</span>Поле Хиггса даёт массу только самим элементарным частицам: кваркам, электрону, W и&nbsp;Z. А&nbsp;99% массы протонов и&nbsp;нейтронов&nbsp;— значит, и&nbsp;вашей&nbsp;— это энергия сильного взаимодействия. Поэтому золотой краской на&nbsp;этой странице помечен ровно 1%.</p>
+      </div>
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Бозон Хиггса&nbsp;— «частица Бога».</p>
+        <p class="truth"><span class="tag">На самом деле</span>Прозвище придумал издатель. Нобелевский лауреат Леон Ледерман хотел назвать свою книгу «Треклятая частица» (The Goddamn Particle)&nbsp;— так трудно её было поймать. Издательство сократило до&nbsp;The God Particle. Физики, включая самого Питера Хиггса, этот ярлык не&nbsp;любят.</p>
+      </div>
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Коллайдер создаст чёрную дыру и&nbsp;уничтожит Землю.</p>
+        <p class="truth"><span class="tag">На самом деле</span>Космические лучи бомбардируют атмосферу с&nbsp;энергиями намного выше, чем на&nbsp;коллайдере,&nbsp;— каждую секунду, уже 4,5&nbsp;миллиарда лет. Будь такие столкновения опасны, Земли давно бы не&nbsp;было.</p>
+      </div>
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Антивещество бывает только в&nbsp;фантастике.</p>
+        <p class="truth"><span class="tag">На самом деле</span>Позитрон открыли в&nbsp;1932&nbsp;году. Сегодня на&nbsp;аннигиляции позитронов работает ПЭТ-томография в&nbsp;обычных больницах. А&nbsp;банан на&nbsp;вашей кухне время от&nbsp;времени испускает позитрон.</p>
+      </div>
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Атом неделим.</p>
+        <p class="truth"><span class="tag">На самом деле</span>«Атом» по-гречески и&nbsp;значит «неделимый», но&nbsp;название устарело. В&nbsp;1897-м Томсон нашёл внутри атома электрон, к&nbsp;1932-му стало ясно, что ядро состоит из&nbsp;протонов и&nbsp;нейтронов, а&nbsp;в&nbsp;1968-м внутри протона разглядели кварки.</p>
+      </div>
+      <div class="myth">
+        <p class="claim"><span class="tag">Миф</span>Раз атом пустой, то&nbsp;и&nbsp;вокруг нас, по&nbsp;сути, ничего нет.</p>
+        <p class="truth"><span class="tag">На самом деле</span>«Пустота» атома заполнена электрическим полем и&nbsp;электронными облаками. Они не&nbsp;пускают атомы друг в&nbsp;друга&nbsp;— поэтому стол твёрдый, а&nbsp;вы не&nbsp;проваливаетесь сквозь пол. Пусто на&nbsp;чертеже не&nbsp;значит пусто на&nbsp;ощупь.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 7. ЧЕГО МЫ НЕ ЗНАЕМ ═════════ -->
+<section class="sec" id="s-open">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Белые пятна</p>
+      <h2>Чего мы ещё не&nbsp;знаем</h2>
+      <p class="lead">Стандартная модель&nbsp;— самая точно проверенная теория в&nbsp;истории науки. И&nbsp;она же честно не&nbsp;объясняет бо́льшую часть Вселенной.</p>
+    </div>
+    <div class="prose">
+      <div class="block">
+        <div class="block-main">
+          <h3>95% Вселенной&nbsp;— не&nbsp;из&nbsp;наших деталей</h3>
+          <div class="budget">
+            <div class="budget-bar" role="img" aria-label="Состав Вселенной: обычное вещество 5 процентов, тёмная материя 27 процентов, тёмная энергия 68 процентов"><i class="b-ord"></i><i class="b-dm"></i><i class="b-de"></i></div>
+            <div class="budget-key"><span class="k-ord">обычное вещество ≈ 5%</span><span class="k-dm">тёмная материя ≈ 27%</span><span class="k-de">тёмная энергия ≈ 68%</span></div>
+          </div>
+          <p>Всё, о&nbsp;чём рассказано выше,&nbsp;— лишь около 5% содержимого Вселенной. Ещё 27%&nbsp;— тёмная материя: она притягивает, как обычная, но&nbsp;не&nbsp;светится и&nbsp;не&nbsp;состоит ни&nbsp;из&nbsp;одной из&nbsp;17 известных частиц. Остальные 68%&nbsp;— тёмная энергия, из-за которой Вселенная расширяется всё быстрее. Что это такое, неизвестно.</p>
+        </div>
+        <aside class="analogy">
+          <span class="tag">Аналогия</span>
+          <p>Тёмная материя&nbsp;— невидимый гость на&nbsp;вечеринке. Его никто не&nbsp;видел, но&nbsp;пол прогибается и&nbsp;люстра качается: там точно кто-то есть.</p>
+        </aside>
+      </div>
+
+      <div class="block">
+        <div class="block-main">
+          <h3>Ещё четыре вопроса без ответа</h3>
+          <ul>
+            <li><b>Гравитация.</b> Её описывает теория Эйнштейна, и&nbsp;подружить эту теорию с&nbsp;квантовым миром частиц пока не&nbsp;удалось никому. Гравитон остаётся гипотезой.</li>
+            <li><b>Масса нейтрино.</b> Стандартная модель считала их безмассовыми. Масса нашлась, но&nbsp;откуда она берётся и&nbsp;чему точно равна&nbsp;— неизвестно.</li>
+            <li><b>Пропавшее антивещество.</b> Известных различий между веществом и&nbsp;антивеществом слишком мало, чтобы объяснить перекос «миллиард и&nbsp;одна».</li>
+            <li><b>Три поколения.</b> Почему комплектов деталей ровно три, а&nbsp;не&nbsp;один и&nbsp;не&nbsp;пять? Теория этого не&nbsp;объясняет&nbsp;— просто принимает как факт.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-main">
+          <h3>Почему «17»&nbsp;— это упрощение</h3>
+          <p>Семнадцать&nbsp;— это число типов. Глюонов на&nbsp;деле восемь разновидностей, W-бозонов два, каждый кварк бывает трёх «цветов», и&nbsp;у&nbsp;каждой частицы вещества есть античастица. Если считать поштучно, выйдет 61. Оба числа верны&nbsp;— это просто разные способы считать.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 8. СЛОВАРИК ═════════ -->
+<section class="sec" id="s-gloss">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Если слово забылось</p>
+      <h2>Словарик</h2>
+    </div>
+    <dl class="gloss">
+      <div><dt>Стандартная модель</dt><dd>Каталог всех известных элементарных частиц и&nbsp;правила трёх сил из&nbsp;четырёх. Гравитации в&nbsp;ней нет.</dd></div>
+      <div><dt>Поле</dt><dd>Невидимая основа, заполняющая всё пространство. У&nbsp;каждого вида частиц своё поле.</dd></div>
+      <div><dt>Квант</dt><dd>Наименьшая порция, которой может «дрогнуть» поле. Квант поля и&nbsp;есть частица.</dd></div>
+      <div><dt>Фермион</dt><dd>Частица вещества: кварк или лептон. «Индивидуалист»: двум одинаковым фермионам нельзя находиться в&nbsp;одном и&nbsp;том же состоянии.</dd></div>
+      <div><dt>Бозон</dt><dd>Частица-курьер силы или бозон Хиггса. «Коллективист»&nbsp;— в&nbsp;одно состояние их набивается сколько угодно.</dd></div>
+      <div><dt>Кварк</dt><dd>Деталь протонов и&nbsp;нейтронов. Шесть сортов: u, d, c, s, t, b. Поодиночке не&nbsp;встречается.</dd></div>
+      <div><dt>Лептон</dt><dd>Частица вещества, не&nbsp;чувствующая сильную силу: электрон, мюон, тау и&nbsp;три нейтрино.</dd></div>
+      <div><dt>Адрон</dt><dd>Любая частица, склеенная из&nbsp;кварков. Бывают барионы и&nbsp;мезоны.</dd></div>
+      <div><dt>Барион</dt><dd>Адрон из&nbsp;трёх кварков: протон, нейтрон.</dd></div>
+      <div><dt>Мезон</dt><dd>Адрон из&nbsp;кварка и&nbsp;антикварка: пион, каон. Живёт недолго.</dd></div>
+      <div><dt>Глюон</dt><dd>Курьер сильной силы, «клей» для кварков.</dd></div>
+      <div><dt>Конфайнмент</dt><dd>«Заточение»: одиночный кварк нельзя вытащить из&nbsp;адрона&nbsp;— на&nbsp;обрыве всегда рождаются новые кварки.</dd></div>
+      <div><dt>Цветовой заряд</dt><dd>Заряд сильной силы у&nbsp;кварков и&nbsp;глюонов. С&nbsp;настоящим цветом не&nbsp;связан&nbsp;— просто удобное название.</dd></div>
+      <div><dt>Поколение</dt><dd>Один из&nbsp;трёх комплектов частиц вещества. Отличаются только массой: чем старше поколение, тем тяжелее.</dd></div>
+      <div><dt>Античастица</dt><dd>Двойник частицы с&nbsp;той же массой и&nbsp;противоположным зарядом. У&nbsp;электрона&nbsp;— позитрон.</dd></div>
+      <div><dt>Аннигиляция</dt><dd>Встреча частицы с&nbsp;античастицей: обе исчезают, остаётся энергия&nbsp;— обычно два фотона.</dd></div>
+      <div><dt>Спин</dt><dd>Встроенное квантовое «вращение» частицы. Не&nbsp;буквальное: ничего там не&nbsp;крутится. У&nbsp;фермионов спин ½, у&nbsp;курьеров сил&nbsp;— 1, у&nbsp;Хиггса&nbsp;— 0.</dd></div>
+      <div><dt>Электронвольт (эВ)</dt><dd>Единица энергии, а&nbsp;через E&nbsp;=&nbsp;mc²&nbsp;— и&nbsp;массы частиц. МэВ&nbsp;— миллион эВ, ГэВ&nbsp;— миллиард, ТэВ&nbsp;— триллион.</dd></div>
+      <div><dt>Бета-распад</dt><dd>Превращение нейтрона в&nbsp;протон с&nbsp;вылетом электрона и&nbsp;антинейтрино. Работа слабой силы.</dd></div>
+    </dl>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot" lang="ru">
+  <div class="wrap">
+    <p>Числа&nbsp;— по&nbsp;обзорам Particle Data Group (2024–2025), данным ЦЕРНа, эксперимента KATRIN (2025) и&nbsp;спутника «Планк». Массы кварков даны в&nbsp;стандартной для физиков схеме: свободного кварка не&nbsp;существует, и&nbsp;взвесить его напрямую нельзя.</p>
+    <p>Страница сознательно упрощает. Сравнение сил&nbsp;— по&nbsp;порядку величины. Значки частиц&nbsp;— условные обозначения, а&nbsp;не&nbsp;портреты: у&nbsp;настоящих частиц нет ни&nbsp;формы, ни&nbsp;цвета.</p>
+  </div>
+</footer>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ───── Карточки частиц ───── */
+  var P = {
+    u: { fam: 'кварк · I поколение', name: 'u-кварк, верхний', role: 'Главная деталь ядер: два u-кварка есть в каждом протоне и один — в каждом нейтроне.', q: '+2/3', m: '≈ 2,2 МэВ — около 4 масс электрона', life: 'стабилен, но на свободе не встречается', disc: '1968, SLAC; идея — 1964, Гелл-Ман и Цвейг', fun: 'Кварки u и d дают лишь около 1% массы протона. Остальное — энергия глюонного клея.' },
+    d: { fam: 'кварк · I поколение', name: 'd-кварк, нижний', role: 'Вторая деталь ядер. Он чуть тяжелее u-кварка — поэтому нейтрон тяжелее протона и на свободе распадается.', q: '−1/3', m: '≈ 4,7 МэВ — около 9 масс электрона', life: 'на свободе не встречается', disc: '1968, SLAC; идея — 1964, Гелл-Ман и Цвейг', fun: '«Верхний» и «нижний» — просто метки. Никакого верха и низа у кварков нет.' },
+    c: { fam: 'кварк · II поколение', name: 'c-кварк, очарованный', role: 'Тяжёлая копия u-кварка. В обычном веществе его нет: рождается в ускорителях и космических лучах и сразу распадается.', q: '+2/3', m: '≈ 1,27 ГэВ — тяжелее целого протона', life: 'частицы с ним живут ≈ 10⁻¹² с', disc: '1974, SLAC и Брукхейвен', fun: 'Две группы открыли одну и ту же частицу одновременно и назвали по-разному: J и ψ. Так она и осталась J/ψ.' },
+    s: { fam: 'кварк · II поколение', name: 's-кварк, странный', role: 'Тяжёлая копия d-кварка. Входит в каоны и гипероны — частицы, которые рождаются в космических лучах.', q: '−1/3', m: '≈ 93,5 МэВ — десятая часть протона', life: 'частицы с ним живут 10⁻¹⁰–10⁻⁸ с', disc: 'странные частицы — 1947; кварк — в модели 1964 года', fun: '«Странными» эти частицы прозвали за то, что рождались они быстро, а распадались необъяснимо медленно.' },
+    t: { fam: 'кварк · III поколение', name: 't-кварк, истинный', role: 'Самая тяжёлая элементарная частица. Распадается раньше, чем успевает с кем-нибудь склеиться, — частиц из него не бывает.', q: '+2/3', m: '≈ 172,6 ГэВ — как 184 протона', life: '≈ 5×10⁻²⁵ с', disc: '1995, Фермилаб', fun: 'Точка без размера, которая весит как целый атом вольфрама.' },
+    b: { fam: 'кварк · III поколение', name: 'b-кварк, прелестный', role: 'Тяжёлая копия d-кварка. На частицах с b-кварком физики изучают, чем вещество отличается от антивещества.', q: '−1/3', m: '≈ 4,18 ГэВ — как 4,5 протона', life: 'частицы с ним живут ≈ 1,5×10⁻¹² с', disc: '1977, Фермилаб, группа Ледермана', fun: 'Раньше кварки b и t называли beauty и truth — «красота» и «истина».' },
+    e: { fam: 'лептон · I поколение', name: 'Электрон', role: 'Отвечает за химию и электричество. Облака электронов вокруг ядер — это и есть «поверхность» всех предметов, которых вы касаетесь.', q: '−1', m: '0,511 МэВ — в 1836 раз легче протона', life: 'вечно: стабилен', disc: '1897, Дж. Дж. Томсон', fun: '«Электрон» — от греческого слова «янтарь»: натёртый янтарь притягивает пылинки, и это заметили ещё древние греки.' },
+    mu: { fam: 'лептон · II поколение', name: 'Мюон', role: 'Тяжёлый двойник электрона. Рождается в атмосфере от космических лучей и прямо сейчас пролетает сквозь вас.', q: '−1', m: '105,7 МэВ — 207 масс электрона', life: '2,2 микросекунды', disc: '1936, Андерсон и Неддермайер', fun: 'Мюонами просвечивают пирамиды и вулканы, как рентгеном. А физик Исидор Раби, узнав о мюоне, спросил: «Кто это заказывал?»' },
+    tau: { fam: 'лептон · III поколение', name: 'Тау-лептон', role: 'Самый тяжёлый родственник электрона — почти вдвое тяжелее протона. Виден только по продуктам распада.', q: '−1', m: '1,777 ГэВ — 3477 масс электрона', life: '2,9×10⁻¹³ с', disc: '1975, Мартин Перл, SLAC', fun: 'Единственный лептон, которому хватает массы распадаться на адроны.' },
+    nue: { fam: 'лептон · I поколение', name: 'Электронное нейтрино', role: 'Рождается в Солнце и при радиоактивных распадах. Почти ни с чем не взаимодействует — «частица-призрак».', q: '0', m: 'меньше 0,45 эВ — минимум в миллион раз легче электрона', life: 'стабильно', disc: '1956, Коуэн и Райнес', fun: 'Через ноготь большого пальца каждую секунду пролетает около 65 миллиардов солнечных нейтрино.' },
+    numu: { fam: 'лептон · II поколение', name: 'Мюонное нейтрино', role: 'Рождается вместе с мюонами — в атмосферных ливнях и на ускорителях. На лету превращается в нейтрино других сортов.', q: '0', m: 'точно не измерена; по косвенным данным — меньше 1 эВ', life: 'стабильно', disc: '1962, Ледерман, Шварц, Стейнбергер', fun: 'Открытие 1962 года показало, что нейтрино бывают разных сортов.' },
+    nutau: { fam: 'лептон · III поколение', name: 'Тау-нейтрино', role: 'Спутник тау-лептона. Наименее изученная из 12 частиц вещества.', q: '0', m: 'точно не измерена; по косвенным данным — меньше 1 эВ', life: 'стабильно', disc: '2000, эксперимент DONUT, Фермилаб', fun: 'Последняя пойманная частица вещества: о ней догадывались с 1970-х, а увидели только в 2000-м.' },
+    g: { fam: 'бозон · курьер сильной силы', name: 'Глюон', role: 'Клей, который держит кварки внутри протонов и нейтронов. Существует в восьми разновидностях.', q: '0, зато есть цветовой заряд', m: '0', life: 'на свободе не встречается', disc: '1979, DESY, Гамбург', fun: 'Глюоны липнут даже друг к другу — поэтому кварк нельзя вытащить на свободу.' },
+    ph: { fam: 'бозон · курьер электромагнитной силы', name: 'Фотон', role: 'Частица света. Переносит электромагнитную силу: свет, радио, рентген, химические связи, электрический ток.', q: '0', m: '0', life: 'вечно: стабилен', disc: '1905 — идея Эйнштейна, 1923 — опыт Комптона', fun: 'Массы нет — поэтому фотон летит только со скоростью света и на любое расстояние.' },
+    w: { fam: 'бозоны · курьеры слабой силы', name: 'W⁺ и W⁻', role: 'Единственные частицы, которые превращают один кварк или лептон в другой. Без них не было бы ни радиоактивного распада, ни горения Солнца.', q: '+1 и −1', m: '80,4 ГэВ — как 86 протонов', life: '≈ 3×10⁻²⁵ с', disc: '1983, ЦЕРН', fun: 'Из-за огромной массы W слабая сила действует лишь на расстоянии в тысячу раз меньше протона.' },
+    z: { fam: 'бозон · курьер слабой силы', name: 'Z-бозон', role: 'Тоже переносит слабую силу, но частицы не превращает — только «толкает». Через него нейтрино изредка задевают вещество.', q: '0', m: '91,2 ГэВ — как 97 протонов', life: '≈ 2,6×10⁻²⁵ с', disc: '1983, ЦЕРН', fun: 'По распадам Z-бозона в ЦЕРНе установили: лёгких нейтрино ровно три сорта.' },
+    h: { fam: 'бозон · квант поля Хиггса', name: 'Бозон Хиггса', role: 'Всплеск поля, которое заполняет всю Вселенную и даёт массу кваркам, электрону, мюону, тау, W и Z.', q: '0', m: '125,1 ГэВ — как 133 протона', life: '≈ 1,6×10⁻²² с', disc: '2012, ЦЕРН, эксперименты ATLAS и CMS', fun: 'Единственная известная элементарная частица со спином 0. И нет, всю массу мира даёт не он — загляните в мифы.' },
+    grav: { fam: 'гипотеза · вне Стандартной модели', name: 'Гравитон', role: 'Предполагаемый курьер гравитации. Экспериментально не обнаружен, и надёжной квантовой теории гравитации пока нет.', q: '0 — по предсказанию', m: '0 — по предсказанию', life: '—', disc: 'не открыт', fun: 'Гравитационные волны, пойманные LIGO в 2015 году, — это рябь пространства-времени, а не отдельные гравитоны. Поймать одиночный гравитон, по расчётам, практически невозможно.' }
+  };
+
+  var chips = $$('.chip[data-id]');
+  function show(id) {
+    var p = P[id];
+    if (!p) return;
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', c.dataset.id === id ? 'true' : 'false'); });
+    $('#d-use').setAttribute('href', '#g-' + id);
+    $('#d-fam').textContent = p.fam;
+    $('#d-name').textContent = p.name;
+    $('#d-role').textContent = p.role;
+    $('#d-q').textContent = p.q;
+    $('#d-m').textContent = p.m;
+    $('#d-life').textContent = p.life;
+    $('#d-disc').textContent = p.disc;
+    $('#d-fun').textContent = p.fun;
+  }
+  chips.forEach(function (c) { c.addEventListener('click', function () { show(c.dataset.id); }); });
+
+  /* ───── Кто какую силу чувствует ───── */
+  var SAY = {
+    '': 'Сейчас видны все. Строки — поколения: чем ниже, тем тяжелее и недолговечнее. Столбцы — электрический заряд.',
+    strong: 'Сильную силу чувствуют только кварки и сами глюоны. Лептоны к ней глухи: поэтому электрон не сидит в ядре, а нейтрино пролетает Землю насквозь.',
+    em: 'Электромагнитную силу чувствуют все, у кого есть электрический заряд: шесть кварков, электрон, мюон, тау и W-бозоны. Три нейтрино не заряжены — и гаснут. Курьер, фотон, сам не заряжен: свет проходит сквозь свет.',
+    weak: 'Слабую силу чувствуют все 12 частиц вещества без исключения, а ещё W, Z и бозон Хиггса. Только она умеет превращать одни частицы в другие.',
+    grav: 'Гравитацию чувствует всё, у чего есть энергия, — то есть вообще все. Но её курьер, гравитон, пока лишь гипотеза, и в Стандартную модель гравитация не входит.',
+    higgs: 'Размер значка — масса. Масштаб логарифмический: в честном масштабе истинный кварк был бы в 340 000 раз крупнее электрона. Фотон и глюон поля Хиггса не замечают и массы не имеют. Откуда масса у нейтрино — пока неизвестно.'
+  };
+  var COLOR = { strong: 'var(--red)', em: 'var(--blue)', weak: 'var(--violet)', higgs: 'var(--gold-ink)', grav: 'var(--ink-soft)' };
+  var sm = $('#sm'), say = $('#f-say'), fbtns = $$('.f-btn');
+  fbtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('aria-pressed') === 'true' ? '' : b.dataset.force;
+      fbtns.forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.force === f ? 'true' : 'false'); });
+      if (f) { sm.dataset.force = f; } else { delete sm.dataset.force; }
+      say.textContent = SAY[f];
+      say.style.setProperty('--fc-now', f ? COLOR[f] : 'var(--ink)');
+    });
+  });
+
+  /* ───── Конструктор адронов ───── */
+  var ORDER = 'udscbt';
+  var Q3 = { u: 2, d: -1, s: -1, c: 2, b: -1, t: 2 }; // заряд в третях
+  var FR = { 0: '0', 1: '1/3', 2: '2/3', 3: '1', 4: '4/3', 5: '5/3', 6: '2' };
+  function fr(n, sign) {
+    if (n === 0) return '0';
+    return (n > 0 ? (sign ? '+' : '') : '−') + FR[Math.abs(n)];
+  }
+  var BARYON = {
+    uud: ['Протон', 'Ядро атома водорода и главная деталь всех остальных ядер. Стабилен.'],
+    udd: ['Нейтрон', 'В ядре живёт сколько угодно, на свободе — меньше 15 минут.'],
+    uuu: ['Дельта-плюс-плюс, Δ⁺⁺', 'Тяжёлый родственник протона с зарядом +2. Распадается примерно за 10⁻²³ с.'],
+    ddd: ['Дельта-минус, Δ⁻', 'Как Δ⁺⁺, только из трёх d-кварков. Живёт те же 10⁻²³ с.'],
+    uds: ['Лямбда-гиперон, Λ⁰', '«Странный» родственник нейтрона: один d-кварк заменён на s. Живёт 2,6×10⁻¹⁰ с.'],
+    uus: ['Сигма-плюс, Σ⁺', 'Странный барион. Живёт 0,8×10⁻¹⁰ с.'],
+    dds: ['Сигма-минус, Σ⁻', 'Странный барион. Живёт 1,5×10⁻¹⁰ с.'],
+    uss: ['Кси-ноль, Ξ⁰', 'Дважды странный барион.'],
+    dss: ['Кси-минус, Ξ⁻', 'Дважды странный барион.'],
+    sss: ['Омега-минус, Ω⁻', 'Три странных кварка. Гелл-Ман предсказал эту частицу по пустой клетке в своей таблице — и в 1964 году её нашли.'],
+    udc: ['Лямбда-c, Λc⁺', 'Очарованный барион.'],
+    udb: ['Лямбда-b, Λb⁰', 'Прелестный барион. Именно в его распадах эксперимент LHCb нашёл пентакварки.'],
+    ucc: ['Кси-cc, Ξcc⁺⁺', 'Дважды очарованный барион. Открыт на LHCb в 2017 году.']
+  };
+  var MESON = {
+    'u|d': ['Пион π⁺', 'Самый лёгкий мезон. Живёт 26 наносекунд.'],
+    'd|u': ['Пион π⁻', 'Античастица для π⁺. Живёт те же 26 наносекунд.'],
+    'u|u': ['Пион π⁰', 'Настоящий π⁰ — квантовая смесь пар u + анти-u и d + анти-d. Живёт 8×10⁻¹⁷ с и распадается на два фотона.'],
+    'd|d': ['Пион π⁰', 'Настоящий π⁰ — квантовая смесь пар u + анти-u и d + анти-d. Живёт 8×10⁻¹⁷ с и распадается на два фотона.'],
+    'u|s': ['Каон K⁺', 'Странный мезон. Живёт 12 наносекунд.'],
+    's|u': ['Каон K⁻', 'Античастица для K⁺.'],
+    'd|s': ['Каон K⁰', 'Нейтральный странный мезон.'],
+    's|s': ['Фи-мезон, φ', 'Странный кварк в паре со своим антикварком.'],
+    'c|c': ['J/ψ, «джей-пси»', 'Очарованный кварк со своим антикварком. Открытие этой частицы в 1974 году доказало, что c-кварк существует.'],
+    'b|b': ['Ипсилон, Υ', 'Прелестный кварк со своим антикварком. Так в 1977 году открыли b-кварк.'],
+    'c|d': ['D⁺-мезон', 'Очарованный мезон.'],
+    'c|u': ['D⁰-мезон', 'Очарованный мезон.'],
+    'c|s': ['Ds⁺-мезон', 'Очарованный и странный сразу.'],
+    'u|b': ['B⁺-мезон', 'На B-мезонах изучают разницу между веществом и антивеществом.'],
+    'd|b': ['B⁰-мезон', 'На B-мезонах изучают разницу между веществом и антивеществом.'],
+    's|b': ['Bs⁰-мезон', 'Странный и прелестный сразу.'],
+    'c|b': ['Bc⁺-мезон', 'Редкий мезон из двух разных тяжёлых кварков.']
+  };
+
+  var picked = [];
+  var slots = $$('#slots .b-slot'), out = $('#b-out');
+  function glyph(id) { return '<span class="glyph"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#g-' + id + '"/></svg></span>'; }
+  function isAnti(id) { return id.charAt(0) === 'a'; }
+  function flavor(id) { return isAnti(id) ? id.charAt(1) : id; }
+  function charge3(id) { return isAnti(id) ? -Q3[flavor(id)] : Q3[id]; }
+  function sortF(a) { return a.slice().sort(function (x, y) { return ORDER.indexOf(x) - ORDER.indexOf(y); }).join(''); }
+
+  function verdict() {
+    var n = picked.length;
+    if (!n) return ['', 'Пусто', 'Выберите кварки слева или нажмите на готовый рецепт.'];
+    var total = picked.reduce(function (s, id) { return s + charge3(id); }, 0);
+    var sum = picked.map(function (id, i) { return fr(charge3(id), true); }).join(' ') + ' = ' + fr(total, true);
+    var q = picked.filter(function (id) { return !isAnti(id); }).map(flavor);
+    var a = picked.filter(isAnti).map(flavor);
+    if (picked.some(function (id) { return flavor(id) === 't'; })) {
+      return [sum, 'Не успеет склеиться', 'Истинный кварк распадается за 5×10⁻²⁵ с — раньше, чем сильная сила успевает прилепить его к соседям. Частиц с t-кварком не бывает.'];
+    }
+    if (n === 1) return [sum, 'Одиночный кварк', 'На свободе такой не живёт: конфайнмент. Добавьте ему компанию.'];
+    if (n === 2 && q.length === 1) {
+      var m = MESON[q[0] + '|' + a[0]], conj = MESON[a[0] + '|' + q[0]];
+      if (m) return [sum, m[0], 'Мезон. ' + m[1]];
+      if (conj) return [sum, 'Античастица для: ' + conj[0], 'Мезон. Та же масса, противоположный заряд.'];
+      return [sum, 'Мезон', 'Пара «кварк + антикварк» — такая частица существует.'];
+    }
+    if (n === 2) return [sum, 'Ещё не частица', 'Два кварка не бывают «бесцветными». Добавьте третий — или замените один на антикварк, выйдет мезон.'];
+    if (q.length === 3 || a.length === 3) {
+      var key = sortF(q.length ? q : a), b = BARYON[key];
+      if (q.length === 3) return [sum, b ? b[0] : 'Барион', b ? 'Барион. ' + b[1] : 'Три кварка — такая частица существует, хоть и живёт недолго.'];
+      return [sum, b ? 'Античастица для: ' + b[0] : 'Антибарион', 'Три антикварка — частица из антивещества. Та же масса, противоположный заряд.'];
+    }
+    return [sum, 'Такую сборку природа не выпускает', 'Она не получается «бесцветной». Нужны три кварка, три антикварка или пара «кварк + антикварк».'];
+  }
+  function render() {
+    slots.forEach(function (s, i) { s.innerHTML = picked[i] ? glyph(picked[i]) : ''; });
+    var v = verdict();
+    out.innerHTML = '';
+    [['b-sum', v[0]], ['b-name', v[1]], ['b-note', v[2]]].forEach(function (x) {
+      if (!x[1]) return;
+      var el = document.createElement('span');
+      el.className = x[0];
+      el.textContent = x[1];
+      out.appendChild(el);
+    });
+  }
+  function add(id) { if (picked.length < 3) { picked.push(id); render(); } }
+  function palette(root, anti) {
+    ORDER.split('').forEach(function (f) {
+      var id = (anti ? 'a' : '') + f;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'b-chip';
+      b.setAttribute('aria-label', (anti ? 'анти-' : '') + f + '-кварк, заряд ' + fr(charge3(id), true));
+      b.innerHTML = glyph(id) + '<small>' + fr(charge3(id), true) + '</small>';
+      b.addEventListener('click', function () { add(id); });
+      root.appendChild(b);
+    });
+  }
+  palette($('#pal-q'), false);
+  palette($('#pal-a'), true);
+  $('#b-undo').addEventListener('click', function () { picked.pop(); render(); });
+  $('#b-clear').addEventListener('click', function () { picked = []; render(); });
+  $$('[data-preset]').forEach(function (b) {
+    b.addEventListener('click', function () { picked = b.dataset.preset.split(','); render(); });
+  });
+  $('#builder-plate').addEventListener('keydown', function (e) {
+    if (e.key === 'Backspace') { picked.pop(); render(); e.preventDefault(); }
+  });
+  picked = ['u', 'u', 'd'];
+  render();
+
+  /* ───── Приводка: где вы на странице ───── */
+  var segs = $$('#register i'), secs = $$('main > section');
+  var ticking = false;
+  function mark() {
+    ticking = false;
+    var line = window.innerHeight * 0.4, cur = -1;
+    secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= line) cur = i; });
+    segs.forEach(function (el, i) {
+      el.className = i < cur ? 'done' : (i === cur ? 'now' : '');
+    });
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(mark); }
+  }, { passive: true });
+  mark();
+})();
+</script>
+</body>
+</html>
