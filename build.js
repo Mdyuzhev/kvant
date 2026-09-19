@@ -5,6 +5,14 @@ const has = f => fs.existsSync(srcPath(f));
 const src = f => fs.readFileSync(srcPath(f), 'utf8');
 const fonts = 'https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap';
 
+// Фавикон встраивается как data-URI, чтобы страницы оставались самодостаточными.
+// Если src/favicon.svg отсутствует, сборка просто пропускает иконку.
+function faviconTag() {
+  if (!has('favicon.svg')) return '';
+  const b64 = Buffer.from(src('favicon.svg')).toString('base64');
+  return `<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,${b64}">\n`;
+}
+
 // Общие стили для элементов, разделяемых обеими страницами (например, ссылка
 // на другую страницу в шапке), которые не должны попадать в src/style.css,
 // потому что этим файлом владеет другой агент.
@@ -33,7 +41,7 @@ function page({ title, description, body, scripts, extraCss }) {
 <meta name="theme-color" content="#070918">
 <meta name="description" content="${description}">
 <title>${title}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+${faviconTag()}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${fonts}">
 <style>
@@ -89,7 +97,7 @@ function buildIndexRedirect() {
 <link rel="canonical" href="kvant.html">
 <meta name="theme-color" content="#070918">
 <title>Конструктор материи</title>
-<style>
+${faviconTag()}<style>
   html, body { background: #070918; color: #e8ecff; font-family: system-ui, sans-serif; height: 100%; margin: 0; }
   body { display: flex; align-items: center; justify-content: center; text-align: center; }
   a { color: #5fe3ff; }

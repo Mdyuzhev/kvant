@@ -30,6 +30,7 @@
 | `src/body1.html`, `src/body2.html`, `src/data.js`, `src/app.js` | Исходники первой страницы (разметка сцен, тексты карточек, JS первой страницы) |
 | `src/people-body.html`, `src/people-style.css`, `src/people-data.js`, `src/people-app.js` | Исходники второй страницы (появляются по мере готовности) |
 | `build.js` | Сборка `src/*` в `kvant.html`, `people.html` и редирект `index.html` |
+| `src/favicon.svg` | Иконка сайта — позитрон; встраивается в страницы при сборке |
 
 ## Как править
 
