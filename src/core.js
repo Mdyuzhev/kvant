@@ -135,17 +135,35 @@
     if (!ctx) return;
     var W = 0, H = 0, stars = [], comet = null, last = 0, raf = 0;
     var TINT = ['#ffffff', '#cfd6ff', '#b9a4ff', '#8fc4ff', '#ffb8ec'];
+    var lastW = 0, starH = 0, resizeTimer = 0;
+    var makeStar = function (y, ci) {
+      return { x: Math.random() * W, y: y, r: Math.random() * 1.25 + .25, p: Math.random() * 6.28, s: Math.random() * .8 + .3, v: Math.random() * .05 + .01, c: TINT[ci % TINT.length] };
+    };
     var resize = function () {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var narrow = window.innerWidth <= 700;
+      var dpr = Math.min(window.devicePixelRatio || 1, narrow ? 1.5 : 2);
       W = window.innerWidth; H = Math.min(window.innerHeight, 1400);
       cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var n = Math.round(Math.min(260, W * H / 5200));
-      stars = [];
-      for (var i = 0; i < n; i++) {
-        stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.25 + .25, p: Math.random() * 6.28, s: Math.random() * .8 + .3, v: Math.random() * .05 + .01, c: TINT[i % TINT.length] });
+      var density = narrow ? 6200 : 5200;
+      var widthChanged = Math.abs(W - lastW) > 40;
+      if (widthChanged || !stars.length) {
+        lastW = W; starH = H;
+        var n = Math.round(Math.min(260, W * H / density));
+        stars = [];
+        for (var i = 0; i < n; i++) stars.push(makeStar(Math.random() * H, i));
+      } else if (H > starH) {
+        // адресная строка спряталась и стало выше — досыпаем звёзды в новую область снизу,
+        // не трогая уже существующие, чтобы не было пустой полосы
+        var addN = Math.round(Math.min(260, W * (H - starH) / density));
+        for (var j = 0; j < addN; j++) stars.push(makeStar(starH + Math.random() * (H - starH), stars.length + j));
+        starH = H;
       }
       draw(0);
+    };
+    var onResize = function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 150);
     };
     var draw = function (t) {
       ctx.clearRect(0, 0, W, H);
@@ -174,7 +192,7 @@
       draw(t);
     };
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', onResize);
     if (!calm) {
       raf = requestAnimationFrame(loop);
       document.addEventListener('visibilitychange', function () {

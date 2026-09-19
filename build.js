@@ -17,20 +17,24 @@ function faviconTag() {
 // на другую страницу в шапке), которые не должны попадать в src/style.css,
 // потому что этим файлом владеет другой агент.
 const NAV_CSS = `
-.nav-links a.page-link {
+.nav-links { flex: 1; min-width: 0; }
+.nav-in a.page-link {
   display: inline-flex;
+  flex: none;
   align-items: center;
   justify-content: center;
   text-align: center;
+  min-height: 44px;
   border: 1px solid color-mix(in oklab, var(--c-ui) 45%, transparent);
   background: rgba(95,227,255,.1);
   color: var(--ink);
   border-radius: 9px;
-  padding: .5625rem 1rem;
-  font-family: var(--mono, inherit);
+  padding: .75rem 1rem;
+  font: 500 .8125rem/1 var(--mono, inherit);
+  white-space: nowrap;
 }
-.nav-links a.page-link:hover,
-.nav-links a.page-link:focus-visible {
+.nav-in a.page-link:hover,
+.nav-in a.page-link:focus-visible {
   background: rgba(95,227,255,.2);
 }
 `;
