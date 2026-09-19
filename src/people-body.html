@@ -1,0 +1,187 @@
+<div class="sky" aria-hidden="true"></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<nav class="nav" lang="ru" aria-label="Разделы">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><i></i><span>Люди кванта</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="#s-dirac">Дирак</a>
+      <a href="#s-people">Кто придумал</a>
+      <a href="#s-how">Как сложилось</a>
+      <a class="page-link" href="kvant.html">Конструктор материи →</a>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
+</nav>
+
+<header class="hero" id="top" lang="ru">
+  <div class="wrap">
+    <div class="hero-text">
+      <p class="kick reveal">Квантовая физика · её авторы</p>
+      <h1 class="reveal" style="--i:1">Люди <span class="grad">кванта</span></h1>
+      <p class="lead reveal" style="--i:2">Всё, что показано на&nbsp;первой странице этого сайта,&nbsp;— кварки, поля, силы&nbsp;— придумали не&nbsp;формулы сами по&nbsp;себе, а&nbsp;живые люди. За&nbsp;полвека, с&nbsp;начала 1900-х до&nbsp;середины 1960-х, несколько десятков учёных по&nbsp;кусочкам собрали теорию, которая работает точнее любой другой в&nbsp;истории науки.</p>
+      <p class="hint reveal" style="--i:3">Нажимайте на&nbsp;карточку&nbsp;— откроется рассказ</p>
+      <p class="hero-meta reveal" style="--i:4"><span><b>14</b> человек</span><span><b>1900–1964</b></span><span><b>11</b> из&nbsp;них&nbsp;— нобелевские лауреаты</span></p>
+    </div>
+  </div>
+</header>
+
+<main lang="ru">
+
+<!-- ═════════ 01 ДИРАК ═════════ -->
+<section class="scene" id="s-dirac">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">01</span> С чего начнём</p>
+      <h2>Один герой, чтобы задать тон</h2>
+      <p class="sub">Поль Дирак соединил квантовую механику со&nbsp;специальной теорией относительности&nbsp;— и&nbsp;его уравнение само, без&nbsp;чужой подсказки, потребовало существования антивещества.</p>
+    </div>
+    <div class="panel p-dirac reveal" id="p-dirac"></div>
+  </div>
+</section>
+
+<!-- ═════════ 02 ЛЮДИ ═════════ -->
+<section class="scene" id="s-people">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">02</span> Кто придумал квантовую физику</p>
+      <h2>Ещё 13&nbsp;имён</h2>
+      <p class="sub">Каждый добавил свой кусочек: кто-то — формулу, кто-то — эксперимент, кто-то — то, без чего вся конструкция не держалась бы вместе.</p>
+    </div>
+    <div class="people reveal" id="people"></div>
+  </div>
+</section>
+
+<!-- ═════════ 03 КАК СЛОЖИЛОСЬ ═════════ -->
+<section class="scene" id="s-how">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">03</span> Как всё сложилось</p>
+      <h2>Полвека догадок, одна теория</h2>
+    </div>
+    <div class="p-how reveal">
+      <p>Началось с одной неудобной мелочи: горячее тело светится не так, как предсказывали формулы. Чтобы её объяснить, пришлось допустить, что энергия передаётся не непрерывно, а маленькими порциями. Дальше эта идея потянула за собой остальные — свет оказался ещё и частицами, частицы оказались ещё и волнами, а у самого точного описания природы обнаружились случайность и неопределённость там, где раньше ждали строгих законов.</p>
+      <p>Никто не проектировал квантовую физику целиком с самого начала. Одни решали конкретную экспериментальную загадку, другие наводили порядок в чужих формулах, третьи спорили о том, что вся эта математика вообще значит. Между первой догадкой и готовой, проверяемой теорией прошло около тридцати лет — и ещё столько же ушло на то, чтобы построить на её основе всё остальное: от строения ядра до предсказания новых частиц.</p>
+      <p>К середине XX века разрозненные догадки срослись в единый математический аппарат — квантовую теорию поля. Именно она отвечает на вопрос, из чего состоит вещество и как частицы взаимодействуют друг с другом: это и есть тот самый «конструктор материи», который показан на первой странице сайта — кварки, лептоны, бозоны и силы между ними.</p>
+      <p>Эта страница — не про формулы, а про людей, которые до них додумались: как они спорили, ошибались, переубеждали друг друга и в итоге сошлись на одной картине мира.</p>
+      <a class="btn reveal" href="kvant.html">Посмотреть, что получилось →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot" lang="ru">
+  <div class="wrap">
+    <p>Годы жизни, даты открытий и формулировки — по данным Нобелевского комитета и стандартных физических справочников. Портретов учёных здесь нет: у каждого — небольшая схема сути его идеи, а не изображение человека.</p>
+  </div>
+</footer>
+
+<template id="anim-dirac"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <line class="p-ln p-dash" x1="80" y1="10" x2="80" y2="90"/>
+  <circle class="p-dot" cx="34" cy="50" r="11"/>
+  <text class="p-txt" x="34" y="50">e⁻</text>
+  <circle class="p-dot pa-dirac-pos" cx="126" cy="50" r="11"/>
+  <text class="p-txt pa-dirac-pos" x="126" y="50">e⁺</text>
+  <path class="p-ln pa-dirac-spark" d="M60 50h40" style="stroke-dasharray:3 5"/>
+</svg></template>
+
+<template id="anim-planck"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln" d="M10 85 70 15"/>
+  <path class="p-ln" d="M90 85h15v-17h15v-17h15v-17h15"/>
+  <circle class="p-dot pa-planck-q pa-planck-q1" cx="97" cy="78" r="4"/>
+  <circle class="p-dot pa-planck-q pa-planck-q2" cx="112" cy="61" r="4"/>
+  <circle class="p-dot pa-planck-q pa-planck-q3" cx="127" cy="44" r="4"/>
+  <circle class="p-dot pa-planck-q pa-planck-q4" cx="142" cy="27" r="4"/>
+</svg></template>
+
+<template id="anim-einstein"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln pa-einstein-wave" d="M8 50q8-14 16 0t16 0t16 0t16 0"/>
+  <rect class="p-ln" x="108" y="18" width="8" height="64"/>
+  <circle class="p-dot pa-einstein-eject" cx="128" cy="50" r="8"/>
+  <text class="p-txt pa-einstein-eject" x="128" y="50">e⁻</text>
+</svg></template>
+
+<template id="anim-bohr"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-ln" cx="80" cy="50" r="38"/>
+  <circle class="p-ln" cx="80" cy="50" r="20"/>
+  <circle class="p-dot" cx="80" cy="50" r="6"/>
+  <circle class="p-dot pa-bohr-e" cx="118" cy="50" r="6"/>
+  <path class="p-ln pa-bohr-ph" d="M118 20q6-8 12 0t12 0"/>
+</svg></template>
+
+<template id="anim-noether"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <polygon class="p-ln pa-noether-hex" points="50,20 68,32 68,56 50,68 32,56 32,32"/>
+  <text class="p-txt" x="20" y="86" style="font-size:11px">симметрия</text>
+  <path class="p-ln p-dash" d="M78 50h24"/>
+  <circle class="p-dot pa-noether-pulse" cx="122" cy="50" r="9"/>
+  <text class="p-txt" x="128" y="82" style="font-size:11px">сохранение</text>
+</svg></template>
+
+<template id="anim-broglie"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-dot pa-broglie-ball" cx="26" cy="50" r="8"/>
+  <path class="p-ln pa-broglie-wave" d="M50 50q9-16 18 0t18 0t18 0"/>
+  <circle class="p-ln pa-broglie-ring" cx="128" cy="50" r="24" style="stroke-dasharray:6 5"/>
+</svg></template>
+
+<template id="anim-heisenberg"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <text class="p-txt" x="20" y="26" style="font-size:11px">x</text>
+  <rect class="p-dot pa-heis-x" x="60" y="20" width="40" height="12" rx="6"/>
+  <text class="p-txt" x="20" y="76" style="font-size:11px">p</text>
+  <rect class="p-dot pa-heis-p" x="60" y="70" width="40" height="12" rx="6"/>
+</svg></template>
+
+<template id="anim-schrodinger"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <rect class="p-ln" x="14" y="16" width="132" height="68" rx="8"/>
+  <path class="p-ln pa-schrod-wave" d="M30 50q10-22 20 0t20 0t20 0t20 0t20 0"/>
+</svg></template>
+
+<template id="anim-born"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <ellipse cx="80" cy="50" rx="62" ry="34" fill="color-mix(in oklab, var(--c) 20%, transparent)"/>
+  <circle class="p-dot pa-born-hit pa-born-h1" cx="50" cy="38" r="4"/>
+  <circle class="p-dot pa-born-hit pa-born-h2" cx="96" cy="60" r="4"/>
+  <circle class="p-dot pa-born-hit pa-born-h3" cx="120" cy="34" r="4"/>
+  <circle class="p-dot pa-born-hit pa-born-h4" cx="66" cy="66" r="4"/>
+</svg></template>
+
+<template id="anim-pauli"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln" d="M30 62h44"/>
+  <path class="p-ln" d="M86 34h44"/>
+  <circle class="p-dot" cx="42" cy="54" r="8"/>
+  <circle class="p-dot" cx="98" cy="26" r="8"/>
+  <circle class="p-dot pa-pauli-out" cx="130" cy="70" r="8"/>
+</svg></template>
+
+<template id="anim-neumann"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-dot pa-neu pa-neu1" cx="40" cy="30" r="5"/>
+  <circle class="p-dot pa-neu pa-neu2" cx="80" cy="30" r="5"/>
+  <circle class="p-dot pa-neu pa-neu3" cx="120" cy="30" r="5"/>
+  <circle class="p-dot pa-neu pa-neu4" cx="40" cy="66" r="5"/>
+  <circle class="p-dot pa-neu pa-neu5" cx="80" cy="66" r="5"/>
+  <circle class="p-dot pa-neu pa-neu6" cx="120" cy="66" r="5"/>
+  <path class="p-ln p-dash" d="M20 30h120M20 66h120"/>
+</svg></template>
+
+<template id="anim-feynman"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln" d="M10 20 62 50"/>
+  <path class="p-ln" d="M10 80 62 50"/>
+  <path class="p-ln pa-feyn-photon" d="M62 50q12-10 24 0t24 0"/>
+  <path class="p-ln" d="M110 50 150 20"/>
+  <path class="p-ln" d="M110 50 150 80"/>
+</svg></template>
+
+<template id="anim-bell"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-dot" cx="80" cy="50" r="5"/>
+  <path class="p-ln p-dash" d="M80 50 30 30M80 50 130 30"/>
+  <rect class="p-ln" x="14" y="14" width="26" height="26" rx="4"/>
+  <rect class="p-ln" x="120" y="14" width="26" height="26" rx="4"/>
+  <circle class="p-dot pa-bell-flash" cx="27" cy="27" r="6"/>
+  <circle class="p-dot pa-bell-flash" cx="133" cy="27" r="6"/>
+</svg></template>
+
+<template id="anim-gellmann"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-ln" cx="80" cy="52" r="34" style="stroke-dasharray:4 5"/>
+  <polygon class="p-dot pa-gm-q pa-gm-1" points="80,20 92,26 92,38 80,44 68,38 68,26"/>
+  <polygon class="p-dot pa-gm-q pa-gm-2" points="105,62 117,68 117,80 105,86 93,80 93,68"/>
+  <polygon class="p-dot pa-gm-q pa-gm-3" points="55,62 67,68 67,80 55,86 43,80 43,68"/>
+</svg></template>

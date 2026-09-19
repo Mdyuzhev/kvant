@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070918">
+<meta name="description" content="Учёные, придумавшие квантовую физику: кто они были и что именно открыли.">
+<title>Люди кванта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<style>
+/* ───────── Космос: одна тёмная тема, задумана намеренно ───────── */
+:root {
+  color-scheme: dark;
+  --bg: #070918;
+  --bg-2: #0b0e26;
+  --panel: #10143a;
+  --line: rgba(160, 170, 255, .16);
+  --ink: #eef0ff;
+  --mut: #a9b1dc;
+  --mut-2: #7f89bd;
+  /* цвет = главная сила частицы */
+  --c-strong: #ff6bd6;
+  --c-em: #4aa8ff;
+  --c-weak: #a88bff;
+  --c-higgs: #ffd36a;
+  --c-grav: #9aa5d1;
+  --c-ui: #5fe3ff;
+  --display: 'Golos Text', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4.5rem; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--display);
+  overflow-wrap: break-word;
+}
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { text-wrap: balance; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+b, strong { color: #fff; font-weight: 700; }
+sup { line-height: 0; font-size: .72em; }
+:focus-visible { outline: 2px solid var(--c-ui); outline-offset: 3px; border-radius: 6px; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.wrap { max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); position: relative; }
+.mono { font-family: var(--mono); }
+
+/* небо: туманности + звёзды на canvas */
+.sky { position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(70% 55% at 85% -5%, rgba(124, 92, 255, .22), transparent 60%),
+    radial-gradient(60% 50% at -10% 35%, rgba(60, 140, 255, .14), transparent 60%),
+    radial-gradient(60% 45% at 60% 110%, rgba(255, 107, 214, .10), transparent 60%),
+    var(--bg);
+}
+#stars { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; width: 100%; }
+
+/* ───────── Навигация ───────── */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: rgba(7, 9, 24, .78); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line); }
+.nav-in { display: flex; align-items: center; gap: 1.25rem; min-height: 3.25rem; }
+.brand { font-weight: 800; letter-spacing: -.01em; white-space: nowrap; text-decoration: none; display: inline-flex; align-items: center; gap: .55rem; }
+.brand i { width: .7rem; height: .7rem; border-radius: 50%; background: linear-gradient(135deg, var(--c-weak), var(--c-em)); box-shadow: 0 0 14px var(--c-weak); }
+.nav-links { display: flex; gap: .25rem; overflow-x: auto; scrollbar-width: none; margin-left: auto; min-width: 0; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { font: 500 .8125rem/1 var(--mono); color: var(--mut); text-decoration: none; padding: .6rem .7rem; border-radius: 9px; white-space: nowrap; }
+.nav-links a:hover { color: #fff; background: rgba(160, 170, 255, .1); }
+.nav-links a.on { color: #fff; background: rgba(168, 139, 255, .2); }
+.progress { height: 2px; background: transparent; }
+.progress i { display: block; height: 100%; width: var(--p, 0%); background: linear-gradient(90deg, var(--c-weak), var(--c-em), var(--c-ui)); box-shadow: 0 0 10px var(--c-em); }
+@media (max-width: 720px) { .brand span { display: none; } }
+
+/* ───────── Общие детали сцен ───────── */
+.scene { padding-block: clamp(3.5rem, 8vw, 6.5rem) 0; }
+.scene-head { display: grid; gap: .875rem; max-width: 50rem; margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+.kick { display: inline-flex; align-items: center; gap: .7rem; font: 500 .8125rem/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mut); }
+.kick .idx { color: #070918; background: linear-gradient(135deg, var(--c-weak), var(--c-em)); font-weight: 700; border-radius: 7px; padding: .2rem .55rem; letter-spacing: .02em; }
+.scene-head h2 { font: 800 clamp(1.7rem, 1.2rem + 2.2vw, 2.75rem)/1.06 var(--display); letter-spacing: -.025em; }
+.scene-head .sub { font-size: clamp(1.0625rem, 1rem + .4vw, 1.3125rem); line-height: 1.45; color: var(--mut); max-width: 44rem; }
+.grad { background: linear-gradient(100deg, var(--c-weak) 0%, var(--c-em) 55%, var(--c-ui) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hint { font: 500 .8125rem/1.4 var(--mono); color: var(--mut-2); display: inline-flex; align-items: center; gap: .5rem; }
+.hint::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--c-ui); box-shadow: 0 0 10px var(--c-ui); }
+.subhead { font: 800 clamp(1.2rem, 1.05rem + .7vw, 1.5rem)/1.2 var(--display); letter-spacing: -.015em; margin: clamp(2.5rem, 5vw, 3.5rem) 0 .5rem; }
+.subnote { color: var(--mut); max-width: 44rem; margin-bottom: 1.5rem; font-size: 1rem; }
+
+/* стеклянная панель и цветной узел */
+.panel { background: linear-gradient(180deg, rgba(150, 160, 255, .08), rgba(150, 160, 255, .03)); border: 1px solid var(--line); border-radius: 20px; }
+.nd { --c: var(--c-grav); position: relative; text-align: left; cursor: pointer; appearance: none;
+  background: color-mix(in oklab, var(--c) 11%, var(--panel));
+  border: 1px solid color-mix(in oklab, var(--c) 42%, transparent);
+  border-radius: 17px;
+  box-shadow: 0 14px 34px color-mix(in oklab, var(--c) 14%, transparent), inset 0 1px 0 rgba(255, 255, 255, .05);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease); }
+.nd:hover, .nd:focus-visible { transform: translateY(-4px); border-color: var(--c);
+  box-shadow: 0 18px 44px color-mix(in oklab, var(--c) 34%, transparent), inset 0 1px 0 rgba(255, 255, 255, .08); }
+.c-strong { --c: var(--c-strong); } .c-em { --c: var(--c-em); } .c-weak { --c: var(--c-weak); }
+.c-higgs { --c: var(--c-higgs); } .c-grav { --c: var(--c-grav); } .c-ui { --c: var(--c-ui); }
+
+/* значки частиц (цвет приходит через --c) */
+.gl { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 7px color-mix(in oklab, var(--c) 65%, transparent)); }
+.sh { fill: color-mix(in oklab, var(--c) 17%, #0b0e26); stroke: var(--c); stroke-width: 3; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.sh-dash { stroke-dasharray: 5 5; }
+.sh-anti { fill: var(--c); }
+.sh-foil { fill: color-mix(in oklab, var(--c) 38%, #0b0e26); }
+.t { font: 700 38px var(--mono); text-anchor: middle; dominant-baseline: central; fill: #fff; }
+.t-sm { font-size: 29px; }
+.t-sub { font-size: 18px; }
+.t-anti { fill: #070918; }
+.bar { stroke: #070918; stroke-width: 4; stroke-linecap: round; }
+.bar-ink { stroke: #fff; stroke-width: 3; }
+
+/* ───────── Hero ───────── */
+.hero { padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(1rem, 3vw, 2rem); }
+.hero-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+@media (min-width: 940px) { .hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } }
+.hero-text { display: grid; gap: 1.4rem; min-width: 0; }
+.hero h1 { font: 900 clamp(2.5rem, 1.3rem + 5vw, 5.25rem)/.98 var(--display); letter-spacing: -.035em; }
+.hero .lead { font-size: clamp(1.125rem, 1rem + .6vw, 1.4375rem); line-height: 1.45; color: var(--mut); max-width: 36rem; }
+.hero .lead b { color: #fff; }
+.hero-meta { font: 500 .8125rem/1.5 var(--mono); color: var(--mut-2); display: flex; flex-wrap: wrap; gap: .25rem 1rem; }
+.hero-meta b { color: var(--ink); font-weight: 600; }
+
+/* орбита с деталями */
+.orbit-box { position: relative; width: min(100%, 30rem); aspect-ratio: 1; margin-inline: auto; container-type: inline-size; }
+.ring { position: absolute; inset: var(--in); border-radius: 50%; border: 1px dashed rgba(160, 170, 255, .28); }
+.ring.r1 { --in: 27%; }
+.ring.r2 { --in: 9%; border-color: rgba(160, 170, 255, .2); }
+.core { position: absolute; inset: 39%; border-radius: 50%; display: grid; place-items: center; text-align: center;
+  background: radial-gradient(circle at 35% 30%, #cdbdff, #6d54e8 45%, #231a66 100%);
+  box-shadow: 0 0 50px rgba(124, 92, 255, .65), 0 0 120px rgba(74, 168, 255, .3);
+  font: 700 .6875rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+.sat { position: absolute; left: 50%; top: 50%; width: 4.25rem; height: 4.25rem; margin: -2.125rem 0 0 -2.125rem;
+  transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a))); }
+.sat button { width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; display: block; border-radius: 50%; transition: transform .25s var(--ease); }
+.sat button:hover, .sat button:focus-visible { transform: scale(1.14); }
+.sat small { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); font: 600 .6875rem/1.2 var(--mono); color: var(--mut); white-space: nowrap; margin-top: .15rem; }
+.orbit-cap { text-align: center; font: 500 .8125rem/1.5 var(--mono); color: var(--mut-2); margin-top: 1.75rem; }
+.orbit-cap b { color: var(--ink); font-weight: 600; }
+
+/* ───────── Матрёшка ───────── */
+.ladder { display: grid; gap: 0; }
+.rung { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 0 1rem; align-items: center; }
+.rung-btn { width: 5rem; height: 5rem; border-radius: 50%; padding: .8rem; display: grid; place-items: center; }
+.rung-btn svg { width: 100%; height: 100%; overflow: visible; }
+.rung-txt { display: grid; gap: .1rem; }
+.rung-txt b { font: 800 1.125rem/1.2 var(--display); letter-spacing: -.01em; }
+.rung-txt span { font: 500 .875rem/1.3 var(--mono); color: var(--mut); }
+.rail { position: relative; overflow: hidden; background: rgba(160, 170, 255, .16); border-radius: 99px; }
+.rail::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent, var(--c-ui), transparent); transform: translateY(-100%); }
+.rung-rail { grid-column: 1 / -1; display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 0 1rem; align-items: center; height: 2.5rem; }
+.rung-rail .rail { width: 3px; height: 100%; justify-self: center; }
+.rung-rail em { font: 500 .75rem/1 var(--mono); font-style: normal; color: var(--c-ui); letter-spacing: .02em; }
+@media (min-width: 1000px) {
+  .ladder { grid-template-columns: repeat(7, auto); justify-content: space-between; align-items: start; position: relative; }
+  .rung { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: .75rem; width: 6.5rem; position: relative; z-index: 1; }
+  .rung-btn { width: 6rem; height: 6rem; }
+  .rung-rail { position: absolute; top: 3rem; height: 3px; left: calc(var(--n) * (100% - 6.5rem) / 6 + 6.25rem); width: calc((100% - 6.5rem) / 6 - 6rem); display: block; grid-column: auto; }
+  .rung-rail .rail { width: 100%; height: 3px; }
+  .rung-rail .rail::after { background: linear-gradient(90deg, transparent, var(--c-ui), transparent); transform: translateX(-100%); }
+  .rung-rail em { position: absolute; left: 50%; top: -1.35rem; transform: translateX(-50%); white-space: nowrap; }
+}
+.ic { fill: none; stroke: var(--ink); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.ic-c { stroke: var(--c); }
+.ic-fill { fill: color-mix(in oklab, var(--c) 22%, transparent); }
+
+/* сборки из кварков */
+.compo { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); }
+.compo .nd { padding: 1.1rem 1.25rem 1.25rem; display: grid; gap: .5rem; justify-items: center; text-align: center; --c: var(--c-strong); }
+.compo svg { width: 100%; max-width: 14rem; height: auto; overflow: visible; }
+.compo b { font: 800 1.125rem/1.2 var(--display); }
+.compo span { font: 500 .8125rem/1.35 var(--mono); color: var(--mut); }
+.bag { fill: rgba(255, 107, 214, .05); stroke: rgba(255, 255, 255, .45); stroke-width: 1.5; stroke-dasharray: 3 6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.spring { fill: none; stroke: var(--c-strong); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 3 7; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px var(--c-strong)); }
+.qk { transform-box: fill-box; transform-origin: center; }
+.lbl { font: 600 13px var(--mono); fill: var(--ink); }
+.lbl-soft { font: 500 12px var(--mono); fill: var(--mut); }
+
+/* конструктор адронов */
+.builder { padding: clamp(1.1rem, 3vw, 1.75rem); display: grid; gap: 1.5rem; }
+@media (min-width: 860px) { .builder { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; } }
+.b-col { display: grid; gap: .75rem; }
+.b-label { font: 500 .75rem/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mut-2); }
+.b-palette { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .4rem; max-width: 26rem; --c: var(--c-strong); }
+.b-chip { appearance: none; background: none; border: 0; padding: 0; cursor: pointer; display: grid; justify-items: center; gap: .2rem; min-height: 44px; transition: transform .2s var(--ease); --c: var(--c-strong); }
+.b-chip:hover, .b-chip:focus-visible { transform: translateY(-3px) scale(1.06); }
+.b-chip .gl { width: 100%; max-width: 3.4rem; aspect-ratio: 1; height: auto; }
+.b-chip small { font: 500 .8125rem/1.2 var(--mono); color: var(--mut); }
+.b-slots { display: flex; gap: .625rem; flex-wrap: wrap; --c: var(--c-strong); }
+.b-slot { width: 4.5rem; height: 4.5rem; border: 1.5px dashed rgba(160, 170, 255, .35); border-radius: 16px; display: grid; place-items: center; padding: .4rem; }
+.b-slot:empty::after { content: "?"; font: 500 1.125rem var(--mono); color: var(--mut-2); }
+.b-slot .gl { animation: pop-in .35s var(--ease) both; }
+.b-actions, .b-presets { display: flex; gap: .5rem; flex-wrap: wrap; }
+.btn { appearance: none; cursor: pointer; min-height: 44px; padding: .5rem .95rem; border-radius: 11px; font: 500 .8125rem/1.2 var(--mono);
+  color: var(--ink); background: rgba(160, 170, 255, .08); border: 1px solid var(--line); transition: background .2s, border-color .2s, transform .2s var(--ease); }
+.btn:hover { background: rgba(168, 139, 255, .22); border-color: var(--c-weak); transform: translateY(-2px); }
+.b-out { border-top: 1px solid var(--line); padding-top: 1rem; display: grid; gap: .35rem; min-height: 8rem; align-content: start; }
+.b-sum { font: 500 1rem/1.4 var(--mono); color: var(--c-ui); }
+.b-name { font: 800 1.375rem/1.2 var(--display); letter-spacing: -.015em; }
+.b-note { color: var(--mut); font-size: 1rem; line-height: 1.5; }
+
+/* ───────── Каталог ───────── */
+.legend { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-bottom: 1.25rem; font: 500 .8125rem/1.4 var(--mono); color: var(--mut); }
+.legend span { display: inline-flex; align-items: center; gap: .5rem; }
+.legend i { width: .8rem; height: .8rem; border-radius: 4px; background: var(--c); box-shadow: 0 0 10px color-mix(in oklab, var(--c) 70%, transparent); }
+.legend svg { width: 1rem; height: 1rem; overflow: visible; }
+.forces-bar { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: .9rem; }
+.f-btn { appearance: none; cursor: pointer; min-height: 44px; padding: .5rem .9rem; border-radius: 99px; font: 500 .8125rem/1.2 var(--mono);
+  color: var(--ink); background: color-mix(in oklab, var(--c) 10%, transparent); border: 1px solid color-mix(in oklab, var(--c) 50%, transparent);
+  display: inline-flex; align-items: center; gap: .55rem; transition: background .2s, box-shadow .2s, transform .2s var(--ease); }
+.f-btn::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); flex: none; }
+.f-btn:hover { transform: translateY(-2px); }
+.f-btn[aria-pressed="true"] { background: var(--c); color: #070918; font-weight: 700; box-shadow: 0 0 26px color-mix(in oklab, var(--c) 60%, transparent); }
+.f-btn[aria-pressed="true"]::before { background: #070918; box-shadow: none; }
+.f-say { font-size: 1rem; line-height: 1.5; color: var(--mut); min-height: 4.6em; max-width: 50rem; margin-bottom: 1.5rem; border-left: 2px solid var(--fc-now, var(--c-ui)); padding-left: .9rem; }
+.sm { padding: clamp(1rem, 3vw, 2rem); display: grid; gap: 1.5rem; max-width: 46rem; }
+.sm-grid { display: grid; grid-template-columns: 1.6rem repeat(4, minmax(0, 1fr)); gap: .6rem .4rem; align-items: start; }
+.sm-colhead { font: 500 .6875rem/1.25 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--mut-2); text-align: center; align-self: end; padding-bottom: .2rem; }
+.sm-gen { font: 800 .9375rem/1 var(--display); color: var(--mut-2); align-self: center; }
+.sm-bosons { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .6rem .4rem; border-top: 1px solid var(--line); padding-top: 1.1rem; }
+.sm-sub { font: 500 .6875rem/1.25 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mut-2); grid-column: 1 / -1; }
+.chip { appearance: none; background: none; border: 0; padding: .15rem 0 .3rem; cursor: pointer; display: grid; justify-items: center; gap: .3rem; min-width: 0; border-radius: 14px;
+  transition: opacity .25s ease-out, filter .25s ease-out, transform .25s var(--ease); }
+.chip .gl { width: 88%; max-width: 4.6rem; aspect-ratio: 1; height: auto; transition: transform .35s var(--ease), filter .25s; }
+.chip .nm { font-size: .78rem; line-height: 1.15; text-align: center; color: var(--mut); hyphens: auto; max-width: 100%; }
+.chip:hover, .chip:focus-visible { transform: translateY(-4px); }
+.chip:hover .nm, .chip:focus-visible .nm { color: #fff; }
+.chip:hover .gl, .chip:focus-visible .gl { filter: drop-shadow(0 0 14px var(--c)); }
+.sm[data-force] .chip { opacity: .16; filter: grayscale(.8); }
+.sm[data-force="strong"] .chip[data-feels~="strong"],
+.sm[data-force="em"] .chip[data-feels~="em"],
+.sm[data-force="weak"] .chip[data-feels~="weak"],
+.sm[data-force="grav"] .chip[data-feels~="grav"],
+.sm[data-force="higgs"] .chip[data-feels~="higgs"],
+.sm[data-force="em"] .chip[data-carries~="em"] { opacity: 1; filter: none; }
+.sm[data-force="higgs"] .chip .gl { transform: scale(var(--ms, 1)); }
+.sm[data-force="higgs"] .chip[data-feels~="maybe"] { opacity: .55; filter: none; }
+@media (max-width: 560px) { .sm[data-force="higgs"] .chip .gl { width: 66%; } }
+
+/* ───────── Силы ───────── */
+.forces { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr)); }
+.force { padding: 1.25rem 1.25rem 1.35rem 1.5rem; display: grid; gap: .7rem; align-content: start; }
+.force::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 4px; border-radius: 4px; background: var(--c); box-shadow: 0 0 12px var(--c); }
+.force.grav { border-style: dashed; }
+.force-art { height: 4.5rem; }
+.force-art svg { width: 100%; height: 100%; overflow: visible; }
+.force b { font: 800 1.1875rem/1.15 var(--display); letter-spacing: -.015em; display: block; }
+.force .car { display: block; margin-top: .15rem; font: 500 .78rem/1.35 var(--mono); color: var(--mut); }
+.force p { font-size: .9375rem; line-height: 1.45; color: var(--mut); }
+.meter { display: grid; gap: .3rem; margin-top: .2rem; }
+.meter-top { display: flex; justify-content: space-between; gap: .5rem; font: 500 .72rem/1.3 var(--mono); color: var(--mut-2); }
+.meter-top span + span { color: var(--ink); }
+.meter-bar { height: 6px; border-radius: 99px; background: rgba(160, 170, 255, .14); overflow: hidden; }
+.meter-bar i { display: block; height: 100%; width: var(--w); border-radius: 99px; background: var(--c); box-shadow: 0 0 10px var(--c); transform-origin: left; }
+.wv { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px var(--c)); }
+.wv-dash { stroke-dasharray: 3 7; }
+.dot { fill: var(--c); filter: drop-shadow(0 0 5px var(--c)); }
+.dot-soft { fill: color-mix(in oklab, var(--c) 25%, #0b0e26); stroke: var(--c); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.fld { fill: rgba(255, 211, 106, .35); }
+
+/* ───────── Превращения ───────── */
+.stage { display: grid; gap: 0; overflow: hidden; }
+@media (min-width: 900px) { .stage { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
+.tabs { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1rem; }
+.tab { --c: var(--c-ui); appearance: none; cursor: pointer; min-height: 44px; padding: .5rem 1rem; border-radius: 12px; font: 500 .8125rem/1.2 var(--mono); color: var(--mut);
+  background: rgba(160, 170, 255, .06); border: 1px solid var(--line); transition: all .2s var(--ease); }
+.tab:hover { color: #fff; transform: translateY(-2px); }
+.tab[aria-selected="true"] { color: #070918; background: linear-gradient(135deg, var(--c-weak), var(--c-em)); border-color: transparent; font-weight: 700; box-shadow: 0 0 24px rgba(124, 92, 255, .5); }
+.stage-art { position: relative; min-height: 17rem; padding: 1rem; display: grid; place-items: center; background: radial-gradient(80% 80% at 50% 50%, rgba(124, 92, 255, .12), transparent 70%); border-bottom: 1px solid var(--line); }
+@media (min-width: 900px) { .stage-art { border-bottom: 0; border-right: 1px solid var(--line); } }
+.stage-art svg { width: 100%; max-width: 30rem; height: auto; overflow: visible; }
+.stage-txt { padding: clamp(1.1rem, 3vw, 1.75rem); display: grid; gap: .75rem; align-content: start; }
+.stage-txt h3 { font: 800 1.375rem/1.2 var(--display); letter-spacing: -.015em; }
+.stage-txt p { color: var(--mut); font-size: 1rem; line-height: 1.55; }
+.stage-txt .fact { font: 500 .8125rem/1.5 var(--mono); color: var(--c-ui); }
+.replay { justify-self: start; }
+.trk { fill: none; stroke: rgba(255, 255, 255, .55); stroke-width: 1.6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.ph { fill: none; stroke: var(--c-em); stroke-width: 2.2; stroke-linecap: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px var(--c-em)); }
+.wz { fill: none; stroke: var(--c-weak); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px var(--c-weak)); }
+.str { stroke: var(--c-strong); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 6px var(--c-strong)); }
+.flash { fill: #fff; filter: drop-shadow(0 0 14px #fff); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.mv { transform-box: view-box; }
+
+/* «прямо сейчас» */
+.now { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr)); }
+.now .nd { padding: 1rem 1.1rem; display: grid; gap: .3rem; }
+.now b { font: 800 1.0625rem/1.2 var(--display); }
+.now span { font: 500 .78rem/1.4 var(--mono); color: var(--mut); }
+
+/* ───────── Лента Большого взрыва ───────── */
+.bang { position: relative; display: grid; gap: .75rem; }
+.bang-line { position: absolute; left: 1.4rem; top: 1.5rem; bottom: 1.5rem; width: 4px; border-radius: 99px;
+  background: linear-gradient(180deg, #fff 0%, #ffd0f4 8%, var(--c-strong) 25%, var(--c-weak) 50%, var(--c-em) 75%, #1d2a6b 100%); box-shadow: 0 0 16px rgba(168, 139, 255, .5); }
+.bang-line i { position: absolute; left: 50%; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #fff; box-shadow: 0 0 16px 4px #fff; }
+.ev { display: grid; grid-template-columns: 2.8rem minmax(0, 1fr); gap: 0 1rem; align-items: center; padding: .5rem .75rem .5rem 0; border-radius: 16px; background: none; border: 0; text-align: left; cursor: pointer; position: relative; transition: background .2s, transform .25s var(--ease); }
+.ev:hover, .ev:focus-visible { background: rgba(160, 170, 255, .08); transform: translateX(4px); }
+.ev-dot { width: 1.5rem; height: 1.5rem; margin-left: .75rem; border-radius: 50%; background: var(--bg); border: 3px solid var(--c); box-shadow: 0 0 14px var(--c); position: relative; z-index: 1; }
+.ev-txt { display: grid; gap: .1rem; }
+.ev-txt .when { font: 600 .8125rem/1.3 var(--mono); color: var(--c); }
+.ev-txt b { font: 800 1.125rem/1.2 var(--display); letter-spacing: -.01em; }
+.ev-txt span { font-size: .9375rem; color: var(--mut); line-height: 1.4; }
+@media (min-width: 1000px) {
+  .bang { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .5rem; padding-top: .5rem; }
+  .bang-line { left: 3%; right: 3%; top: 1.55rem; bottom: auto; width: auto; height: 4px;
+    background: linear-gradient(90deg, #fff 0%, #ffd0f4 6%, var(--c-strong) 22%, var(--c-weak) 50%, var(--c-em) 78%, #1d2a6b 100%); }
+  .bang-line i { left: 0; top: 50%; }
+  .ev { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: .9rem; padding: .25rem .4rem 1rem; }
+  .ev:hover, .ev:focus-visible { transform: translateY(-4px); }
+  .ev-dot { margin: 0; width: 1.75rem; height: 1.75rem; }
+  .ev-txt { justify-items: center; }
+  .ev-txt span { font-size: .875rem; }
+}
+
+/* ───────── Мифы ───────── */
+.myths { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(16.5rem, 1fr)); }
+.myth { appearance: none; border: 0; padding: 0; background: none; cursor: pointer; text-align: left; perspective: 1200px; min-height: 15rem; display: grid; }
+.myth-in { display: grid; transform-style: preserve-3d; transition: transform .7s var(--ease); }
+.myth[aria-pressed="true"] .myth-in { transform: rotateY(180deg); }
+.face { grid-area: 1 / 1; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 18px; padding: 1.25rem 1.3rem 1.35rem; display: grid; gap: .7rem; align-content: start; border: 1px solid var(--line); }
+.face.front { background: linear-gradient(160deg, rgba(168, 139, 255, .16), rgba(74, 168, 255, .06)); align-content: space-between; }
+.face.back { transform: rotateY(180deg); background: linear-gradient(160deg, rgba(95, 227, 255, .14), rgba(16, 20, 58, .9)); border-color: color-mix(in oklab, var(--c-ui) 45%, transparent); }
+.face .tag { font: 600 .72rem/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--c-weak); }
+.face.back .tag { color: var(--c-ui); }
+.face .claim { font: 800 1.25rem/1.25 var(--display); letter-spacing: -.015em; }
+.face .truth { font-size: .9688rem; line-height: 1.5; color: var(--ink); }
+.face .turn { font: 500 .75rem/1.3 var(--mono); color: var(--mut-2); }
+.myth:hover .face.front, .myth:focus-visible .face.front { border-color: var(--c-weak); box-shadow: 0 0 34px rgba(168, 139, 255, .3); }
+
+/* ───────── Загадки и словарик ───────── */
+.budget { padding: clamp(1.1rem, 3vw, 1.75rem); display: grid; gap: .9rem; margin-bottom: 1.25rem; }
+.budget-bar { display: flex; height: 2.5rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+.budget-bar button { appearance: none; border: 0; padding: 0; cursor: pointer; height: 100%; transition: filter .2s; }
+.budget-bar button:hover, .budget-bar button:focus-visible { filter: brightness(1.35); }
+.b-ord { width: 5%; background: linear-gradient(180deg, #fff, var(--c-ui)); box-shadow: 0 0 20px var(--c-ui); }
+.b-dm { width: 27%; background: repeating-linear-gradient(45deg, rgba(168, 139, 255, .55) 0 3px, rgba(168, 139, 255, .12) 3px 9px); }
+.b-de { width: 68%; background: linear-gradient(90deg, rgba(74, 168, 255, .16), rgba(16, 20, 58, .4)); }
+.budget-key { display: flex; flex-wrap: wrap; gap: .3rem 1.5rem; font: 500 .8125rem/1.4 var(--mono); color: var(--mut); }
+.budget-key b { color: #fff; font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.q-chip { padding: .7rem 1rem; font: 600 .9375rem/1.25 var(--display); border-radius: 14px; min-height: 44px; }
+.g-chip { padding: .55rem .85rem; font: 500 .875rem/1.25 var(--mono); border-radius: 12px; min-height: 44px; box-shadow: none; }
+
+/* ───────── Всплывающая карточка ───────── */
+dialog.pop { --c: var(--c-weak); padding: 0; border: 1px solid color-mix(in oklab, var(--c) 55%, transparent); border-radius: 22px; color: var(--ink);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--c) 13%, #0d1030), #0b0e26 60%);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .6), 0 0 70px color-mix(in oklab, var(--c) 28%, transparent);
+  width: min(34rem, calc(100vw - 2rem)); max-height: min(44rem, calc(100vh - 2rem)); overflow: hidden; }
+dialog.pop[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; animation: pop-in .38s var(--ease) both; }
+dialog.pop::backdrop { background: rgba(4, 5, 16, .72); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); animation: fade-in .3s ease both; }
+.pop-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: 1.25rem 1.25rem 1rem 1.4rem; }
+.pop-ic { width: 3.75rem; height: 3.75rem; display: grid; place-items: center; }
+.pop-ic:empty { display: none; }
+.pop-ic svg { width: 100%; height: 100%; overflow: visible; }
+.pop-head .kick { color: var(--c); letter-spacing: .07em; font-size: .75rem; }
+.pop-head h3 { font: 800 clamp(1.3rem, 1.1rem + 1vw, 1.7rem)/1.12 var(--display); letter-spacing: -.02em; margin-top: .2rem; }
+.x { appearance: none; cursor: pointer; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: rgba(160, 170, 255, .08); display: grid; place-items: center; align-self: start; transition: background .2s, transform .2s var(--ease); }
+.x:hover { background: rgba(160, 170, 255, .2); transform: rotate(90deg); }
+.x svg { width: 1rem; height: 1rem; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+.pop-body { padding: 0 1.4rem 1.25rem; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(160, 170, 255, .35) transparent; display: grid; gap: .85rem; align-content: start; }
+.pop-body p { font-size: 1.0313rem; line-height: 1.55; color: #dfe3ff; }
+.pop-facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .4rem 1rem; padding: .85rem 1rem; border-radius: 14px; background: rgba(160, 170, 255, .07); border: 1px solid var(--line); }
+.pop-facts dt { font: 500 .72rem/1.7 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mut-2); }
+.pop-facts dd { font: 500 .875rem/1.45 var(--mono); color: var(--ink); }
+.pop-ana { border-left: 3px solid var(--c); padding: .15rem 0 .15rem .9rem; display: grid; gap: .35rem; }
+.pop-ana .tag { font: 600 .7rem/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+.pop-ana p { font-size: .9688rem; color: var(--mut); }
+.pop-ana p.limp { color: var(--mut-2); }
+.pop-ana p + .tag { margin-top: .45rem; }
+.pop-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .7rem 1rem; border-top: 1px solid var(--line); background: rgba(7, 9, 24, .5); }
+.pop-nav span { font: 500 .78rem/1 var(--mono); color: var(--mut-2); }
+.pop-nav .btn { min-width: 44px; font-size: 1.0625rem; }
+.pop-swap { animation: swap-in .3s var(--ease) both; }
+@media (max-width: 560px) {
+  dialog.pop { margin: auto 0 0; width: 100%; max-width: none; border-radius: 22px 22px 0 0; max-height: 86vh; border-bottom: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  dialog.pop[open] { animation-name: sheet-in; }
+}
+
+/* ───────── Подвал ───────── */
+.foot { margin-top: clamp(3.5rem, 8vw, 6rem); border-top: 1px solid var(--line); padding-block: 1.75rem 3rem; color: var(--mut-2); font-size: .875rem; line-height: 1.55; }
+.foot .wrap { display: grid; gap: .6rem; }
+.foot p { max-width: 50rem; }
+
+/* ───────── Движение ───────── */
+@keyframes pop-in { from { opacity: 0; transform: translateY(14px) scale(.95); } to { opacity: 1; transform: none; } }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(40%); } to { opacity: 1; transform: none; } }
+@keyframes swap-in { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin-sat { from { transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a))); } to { transform: rotate(calc(var(--a) + 360deg)) translateX(var(--r)) rotate(calc(-1 * var(--a) - 360deg)); } }
+@keyframes flo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes breathe { 0%, 100% { box-shadow: 0 0 50px rgba(124, 92, 255, .65), 0 0 120px rgba(74, 168, 255, .3); } 50% { box-shadow: 0 0 70px rgba(124, 92, 255, .9), 0 0 160px rgba(74, 168, 255, .45); } }
+@keyframes rail-v { to { transform: translateY(100%); } }
+@keyframes rail-h { to { transform: translateX(100%); } }
+@keyframes dash { to { stroke-dashoffset: -40; } }
+@keyframes jig { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(2.5px, -2px); } 50% { transform: translate(-2px, 2.5px); } 75% { transform: translate(-2.5px, -1.5px); } }
+@keyframes comet-v { from { top: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } to { top: 100%; opacity: 0; } }
+@keyframes comet-h { from { left: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } to { left: 100%; opacity: 0; } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes orbit-sm { to { transform: rotate(360deg); } }
+@keyframes slide-a { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(150px); } }
+@keyframes slide-b { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(34px); } }
+@keyframes morph-a { 0%, 40% { opacity: 1; } 50%, 90% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes morph-b { 0%, 40% { opacity: 0; } 50%, 90% { opacity: 1; } 100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .core { animation: breathe 4s ease-in-out infinite; }
+  .ring.r2 { animation: spin 120s linear infinite; }
+  .sat { animation: spin-sat var(--dur, 80s) linear infinite; }
+  .orbit-box:hover .sat, .orbit-box:focus-within .sat { animation-play-state: paused; }
+  .rung-btn, .now .nd { animation: flo 5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 220ms); }
+  .rung-btn:hover, .now .nd:hover { animation-play-state: paused; }
+  .rung-rail .rail::after { animation: rail-v 1.9s linear infinite; animation-delay: calc(var(--n, 0) * 250ms); }
+  .spring, .wv-dash { animation: dash 1.4s linear infinite; }
+  .qk { animation: jig 2.6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -700ms); }
+  .bang-line i { animation: comet-v 7s linear infinite; }
+  .in .meter-bar i { animation: grow 1.2s var(--ease) both; animation-delay: .3s; }
+  .f-orbit { animation: orbit-sm 5s linear infinite; transform-box: view-box; transform-origin: 60px 36px; }
+  .f-heavy { animation: slide-b 5s ease-in-out infinite; }
+  .f-light { animation: slide-a 5s ease-in-out infinite; }
+  .f-ma { animation: morph-a 5s ease-in-out infinite; }
+  .f-mb { animation: morph-b 5s ease-in-out infinite; }
+  /* появление сцен: включается только когда работает JS */
+  .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: calc(var(--i, 0) * 70ms); }
+  .js .reveal.in { opacity: 1; transform: none; }
+}
+/* превращения: в покое виден итог, .play проигрывает путь к нему */
+.a-draw, .a-draw2, .a-draw4 { vector-effect: none; stroke-dasharray: 100; stroke-dashoffset: 0; }
+.a-ph-in { opacity: .45; }
+.a-in-l, .a-in-r { opacity: .3; }
+.a-morph-out, .a-str-full { opacity: 0; }
+.a-str-full { transform-box: view-box; transform-origin: 160px 90px; }
+@keyframes k-ph-in { 0% { transform: translateX(-130px); opacity: 1; } 38% { transform: none; opacity: 1; } 50%, 100% { transform: none; opacity: .45; } }
+@keyframes k-flash-38 { 0%, 34% { opacity: 0; transform: scale(.4); } 40% { opacity: 1; transform: scale(1.7); } 54%, 100% { opacity: 0; transform: scale(2.6); } }
+@keyframes k-draw-40 { 0%, 40% { stroke-dashoffset: 100; } 85%, 100% { stroke-dashoffset: 0; } }
+@keyframes k-fly-up { 0%, 40% { transform: translate(-133px, 55px); opacity: 0; } 46% { opacity: 1; } 85%, 100% { transform: none; opacity: 1; } }
+@keyframes k-fly-dn { 0%, 40% { transform: translate(-133px, -55px); opacity: 0; } 46% { opacity: 1; } 85%, 100% { transform: none; opacity: 1; } }
+@keyframes k-in-l { 0% { transform: translateX(-120px); opacity: 1; } 38% { transform: none; opacity: 1; } 48%, 100% { transform: none; opacity: 0; } }
+@keyframes k-in-r { 0% { transform: translateX(120px); opacity: 1; } 38% { transform: none; opacity: 1; } 48%, 100% { transform: none; opacity: 0; } }
+@keyframes k-after { 0%, 42% { opacity: 0; } 50%, 100% { opacity: 1; } }
+@keyframes k-morph-out { 0%, 24% { opacity: 1; } 34%, 100% { opacity: 0; } }
+@keyframes k-morph-in { 0%, 24% { opacity: 0; } 34%, 100% { opacity: 1; } }
+@keyframes k-flash-26 { 0%, 20% { opacity: 0; transform: scale(.4); } 28% { opacity: 1; transform: scale(1.7); } 40%, 100% { opacity: 0; transform: scale(2.6); } }
+@keyframes k-late-36 { 0%, 36% { opacity: 0; } 54%, 100% { opacity: 1; } }
+@keyframes k-draw-58 { 0%, 58% { stroke-dashoffset: 100; } 80%, 100% { stroke-dashoffset: 0; } }
+@keyframes k-late-up { 0%, 60% { transform: translate(-50px, 22px); opacity: 0; } 66% { opacity: 1; } 88%, 100% { transform: none; opacity: 1; } }
+@keyframes k-late-dn { 0%, 60% { transform: translate(-50px, -22px); opacity: 0; } 66% { opacity: 1; } 88%, 100% { transform: none; opacity: 1; } }
+@keyframes k-pull-l { 0%, 10% { transform: translateX(70px); } 55%, 100% { transform: none; } }
+@keyframes k-pull-r { 0%, 10% { transform: translateX(-70px); } 55%, 100% { transform: none; } }
+@keyframes k-str-full { 0%, 10% { transform: scaleX(.275); opacity: .6; } 55% { transform: scaleX(1); opacity: 1; } 59%, 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes k-new { 0%, 57% { opacity: 0; } 66%, 100% { opacity: 1; } }
+@keyframes k-flash-57 { 0%, 52% { opacity: 0; transform: scale(.4); } 58% { opacity: 1; transform: scale(1.8); } 70%, 100% { opacity: 0; transform: scale(2.6); } }
+@media (prefers-reduced-motion: no-preference) {
+  .play .a-ph-in { animation: k-ph-in 3.2s var(--ease) both; }
+  .play[data-proc="pair"] .a-flash, .play[data-proc="ann"] .a-flash { animation: k-flash-38 3.2s ease-out both; }
+  .play .a-draw { animation: k-draw-40 3.2s ease-out both; }
+  .play .a-fly-up { animation: k-fly-up 3.2s ease-out both; }
+  .play .a-fly-dn { animation: k-fly-dn 3.2s ease-out both; }
+  .play .a-in-l { animation: k-in-l 3.2s ease-in both; }
+  .play .a-in-r { animation: k-in-r 3.2s ease-in both; }
+  .play .a-after { animation: k-after 3.2s ease-out both; }
+  .play .a-draw2 { animation: k-draw-40 3.2s ease-out both; }
+  .play .a-morph-out { animation: k-morph-out 4.4s ease both; }
+  .play .a-morph-in { animation: k-morph-in 4.4s ease both; }
+  .play[data-proc="beta"] .a-flash { animation: k-flash-26 4.4s ease-out both; }
+  .play .a-draw3, .play .a-late { animation: k-late-36 4.4s ease both; }
+  .play .a-draw4 { animation: k-draw-58 4.4s ease-out both; }
+  .play .a-late-up { animation: k-late-up 4.4s ease-out both; }
+  .play .a-late-dn { animation: k-late-dn 4.4s ease-out both; }
+  .play .a-pull-l { animation: k-pull-l 4.6s ease-in-out both; }
+  .play .a-pull-r { animation: k-pull-r 4.6s ease-in-out both; }
+  .play .a-str-full { animation: k-str-full 4.6s ease-in-out both; }
+  .play .a-str-l, .play .a-str-r, .play .a-new { animation: k-new 4.6s ease both; }
+  .play .a-flash2 { animation: k-flash-57 4.6s ease-out both; }
+}
+[hidden] { display: none !important; }
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 1000px) {
+  .rung-rail .rail::after { animation-name: rail-h; }
+  .bang-line i { animation-name: comet-h; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .myth-in { transition: none; }
+  dialog.pop[open], dialog.pop::backdrop, .pop-swap, .b-slot .gl { animation: none; }
+}
+
+/* ═════════ Люди кванта: стили только этой страницы ═════════ */
+
+/* ───── общая графика значков (аналог .gl/.sh с первой страницы) ───── */
+.p-ic { display: block; width: 100%; height: 100%; overflow: visible; }
+.p-ln { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+  vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px color-mix(in oklab, var(--c) 70%, transparent)); }
+.p-dash { stroke-dasharray: 5 5; }
+.p-dot { fill: var(--c); stroke: none; filter: drop-shadow(0 0 6px color-mix(in oklab, var(--c) 75%, transparent)); }
+.p-txt { font: 700 15px var(--mono); fill: #fff; text-anchor: middle; dominant-baseline: central; }
+
+.p-anim-box { position: relative; border-radius: 14px; background: rgba(160, 170, 255, .06); border: 1px solid var(--line); aspect-ratio: 16 / 10; overflow: hidden; }
+.p-anim-box .p-ic { padding: .5rem; }
+
+/* ───── блок Дирака ───── */
+.p-dirac { padding: clamp(1.25rem, 3vw, 2rem); display: grid; gap: 1.5rem; --c: var(--c-strong); }
+@media (min-width: 860px) { .p-dirac { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 2.5rem; } }
+.p-dirac-art { min-height: 12rem; }
+.p-dirac-txt { display: grid; gap: .6rem; align-content: center; }
+.p-dirac-txt .p-tag { font: 600 .78rem/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.p-dirac-txt h3 { font: 800 clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem)/1.12 var(--display); letter-spacing: -.02em; }
+.p-dirac-txt .p-years { font: 500 .8125rem/1.4 var(--mono); color: var(--mut-2); }
+.p-dirac-txt .p-one { color: var(--mut); font-size: 1.0625rem; line-height: 1.5; max-width: 34rem; }
+.p-dirac-txt .btn-more { justify-self: start; margin-top: .4rem; min-height: 44px; padding: .6rem 1.2rem; font: 600 .875rem/1.2 var(--display); }
+
+/* ───── сетка карточек учёных ───── */
+.people { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .people { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1040px) { .people { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.p-card { padding: 1rem 1.1rem 1.2rem; display: grid; gap: .7rem; width: 100%; }
+.p-card .p-name { font: 800 1.125rem/1.2 var(--display); letter-spacing: -.01em; color: #fff; }
+.p-card .p-years { font: 500 .78rem/1.3 var(--mono); color: var(--mut-2); }
+.p-card .p-one { font-size: .9375rem; line-height: 1.45; color: var(--mut); }
+
+/* ───── раздел «как всё сложилось» ───── */
+.p-how { display: grid; gap: 1.1rem; max-width: 46rem; }
+.p-how p { font-size: 1.0625rem; line-height: 1.6; color: var(--mut); }
+.p-how .btn { justify-self: start; margin-top: .5rem; --c: var(--c-ui); color: var(--c-ui); border-color: color-mix(in oklab, var(--c-ui) 50%, transparent); }
+
+/* ═════════ анимации: покой = осмысленное конечное положение ═════════ */
+
+/* Дирак: зеркало e⁻ / e⁺ */
+.pa-dirac-pos { opacity: 1; }
+.pa-dirac-spark { opacity: .55; }
+
+/* Планк: лесенка порций */
+.pa-planck-q { opacity: 1; }
+
+/* Эйнштейн: волна выбивает электрон */
+.pa-einstein-eject { opacity: 1; }
+
+/* Бор: перескок электрона */
+.pa-bohr-e { opacity: 1; }
+.pa-bohr-ph { opacity: .6; }
+
+/* Нётер: симметрия ↔ сохранение */
+.pa-noether-pulse { opacity: 1; }
+
+/* де Бройль: частица ↔ волна ↔ кольцо */
+.pa-broglie-ball, .pa-broglie-wave, .pa-broglie-ring { opacity: 1; }
+
+/* Гейзенберг: неопределённость */
+.pa-heis-x, .pa-heis-p { transform-box: fill-box; transform-origin: center; }
+
+/* Шрёдингер: волновой пакет */
+.pa-schrod-wave { transform-box: fill-box; transform-origin: center; }
+
+/* Борн: вероятностные попадания */
+.pa-born-hit { opacity: .85; }
+
+/* Паули: запрет */
+.pa-pauli-out { opacity: 1; transform-box: fill-box; transform-origin: center; }
+
+/* фон Нейман: хаос → каркас */
+.pa-neu { transform-box: fill-box; transform-origin: center; }
+
+/* Фейнман: диаграмма */
+.pa-feyn-photon { stroke-dasharray: 4 5; }
+
+/* Белл: спутанность */
+.pa-bell-flash { opacity: .9; }
+
+/* Гелл-Ман: кварки слипаются в протон */
+.pa-gm-q { transform-box: fill-box; transform-origin: center; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pa-dirac-pos { animation: pa-k-dirac-pos 5.5s var(--ease) infinite; }
+  .pa-dirac-spark { animation: pa-k-dirac-spark 5.5s var(--ease) infinite; }
+
+  .pa-planck-q1 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: 0s; }
+  .pa-planck-q2 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: .3s; }
+  .pa-planck-q3 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: .6s; }
+  .pa-planck-q4 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: .9s; }
+
+  .pa-einstein-wave { animation: pa-k-einstein-wave 4.4s linear infinite; }
+  .pa-einstein-eject { animation: pa-k-einstein-eject 4.4s var(--ease) infinite; }
+
+  .pa-bohr-e { animation: pa-k-bohr-e 5s var(--ease) infinite; }
+  .pa-bohr-ph { animation: pa-k-bohr-ph 5s var(--ease) infinite; }
+
+  .pa-noether-hex { animation: pa-k-noether-rot 6s linear infinite; transform-box: fill-box; transform-origin: center; }
+  .pa-noether-pulse { animation: pa-k-noether-pulse 6s var(--ease) infinite; }
+
+  .pa-broglie-ball { animation: pa-k-broglie-ball 5.5s var(--ease) infinite; }
+  .pa-broglie-wave { animation: pa-k-broglie-wave 5.5s var(--ease) infinite; }
+  .pa-broglie-ring { animation: pa-k-broglie-ring 5.5s var(--ease) infinite; }
+
+  .pa-heis-x { animation: pa-k-heis-x 4.6s ease-in-out infinite; }
+  .pa-heis-p { animation: pa-k-heis-p 4.6s ease-in-out infinite; }
+
+  .pa-schrod-wave { animation: pa-k-schrod 5s ease-in-out infinite; }
+
+  .pa-born-h1 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 0s; }
+  .pa-born-h2 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 1s; }
+  .pa-born-h3 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 2s; }
+  .pa-born-h4 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 3s; }
+
+  .pa-pauli-out { animation: pa-k-pauli 4.6s var(--ease) infinite; }
+
+  .pa-neu1 { animation: pa-k-neu1 6.5s var(--ease) infinite; }
+  .pa-neu2 { animation: pa-k-neu2 6.5s var(--ease) infinite; }
+  .pa-neu3 { animation: pa-k-neu3 6.5s var(--ease) infinite; }
+  .pa-neu4 { animation: pa-k-neu4 6.5s var(--ease) infinite; }
+  .pa-neu5 { animation: pa-k-neu5 6.5s var(--ease) infinite; }
+  .pa-neu6 { animation: pa-k-neu6 6.5s var(--ease) infinite; }
+
+  .pa-feyn-photon { animation: pa-k-feyn-dash 1.6s linear infinite; }
+
+  .pa-bell-flash { animation: pa-k-bell-flash 4.5s ease-in-out infinite; }
+
+  .pa-gm-1 { animation: pa-k-gm-1 5.2s var(--ease) infinite; }
+  .pa-gm-2 { animation: pa-k-gm-2 5.2s var(--ease) infinite; }
+  .pa-gm-3 { animation: pa-k-gm-3 5.2s var(--ease) infinite; }
+}
+
+@keyframes pa-k-dirac-pos { 0%, 55% { opacity: 1; transform: scale(1); } 70% { opacity: .12; transform: scale(.5); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes pa-k-dirac-spark { 0%, 55% { opacity: .55; } 70% { opacity: 1; } 100% { opacity: .55; } }
+
+@keyframes pa-k-planck-q { 0%, 100% { opacity: 1; transform: scale(1); } 30% { opacity: .25; transform: scale(.4); } 55% { opacity: 1; transform: scale(1.3); } }
+
+@keyframes pa-k-einstein-wave { 0% { transform: translateX(-24px); } 45% { transform: translateX(0); } 100% { transform: translateX(-24px); } }
+@keyframes pa-k-einstein-eject { 0%, 45% { transform: translate(0, 0); opacity: 1; } 75% { transform: translate(18px, -16px); opacity: 1; } 100% { transform: translate(0, 0); opacity: 1; } }
+
+@keyframes pa-k-bohr-e { 0%, 40% { transform: translateX(0); } 55%, 85% { transform: translateX(-38px); } 100% { transform: translateX(0); } }
+@keyframes pa-k-bohr-ph { 0%, 50% { opacity: 0; } 58% { opacity: 1; } 78%, 100% { opacity: 0; } }
+
+@keyframes pa-k-noether-rot { to { transform: rotate(360deg); } }
+@keyframes pa-k-noether-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: .7; } }
+
+@keyframes pa-k-broglie-ball { 0%, 30% { opacity: 1; transform: translateX(0); } 45%, 100% { opacity: 0; transform: translateX(20px); } }
+@keyframes pa-k-broglie-wave { 0%, 30% { opacity: 0; } 45%, 70% { opacity: 1; } 85%, 100% { opacity: 0; } }
+@keyframes pa-k-broglie-ring { 0%, 65% { opacity: 0; transform: scale(.7); } 85%, 100% { opacity: 1; transform: scale(1); } }
+
+@keyframes pa-k-heis-x { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.35); } }
+@keyframes pa-k-heis-p { 0%, 100% { transform: scaleX(.35); } 50% { transform: scaleX(1); } }
+
+@keyframes pa-k-schrod { 0%, 100% { transform: scaleX(1) scaleY(1); opacity: 1; } 50% { transform: scaleX(1.5) scaleY(.6); opacity: .55; } }
+
+@keyframes pa-k-born-hit { 0%, 92%, 100% { opacity: .2; transform: scale(.6); } 96% { opacity: 1; transform: scale(1.6); } }
+
+@keyframes pa-k-pauli { 0%, 20% { transform: translate(0, 0); } 45% { transform: translate(-24px, -18px); } 70% { transform: translate(-6px, -4px); } 100% { transform: translate(0, 0); } }
+
+@keyframes pa-k-neu1 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(-14px, 8px); } }
+@keyframes pa-k-neu2 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(10px, -12px); } }
+@keyframes pa-k-neu3 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(-8px, -6px); } }
+@keyframes pa-k-neu4 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(12px, 10px); } }
+@keyframes pa-k-neu5 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(-10px, 6px); } }
+@keyframes pa-k-neu6 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(6px, -10px); } }
+
+@keyframes pa-k-feyn-dash { to { stroke-dashoffset: -18; } }
+
+@keyframes pa-k-bell-flash { 0%, 40%, 100% { opacity: .3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.4); } }
+
+@keyframes pa-k-gm-1 { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(-20px, -14px); } }
+@keyframes pa-k-gm-2 { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(20px, 16px); } }
+@keyframes pa-k-gm-3 { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(-18px, 16px); } }
+
+@media (max-width: 400px) {
+  .p-dirac { padding: 1rem; }
+  .people { gap: .8rem; }
+}
+
+
+.nav-links a.page-link {
+  border: 1px solid color-mix(in oklab, var(--c-ui) 45%, transparent);
+  background: rgba(95,227,255,.1);
+  color: var(--ink);
+  border-radius: 9px;
+  padding: .35em .8em;
+  font-family: var(--mono, inherit);
+}
+.nav-links a.page-link:hover,
+.nav-links a.page-link:focus-visible {
+  background: rgba(95,227,255,.2);
+}
+
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<nav class="nav" lang="ru" aria-label="Разделы">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><i></i><span>Люди кванта</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="#s-dirac">Дирак</a>
+      <a href="#s-people">Кто придумал</a>
+      <a href="#s-how">Как сложилось</a>
+      <a class="page-link" href="kvant.html">Конструктор материи →</a>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
+</nav>
+
+<header class="hero" id="top" lang="ru">
+  <div class="wrap">
+    <div class="hero-text">
+      <p class="kick reveal">Квантовая физика · её авторы</p>
+      <h1 class="reveal" style="--i:1">Люди <span class="grad">кванта</span></h1>
+      <p class="lead reveal" style="--i:2">Всё, что показано на&nbsp;первой странице этого сайта,&nbsp;— кварки, поля, силы&nbsp;— придумали не&nbsp;формулы сами по&nbsp;себе, а&nbsp;живые люди. За&nbsp;полвека, с&nbsp;начала 1900-х до&nbsp;середины 1960-х, несколько десятков учёных по&nbsp;кусочкам собрали теорию, которая работает точнее любой другой в&nbsp;истории науки.</p>
+      <p class="hint reveal" style="--i:3">Нажимайте на&nbsp;карточку&nbsp;— откроется рассказ</p>
+      <p class="hero-meta reveal" style="--i:4"><span><b>14</b> человек</span><span><b>1900–1964</b></span><span><b>11</b> из&nbsp;них&nbsp;— нобелевские лауреаты</span></p>
+    </div>
+  </div>
+</header>
+
+<main lang="ru">
+
+<!-- ═════════ 01 ДИРАК ═════════ -->
+<section class="scene" id="s-dirac">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">01</span> С чего начнём</p>
+      <h2>Один герой, чтобы задать тон</h2>
+      <p class="sub">Поль Дирак соединил квантовую механику со&nbsp;специальной теорией относительности&nbsp;— и&nbsp;его уравнение само, без&nbsp;чужой подсказки, потребовало существования антивещества.</p>
+    </div>
+    <div class="panel p-dirac reveal" id="p-dirac"></div>
+  </div>
+</section>
+
+<!-- ═════════ 02 ЛЮДИ ═════════ -->
+<section class="scene" id="s-people">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">02</span> Кто придумал квантовую физику</p>
+      <h2>Ещё 13&nbsp;имён</h2>
+      <p class="sub">Каждый добавил свой кусочек: кто-то — формулу, кто-то — эксперимент, кто-то — то, без чего вся конструкция не держалась бы вместе.</p>
+    </div>
+    <div class="people reveal" id="people"></div>
+  </div>
+</section>
+
+<!-- ═════════ 03 КАК СЛОЖИЛОСЬ ═════════ -->
+<section class="scene" id="s-how">
+  <div class="wrap">
+    <div class="scene-head reveal">
+      <p class="kick"><span class="idx">03</span> Как всё сложилось</p>
+      <h2>Полвека догадок, одна теория</h2>
+    </div>
+    <div class="p-how reveal">
+      <p>Началось с одной неудобной мелочи: горячее тело светится не так, как предсказывали формулы. Чтобы её объяснить, пришлось допустить, что энергия передаётся не непрерывно, а маленькими порциями. Дальше эта идея потянула за собой остальные — свет оказался ещё и частицами, частицы оказались ещё и волнами, а у самого точного описания природы обнаружились случайность и неопределённость там, где раньше ждали строгих законов.</p>
+      <p>Никто не проектировал квантовую физику целиком с самого начала. Одни решали конкретную экспериментальную загадку, другие наводили порядок в чужих формулах, третьи спорили о том, что вся эта математика вообще значит. Между первой догадкой и готовой, проверяемой теорией прошло около тридцати лет — и ещё столько же ушло на то, чтобы построить на её основе всё остальное: от строения ядра до предсказания новых частиц.</p>
+      <p>К середине XX века разрозненные догадки срослись в единый математический аппарат — квантовую теорию поля. Именно она отвечает на вопрос, из чего состоит вещество и как частицы взаимодействуют друг с другом: это и есть тот самый «конструктор материи», который показан на первой странице сайта — кварки, лептоны, бозоны и силы между ними.</p>
+      <p>Эта страница — не про формулы, а про людей, которые до них додумались: как они спорили, ошибались, переубеждали друг друга и в итоге сошлись на одной картине мира.</p>
+      <a class="btn reveal" href="kvant.html">Посмотреть, что получилось →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot" lang="ru">
+  <div class="wrap">
+    <p>Годы жизни, даты открытий и формулировки — по данным Нобелевского комитета и стандартных физических справочников. Портретов учёных здесь нет: у каждого — небольшая схема сути его идеи, а не изображение человека.</p>
+  </div>
+</footer>
+
+<template id="anim-dirac"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <line class="p-ln p-dash" x1="80" y1="10" x2="80" y2="90"/>
+  <circle class="p-dot" cx="34" cy="50" r="11"/>
+  <text class="p-txt" x="34" y="50">e⁻</text>
+  <circle class="p-dot pa-dirac-pos" cx="126" cy="50" r="11"/>
+  <text class="p-txt pa-dirac-pos" x="126" y="50">e⁺</text>
+  <path class="p-ln pa-dirac-spark" d="M60 50h40" style="stroke-dasharray:3 5"/>
+</svg></template>
+
+<template id="anim-planck"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln" d="M10 85 70 15"/>
+  <path class="p-ln" d="M90 85h15v-17h15v-17h15v-17h15"/>
+  <circle class="p-dot pa-planck-q pa-planck-q1" cx="97" cy="78" r="4"/>
+  <circle class="p-dot pa-planck-q pa-planck-q2" cx="112" cy="61" r="4"/>
+  <circle class="p-dot pa-planck-q pa-planck-q3" cx="127" cy="44" r="4"/>
+  <circle class="p-dot pa-planck-q pa-planck-q4" cx="142" cy="27" r="4"/>
+</svg></template>
+
+<template id="anim-einstein"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln pa-einstein-wave" d="M8 50q8-14 16 0t16 0t16 0t16 0"/>
+  <rect class="p-ln" x="108" y="18" width="8" height="64"/>
+  <circle class="p-dot pa-einstein-eject" cx="128" cy="50" r="8"/>
+  <text class="p-txt pa-einstein-eject" x="128" y="50">e⁻</text>
+</svg></template>
+
+<template id="anim-bohr"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-ln" cx="80" cy="50" r="38"/>
+  <circle class="p-ln" cx="80" cy="50" r="20"/>
+  <circle class="p-dot" cx="80" cy="50" r="6"/>
+  <circle class="p-dot pa-bohr-e" cx="118" cy="50" r="6"/>
+  <path class="p-ln pa-bohr-ph" d="M118 20q6-8 12 0t12 0"/>
+</svg></template>
+
+<template id="anim-noether"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <polygon class="p-ln pa-noether-hex" points="50,20 68,32 68,56 50,68 32,56 32,32"/>
+  <text class="p-txt" x="20" y="86" style="font-size:11px">симметрия</text>
+  <path class="p-ln p-dash" d="M78 50h24"/>
+  <circle class="p-dot pa-noether-pulse" cx="122" cy="50" r="9"/>
+  <text class="p-txt" x="128" y="82" style="font-size:11px">сохранение</text>
+</svg></template>
+
+<template id="anim-broglie"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-dot pa-broglie-ball" cx="26" cy="50" r="8"/>
+  <path class="p-ln pa-broglie-wave" d="M50 50q9-16 18 0t18 0t18 0"/>
+  <circle class="p-ln pa-broglie-ring" cx="128" cy="50" r="24" style="stroke-dasharray:6 5"/>
+</svg></template>
+
+<template id="anim-heisenberg"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <text class="p-txt" x="20" y="26" style="font-size:11px">x</text>
+  <rect class="p-dot pa-heis-x" x="60" y="20" width="40" height="12" rx="6"/>
+  <text class="p-txt" x="20" y="76" style="font-size:11px">p</text>
+  <rect class="p-dot pa-heis-p" x="60" y="70" width="40" height="12" rx="6"/>
+</svg></template>
+
+<template id="anim-schrodinger"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <rect class="p-ln" x="14" y="16" width="132" height="68" rx="8"/>
+  <path class="p-ln pa-schrod-wave" d="M30 50q10-22 20 0t20 0t20 0t20 0t20 0"/>
+</svg></template>
+
+<template id="anim-born"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <ellipse cx="80" cy="50" rx="62" ry="34" fill="color-mix(in oklab, var(--c) 20%, transparent)"/>
+  <circle class="p-dot pa-born-hit pa-born-h1" cx="50" cy="38" r="4"/>
+  <circle class="p-dot pa-born-hit pa-born-h2" cx="96" cy="60" r="4"/>
+  <circle class="p-dot pa-born-hit pa-born-h3" cx="120" cy="34" r="4"/>
+  <circle class="p-dot pa-born-hit pa-born-h4" cx="66" cy="66" r="4"/>
+</svg></template>
+
+<template id="anim-pauli"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln" d="M30 62h44"/>
+  <path class="p-ln" d="M86 34h44"/>
+  <circle class="p-dot" cx="42" cy="54" r="8"/>
+  <circle class="p-dot" cx="98" cy="26" r="8"/>
+  <circle class="p-dot pa-pauli-out" cx="130" cy="70" r="8"/>
+</svg></template>
+
+<template id="anim-neumann"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-dot pa-neu pa-neu1" cx="40" cy="30" r="5"/>
+  <circle class="p-dot pa-neu pa-neu2" cx="80" cy="30" r="5"/>
+  <circle class="p-dot pa-neu pa-neu3" cx="120" cy="30" r="5"/>
+  <circle class="p-dot pa-neu pa-neu4" cx="40" cy="66" r="5"/>
+  <circle class="p-dot pa-neu pa-neu5" cx="80" cy="66" r="5"/>
+  <circle class="p-dot pa-neu pa-neu6" cx="120" cy="66" r="5"/>
+  <path class="p-ln p-dash" d="M20 30h120M20 66h120"/>
+</svg></template>
+
+<template id="anim-feynman"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <path class="p-ln" d="M10 20 62 50"/>
+  <path class="p-ln" d="M10 80 62 50"/>
+  <path class="p-ln pa-feyn-photon" d="M62 50q12-10 24 0t24 0"/>
+  <path class="p-ln" d="M110 50 150 20"/>
+  <path class="p-ln" d="M110 50 150 80"/>
+</svg></template>
+
+<template id="anim-bell"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-dot" cx="80" cy="50" r="5"/>
+  <path class="p-ln p-dash" d="M80 50 30 30M80 50 130 30"/>
+  <rect class="p-ln" x="14" y="14" width="26" height="26" rx="4"/>
+  <rect class="p-ln" x="120" y="14" width="26" height="26" rx="4"/>
+  <circle class="p-dot pa-bell-flash" cx="27" cy="27" r="6"/>
+  <circle class="p-dot pa-bell-flash" cx="133" cy="27" r="6"/>
+</svg></template>
+
+<template id="anim-gellmann"><svg class="p-ic" viewBox="0 0 160 100" aria-hidden="true">
+  <circle class="p-ln" cx="80" cy="52" r="34" style="stroke-dasharray:4 5"/>
+  <polygon class="p-dot pa-gm-q pa-gm-1" points="80,20 92,26 92,38 80,44 68,38 68,26"/>
+  <polygon class="p-dot pa-gm-q pa-gm-2" points="105,62 117,68 117,80 105,86 93,80 93,68"/>
+  <polygon class="p-dot pa-gm-q pa-gm-3" points="55,62 67,68 67,80 55,86 43,80 43,68"/>
+</svg></template>
+<dialog class="pop" id="pop" lang="ru" aria-labelledby="pop-title">
+  <div class="pop-head">
+    <span class="pop-ic" id="pop-ic" aria-hidden="true"></span>
+    <div><p class="kick" id="pop-kick"></p><h3 id="pop-title" tabindex="-1"></h3></div>
+    <button type="button" class="x" id="pop-x" aria-label="Закрыть"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" fill="none"/></svg></button>
+  </div>
+  <div class="pop-body" id="pop-body"></div>
+  <div class="pop-nav">
+    <button type="button" class="btn" id="pop-prev" aria-label="Предыдущая карточка">←</button>
+    <span id="pop-count"></span>
+    <button type="button" class="btn" id="pop-next" aria-label="Следующая карточка">→</button>
+  </div>
+</dialog>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* неразрывные пробелы: короткие слова не повисают в конце строки */
+  function nb(s) {
+    var NB = String.fromCharCode(160);
+    var short = /(^|[\s(«>])([А-Яа-яёЁ]{1,2})\s+(?=[^\s<])/g;
+    return s.replace(short, '$1$2' + NB).replace(short, '$1$2' + NB)
+      .replace(/\s+—/g, NB + '—')
+      .replace(/(\d)\s+(?=\d{3}(?!\d)|МэВ|ГэВ|ТэВ|эВ|фм|км|лет|млрд|млн|%|[мс](?![а-яёА-ЯЁ]))/g, '$1' + NB);
+  }
+
+  var info = {};
+  function add(obj) {
+    for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k)) info[k] = obj[k];
+  }
+
+  /* ───── Всплывающая карточка ───── */
+  function initPop() {
+    var pop = $('#pop');
+    if (!pop) return;
+    var popBody = $('#pop-body'), popIc = $('#pop-ic');
+    var group = [], at = 0;
+
+    function fill(trigger, swap) {
+      var d = info[trigger.dataset.info];
+      if (!d) return;
+      var c = getComputedStyle(trigger).getPropertyValue('--c').trim();
+      pop.style.setProperty('--c', c || 'var(--c-weak)');
+      popIc.innerHTML = '';
+      if (d.icon) {
+        popIc.innerHTML = d.icon;
+      } else {
+        var art = trigger.querySelector('svg');
+        if (art && !trigger.classList.contains('force') && !trigger.closest('.compo')) {
+          var cl = art.cloneNode(true);
+          cl.removeAttribute('class');
+          if (trigger.querySelector('.gl')) cl.setAttribute('class', 'gl');
+          popIc.appendChild(cl);
+        }
+      }
+      $('#pop-kick').innerHTML = nb(d.k);
+      $('#pop-title').innerHTML = nb(d.t);
+      var h = d.p.map(function (x) { return '<p>' + nb(x) + '</p>'; }).join('');
+      if (d.f) h += '<dl class="pop-facts">' + d.f.map(function (x) { return '<dt>' + x[0] + '</dt><dd>' + nb(x[1]) + '</dd>'; }).join('') + '</dl>';
+      if (d.a) h += '<div class="pop-ana"><span class="tag">Аналогия</span><p>' + nb(d.a) + '</p>' + (d.l ? '<span class="tag">Где хромает</span><p class="limp">' + nb(d.l) + '</p>' : '') + '</div>';
+      popBody.innerHTML = h;
+      popBody.scrollTop = 0;
+      $('#pop-count').textContent = (at + 1) + ' / ' + group.length;
+      $('#pop-prev').disabled = $('#pop-next').disabled = group.length < 2;
+      if (swap && !calm) {
+        [popBody, $('.pop-head', pop)].forEach(function (el) { el.classList.remove('pop-swap'); void el.offsetWidth; el.classList.add('pop-swap'); });
+      }
+    }
+    function open(trigger) {
+      group = $$('[data-info][data-group="' + trigger.dataset.group + '"]');
+      at = Math.max(0, group.indexOf(trigger));
+      fill(trigger, false);
+      if (!pop.open) {
+        if (pop.showModal) pop.showModal(); else pop.setAttribute('open', '');
+      }
+    }
+    function step(n) {
+      if (group.length < 2) return;
+      at = (at + n + group.length) % group.length;
+      fill(group[at], true);
+    }
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('[data-info]') : null;
+      if (t && !pop.contains(t)) open(t);
+    });
+    var popX = $('#pop-x'), popPrev = $('#pop-prev'), popNext = $('#pop-next');
+    if (popX) popX.addEventListener('click', function () { pop.close(); });
+    if (popPrev) popPrev.addEventListener('click', function () { step(-1); });
+    if (popNext) popNext.addEventListener('click', function () { step(1); });
+    pop.addEventListener('click', function (e) { if (e.target === pop) pop.close(); });
+    pop.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
+    });
+  }
+
+  /* ───── Появление сцен ───── */
+  function initReveal() {
+    var reveals = $$('.reveal');
+    if (!reveals.length) return;
+    if ('IntersectionObserver' in window && !calm) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          en.target.classList.add('in');
+          en.target.dispatchEvent(new CustomEvent('kv:reveal'));
+          io.unobserve(en.target);
+        });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+      reveals.forEach(function (el) { io.observe(el); });
+      // страховка: если наблюдатель по какой-то причине молчит, показываем всё
+      setTimeout(function () { if (!$('.reveal.in')) reveals.forEach(function (el) { el.classList.add('in'); }); }, 2500);
+    } else {
+      reveals.forEach(function (el) { el.classList.add('in'); });
+    }
+  }
+
+  /* ───── Навигация: прогресс и активный раздел ───── */
+  function initNav() {
+    var bar = $('#progress'), navLinks = $('#nav-links');
+    if (!bar && !navLinks) return;
+    var links = navLinks ? $$('a[href^="#"]', navLinks) : [];
+    var targets = links.map(function (a) { return $(a.getAttribute('href')); });
+    var ticking = false;
+    function onScroll() {
+      ticking = false;
+      if (bar) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.setProperty('--p', (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + '%');
+      }
+      if (links.length) {
+        var line = window.innerHeight * 0.35, cur = -1;
+        targets.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) cur = i; });
+        links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+      }
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    onScroll();
+  }
+
+  /* ───── Звёздное небо ───── */
+  function initStars() {
+    var cv = $('#stars');
+    if (!cv) return;
+    var ctx = cv.getContext && cv.getContext('2d');
+    if (!ctx) return;
+    var W = 0, H = 0, stars = [], comet = null, last = 0, raf = 0;
+    var TINT = ['#ffffff', '#cfd6ff', '#b9a4ff', '#8fc4ff', '#ffb8ec'];
+    var resize = function () {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth; H = Math.min(window.innerHeight, 1400);
+      cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(260, W * H / 5200));
+      stars = [];
+      for (var i = 0; i < n; i++) {
+        stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.25 + .25, p: Math.random() * 6.28, s: Math.random() * .8 + .3, v: Math.random() * .05 + .01, c: TINT[i % TINT.length] });
+      }
+      draw(0);
+    };
+    var draw = function (t) {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < stars.length; i++) {
+        var st = stars[i];
+        ctx.globalAlpha = calm ? .7 : .35 + .65 * Math.abs(Math.sin(st.p + t * .001 * st.s));
+        ctx.fillStyle = st.c;
+        ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 6.2832); ctx.fill();
+        if (!calm) { st.y -= st.v; if (st.y < -2) { st.y = H + 2; st.x = Math.random() * W; } }
+      }
+      if (comet) {
+        comet.x += comet.dx; comet.y += comet.dy; comet.life -= 1;
+        var g = ctx.createLinearGradient(comet.x, comet.y, comet.x - comet.dx * 16, comet.y - comet.dy * 16);
+        g.addColorStop(0, 'rgba(255,255,255,.9)'); g.addColorStop(1, 'rgba(168,139,255,0)');
+        ctx.globalAlpha = Math.min(1, comet.life / 20); ctx.strokeStyle = g; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(comet.x, comet.y); ctx.lineTo(comet.x - comet.dx * 16, comet.y - comet.dy * 16); ctx.stroke();
+        if (comet.life <= 0) comet = null;
+      }
+      ctx.globalAlpha = 1;
+    };
+    var loop = function (t) {
+      raf = requestAnimationFrame(loop);
+      if (t - last < 33) return; // ~30 кадров в секунду достаточно
+      last = t;
+      if (!comet && Math.random() < .004) comet = { x: Math.random() * W * .8, y: Math.random() * H * .4, dx: 5 + Math.random() * 3, dy: 2 + Math.random() * 2, life: 60 };
+      draw(t);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    if (!calm) {
+      raf = requestAnimationFrame(loop);
+      document.addEventListener('visibilitychange', function () {
+        cancelAnimationFrame(raf);
+        if (!document.hidden) raf = requestAnimationFrame(loop);
+      });
+    }
+  }
+
+  function init() {
+    initPop();
+    initReveal();
+    initNav();
+    initStars();
+  }
+
+  window.KV = { nb: nb, info: info, add: add, init: init };
+})();
+
+
+/* Учёные квантовой физики. Порядок в массиве = порядок на странице. */
+var PEOPLE = [
+  {
+    id: 'dirac',
+    name: 'Поль Дирак',
+    years: '1902–1984',
+    where: 'Англия',
+    tag: 'физик-теоретик',
+    c: 'strong',
+    one: 'Вывел уравнение для электрона, из которого само собой выскочило антивещество.',
+    p: [
+      'В 1928 году Дирак хотел просто починить формулу для электрона: подружить квантовую механику с теорией относительности Эйнштейна. Формула получилась, но у неё оказалось вдвое больше решений, чем нужно — как будто у уравнения x² = 4 кроме ответа 2 появился ещё и −2, только для целой частицы.',
+      'Лишние решения описывали частицу с массой электрона, но с положительным зарядом. Дирак сначала сомневался, но не стал их отбрасывать — и предсказал позитрон, античастицу электрона. В 1932 году Карл Андерсон и правда нашёл его в космических лучах. Так антивещество перестало быть фантазией: у каждой частицы вещества есть двойник с обратным зарядом.',
+      'Уравнение Дирака заодно само, без всяких дополнительных предположений, объяснило спин электрона — то самое встроенное «вращение», которое раньше просто подгоняли к теории руками.'
+    ],
+    f: [
+      ['открытие', 'уравнение Дирака и предсказание позитрона'],
+      ['когда', '1928'],
+      ['подтвердилось', '1932, Карл Андерсон нашёл позитрон в космических лучах'],
+      ['Нобель', '1933, вместе со Шрёдингером']
+    ],
+    a: 'Как если бы вы решали уравнение про количество яблок и обнаружили, что оно допускает и «минус три яблока» — и это не ошибка, а подсказка про антияблоки.',
+    l: 'Позитрон не «отрицательное количество» электронов — это полноценная частица с положительным зарядом. Аналогия с числами хромает: в математике −3 просто число, а в физике это оказалась настоящая, ощутимая частица.'
+  },
+  {
+    id: 'planck',
+    name: 'Макс Планк',
+    years: '1858–1947',
+    where: 'Германия',
+    tag: 'физик-теоретик',
+    c: 'em',
+    one: 'Догадался, что энергия выдаётся не сплошным потоком, а порциями — квантами.',
+    p: [
+      'В 1900 году Планк решал скучную задачу: почему раскалённое тело светится именно так, а не иначе. Формулы, которые работали для одних цветов свечения, для других предсказывали бесконечную энергию — явную бессмыслицу. Планк подобрал формулу, которая работала везде, но чтобы она получилась, пришлось принять: тело излучает энергию не как угодно, а порциями фиксированного размера.',
+      'Сам Планк относился к этому как к математическому трюку, а не к описанию реальности. Только через пять лет Эйнштейн показал, что кванты — это не хитрость для формул, а свойство самого света. Так родилось слово «квант» и вся квантовая физика, которая теперь описывает всё: от атомов до транзисторов в вашем телефоне.',
+      'Число из формулы Планка — постоянная Планка — с тех пор встречается почти в каждом уравнении квантовой механики.'
+    ],
+    f: [
+      ['открытие', 'энергия излучается порциями — квантами'],
+      ['когда', '1900'],
+      ['Нобель', '1918'],
+      ['в быту', 'постоянная Планка задаёт масштаб, на котором становятся заметны квантовые эффекты']
+    ],
+    a: 'Обычно мы думаем, что воду из крана можно налить сколько угодно — хоть каплю. А тут выяснилось, что кран отмеряет только целыми стаканами, и меньше стакана не нальёт.',
+    l: 'Стакан воды можно разлить на капли — а квант энергии дальше не делится. Это не порция из большего объёма, а наименьшая возможная порция вообще.'
+  },
+  {
+    id: 'einstein',
+    name: 'Альберт Эйнштейн',
+    years: '1879–1955',
+    where: 'Германия',
+    tag: 'физик-теоретик',
+    c: 'strong',
+    one: 'Показал, что свет — это тоже частицы, фотоны, а не только волна.',
+    p: [
+      'В 1905 году был известен фотоэффект: свет, падая на металл, выбивает из него электроны. Странность была в том, что яркость света на энергию выбитых электронов не влияла — влиял только цвет, то есть частота. Волновая теория света такого объяснить не могла: у волны чем больше энергии, тем она ярче, и точка.',
+      'Эйнштейн предположил, что свет сам состоит из порций — квантов, которые позже назвали фотонами. Каждый фотон отдаёт электрону всю свою энергию сразу, а она зависит от цвета света. Идея подтвердилась экспериментально, легла в основу солнечных батарей и цифровых камер, и именно за неё — а не за теорию относительности — Эйнштейн получил Нобелевскую премию.',
+      'Позже, когда квантовая механика заговорила о вероятностях вместо точных предсказаний, Эйнштейн эту часть теории так и не принял. Его фраза «Бог не играет в кости» — про это. Иронично, что фотон, за который его наградили, был одним из первых кирпичей той самой вероятностной теории.'
+    ],
+    f: [
+      ['открытие', 'свет состоит из квантов — фотонов, объяснение фотоэффекта'],
+      ['когда', '1905'],
+      ['Нобель', '1921, «за объяснение фотоэффекта»'],
+      ['в быту', 'на этом принципе устроены солнечные панели и матрицы фотоаппаратов']
+    ],
+    a: 'Свет — не непрерывная струя воды, а поток дробинок. Каждая дробинка бьёт с одной и той же силой, зависящей от её «сорта», а не от того, сколько их летит сразу.',
+    l: 'Фотон при этом всё равно ведёт себя и как волна — интерферирует, огибает препятствия. Дробинка на это не способна: это упрощение, а не полная картина.'
+  },
+  {
+    id: 'bohr',
+    name: 'Нильс Бор',
+    years: '1885–1962',
+    where: 'Дания',
+    tag: 'физик-теоретик',
+    c: 'higgs',
+    one: 'Предложил, что электроны в атоме сидят на определённых «этажах» энергии.',
+    p: [
+      'К 1913 году была загадка: по обычным законам физики электрон, кружащий вокруг ядра, должен непрерывно излучать энергию и за доли секунды упасть на ядро. Но атомы почему-то стабильны, а вещество не схлопывается. Бор предположил: электрону разрешены не любые орбиты, а только избранные, с определённым уровнем энергии — и, находясь на одной из них, он ничего не излучает.',
+      'Свет атом испускает, только когда электрон перескакивает с одного уровня на другой — и тогда разница энергий улетает в виде одного фотона. Модель Бора точно предсказала цвета света, которые излучает водород, — то, что до этого было просто набором загадочных линий в спектре. Так атом стабилизировался, а идея «уровней энергии» стала основой для лазеров, светодиодов и всей атомной физики.',
+      'Позже Бор возглавил институт в Копенгагене, куда съезжались молодые физики со всего мира — Гейзенберг и Паули работали именно у него. Оттуда пошло название «копенгагенская интерпретация» квантовой механики.'
+    ],
+    f: [
+      ['открытие', 'модель атома с уровнями энергии'],
+      ['когда', '1913'],
+      ['Нобель', '1922'],
+      ['в быту', 'на перескоках электронов между уровнями работают неоновые лампы и лазеры']
+    ],
+    a: 'Атом — как лестница, а не пандус. Электрон может стоять только на ступеньках, а не между ними, и перепрыгивает с одной на другую целиком, без промежуточных положений.',
+    l: 'Модель Бора рисует чёткие круговые орбиты, как у планет. На деле электрон не летит по линии — это было упрощение, которое через полтора десятка лет заменили размытым облаком вероятности.'
+  },
+  {
+    id: 'noether',
+    name: 'Эмми Нётер',
+    years: '1882–1935',
+    where: 'Германия',
+    tag: 'математик',
+    c: 'ui',
+    one: 'Доказала: у каждой симметрии природы есть свой закон сохранения.',
+    p: [
+      'В физике давно знали, что энергия, импульс и момент импульса никуда не деваются — просто переходят из одной формы в другую. Но почему именно эти величины сохраняются, а не какие-то другие, никто толком не объяснял. В 1918 году Нётер доказала общую теорему: если законы природы не меняются при каком-то сдвиге или повороте, то этому сдвигу обязательно отвечает своя сохраняющаяся величина.',
+      'Если законы физики одинаковы вчера и сегодня — сохраняется энергия. Если они одинаковы здесь и там — сохраняется импульс. Если одинаковы во всех направлениях — сохраняется момент импульса. Это не совпадение, а математическая необходимость. Теорема Нётер стала одним из главных инструментов физики XX века: именно через симметрии физики ищут новые законы сохранения и в квантовой механике, и в физике частиц.',
+      'Нётер была одной из немногих женщин-математиков своего времени и долгие годы преподавала бесплатно, потому что университет не хотел платить женщине профессорскую зарплату. После её смерти в 1935 году Эйнштейн написал в некрологе для New York Times, что, по мнению самых компетентных живущих математиков, Нётер была самым значительным творческим математическим гением из всех, кого дало высшее образование женщин.'
+    ],
+    f: [
+      ['открытие', 'теорема Нётер: симметрия → закон сохранения'],
+      ['когда', '1918'],
+      ['пример', 'неизменность во времени → сохранение энергии'],
+      ['в быту', 'на этой идее держится вывод почти всех законов сохранения в физике']
+    ],
+    a: 'Если правила игры не зависят от того, за каким столом вы играете — лево-право не важно, — то и счёт очков в такой игре не должен зависеть от стола. Симметрия правил гарантирует, что что-то останется неизменным.',
+  },
+  {
+    id: 'broglie',
+    name: 'Луи де Бройль',
+    years: '1892–1987',
+    where: 'Франция',
+    tag: 'физик-теоретик',
+    c: 'weak',
+    one: 'Предположил, что любая частица — это ещё и волна, а не только шарик.',
+    p: [
+      'К 1924 году уже знали, что свет — и волна, и поток частиц-фотонов одновременно. Де Бройль в докторской диссертации задал смелый встречный вопрос: а если и наоборот — если частицы вещества, например электроны, тоже ведут себя как волны? Он вывел формулу, связывающую длину такой волны с массой и скоростью частицы.',
+      'Идею приняли не сразу — она звучала как чистая спекуляция без доказательств. Но уже в 1927 году эксперимент показал: пучок электронов, проходя сквозь кристалл, даёт волновую картину, как свет через щели. Волновые свойства электронов легли в основу электронного микроскопа, который видит вещи в тысячи раз мельче, чем обычный световой.',
+      'Формула де Бройля работает для любого тела — и для футбольного мяча тоже. Просто длина волны мяча настолько ничтожна, что её невозможно заметить: волновая природа заметна только у очень лёгких частиц.'
+    ],
+    f: [
+      ['открытие', 'волны материи: любая частица имеет длину волны'],
+      ['когда', '1924'],
+      ['подтвердилось', '1927, дифракция электронов на кристалле'],
+      ['Нобель', '1929'],
+      ['в быту', 'на этом принципе устроен электронный микроскоп']
+    ],
+    a: 'Как если бы выяснилось, что не только вода на пруду умеет расходиться кругами, но и брошенный камень — в каком-то смысле тоже волна, просто у него эта волна такая коротенькая, что её никогда не увидеть.',
+    l: 'У футбольного мяча волновые свойства математически существуют, но настолько неизмеримо малы, что аналогия с прудом работает только для очень лёгких частиц вроде электрона.'
+  },
+  {
+    id: 'heisenberg',
+    name: 'Вернер Гейзенберг',
+    years: '1901–1976',
+    where: 'Германия',
+    tag: 'физик-теоретик',
+    c: 'em',
+    one: 'Доказал: нельзя одновременно точно знать и положение, и скорость частицы.',
+    p: [
+      'В 1925 году Гейзенберг предложил первую полную версию квантовой механики — матричную механику, где физические величины описывались таблицами чисел, а не привычными орбитами. Это была странная, абстрактная математика, но она правильно предсказывала спектры атомов, и физики её приняли.',
+      'В 1927 году он сделал ещё более неожиданный вывод — принцип неопределённости: чем точнее вы знаете, где находится частица, тем меньше можете знать о том, как быстро она движется, и наоборот. Это не недостаток приборов, а свойство самой природы: у частицы просто не существует одновременно точного положения и точной скорости. Принцип неопределённости — одна из причин, почему электрон в атоме не падает на ядро: точное положение на ядре потребовало бы бесконечной неопределённости скорости.',
+      'Гейзенберг руководил немецкой ядерной программой во время Второй мировой войны, и споры о том, насколько он старался — или не старался — довести дело до создания бомбы, идут до сих пор.'
+    ],
+    f: [
+      ['открытие', 'матричная механика и принцип неопределённости'],
+      ['когда', '1925 и 1927'],
+      ['Нобель', '1932, «за создание квантовой механики»'],
+      ['в быту', 'неопределённость координаты и скорости — не про приборы, а про природу частиц']
+    ],
+    a: 'Сфотографировать бегущего человека резко — значит поймать момент, но потерять ощущение скорости. Смазать кадр по движению — увидите скорость, но не точное положение. С частицей то же самое, только это не свойство камеры, а свойство самого бегуна.',
+    l: 'С человеком дело в качестве камеры: в принципе можно снять и резко, и с точной скоростью. У частицы нельзя даже теоретически — предел не в приборе, а в самой природе.'
+  },
+  {
+    id: 'schrodinger',
+    name: 'Эрвин Шрёдингер',
+    years: '1887–1961',
+    where: 'Австрия',
+    tag: 'физик-теоретик',
+    c: 'grav',
+    one: 'Написал уравнение, которое описывает частицу как волну вероятности.',
+    p: [
+      'В 1926 году Шрёдингер придумал уравнение, которое описывает не траекторию частицы, а её волновую функцию — что-то вроде волны, размазанной в пространстве. Уравнение оказалось невероятно точным: с его помощью можно рассчитать спектр атома водорода, устройство молекул и поведение полупроводников. Сегодня это рабочий инструмент физики и химии, без него не спроектировать ни один компьютерный чип.',
+      'Но что именно означает эта волна, было неясно. Через год Макс Борн предложил: она задаёт вероятность найти частицу в том или ином месте. Шрёдингеру эта трактовка не понравилась — ему казалось абсурдным, что фундаментальная физика говорит на языке вероятностей, а не точных предсказаний.',
+      'Чтобы показать нелепость такого взгляда, в 1935 году Шрёдингер придумал мысленный опыт: кот в закрытом ящике, рядом — распадающийся атом, который может (с 50% шансом) включить механизм с ядом. Пока ящик закрыт, формально кот «одновременно жив и мёртв». Шрёдингер хотел этим высмеять теорию, довести её до абсурда — а не проиллюстрировать, как она красиво работает. Именно так к его коту и относился он сам.'
+    ],
+    f: [
+      ['открытие', 'волновое уравнение квантовой механики'],
+      ['когда', '1926'],
+      ['Нобель', '1933, вместе с Дираком'],
+      ['известен', 'мысленный опыт с котом, 1935 — насмешка над теорией, а не её похвала']
+    ],
+    a: 'Уравнение Шрёдингера — как формула, которая предсказывает не куда именно упадёт капля дождя, а то, в каких местах земля вероятнее всего намокнет.',
+  },
+  {
+    id: 'born',
+    name: 'Макс Борн',
+    years: '1882–1970',
+    where: 'Германия',
+    tag: 'физик-теоретик',
+    c: 'weak',
+    one: 'Понял, что волна Шрёдингера — это вероятность найти частицу в точке.',
+    p: [
+      'Уравнение Шрёдингера прекрасно считало, но что означала сама волновая функция — было неясно. В 1926 году Борн предложил ответ: квадрат величины волны в данной точке — это вероятность обнаружить там частицу, если её измерить. Это была не поправка к формуле, а совершенно новый взгляд на то, что вообще значит «где находится частица».',
+      'Получилось, что частица до измерения не сидит в конкретной точке — она размазана по вероятностям, и только само измерение «заставляет» её проявиться где-то одном месте. Эта идея, вместе с принципом неопределённости Гейзенберга, легла в основу так называемой копенгагенской интерпретации — того, как большинство физиков понимает квантовую механику до сих пор. Нобелевскую премию за это Борн получил только в 1954 году — почти через тридцать лет.',
+      'Задержка была не случайной: многие физики, включая Эйнштейна и самого Шрёдингера, десятилетиями сомневались, что вероятность может быть последним словом физики, а не временной заплаткой.'
+    ],
+    f: [
+      ['открытие', 'вероятностная интерпретация волновой функции'],
+      ['когда', '1926'],
+      ['Нобель', '1954, «за фундаментальные исследования по квантовой механике»'],
+      ['в быту', 'отсюда идея, что частица не находится нигде конкретно, пока её не измерили']
+    ],
+    a: 'Как прогноз погоды: «70% шансов дождя» не значит, что дождь идёт понемногу везде. Это значит, что до самого момента результат не определён — а как только день наступил, дождь либо есть, либо нет.',
+    l: 'В прогнозе погоды дождь на самом деле уже предопределён физикой атмосферы, просто мы не знаем деталей. В квантовой механике, по общепринятому взгляду, результат не предопределён вообще никак — это честная случайность, а не наше незнание.'
+  },
+  {
+    id: 'pauli',
+    name: 'Вольфганг Паули',
+    years: '1900–1958',
+    where: 'Австрия',
+    tag: 'физик-теоретик',
+    c: 'strong',
+    one: 'Понял, почему электроны не садятся все на одно место, и предсказал нейтрино.',
+    p: [
+      'В 1925 году Паули сформулировал принцип запрета: два одинаковых электрона не могут находиться в одном и том же квантовом состоянии в одном атоме. Именно из-за этого электроны в атоме рассаживаются по разным «этажам» энергии, а не падают все скопом на самый нижний. Это правило — прямая причина того, почему у химических элементов такое разнообразие свойств, и почему вообще существует таблица Менделеева в таком виде.',
+      'Принцип запрета работает не только в атоме: именно из-за него вещество вообще твёрдое и не проваливается само в себя, когда вы кладёте руку на стол. Электроны в столе и в руке не могут занять одни и те же состояния — и потому отталкиваются.',
+      'В 1930 году Паули предсказал ещё одну частицу — почти неуловимую, без заряда, которую позже назвали нейтрино: она должна была уносить недостающую энергию при радиоактивном распаде. Сам он тогда написал в письме коллегам, что предложил «ужасную вещь», которую, возможно, никогда не удастся обнаружить экспериментально. Нейтрино поймали только в 1956 году — через 26 лет.'
+    ],
+    f: [
+      ['открытие', 'принцип запрета Паули; предсказание нейтрино'],
+      ['когда', '1925 и 1930'],
+      ['Нобель', '1945, за принцип запрета'],
+      ['подтвердилось', 'нейтрино поймали в 1956, Коуэн и Райнес'],
+      ['в быту', 'из-за принципа Паули стол твёрдый и не проваливается сквозь вашу руку']
+    ],
+    a: 'Кинозал, где на каждое кресло продано не больше одного билета: два зрителя не могут сесть друг другу на колени, только рядом.',
+  },
+  {
+    id: 'neumann',
+    name: 'Джон фон Нейман',
+    years: '1903–1957',
+    where: 'Венгрия',
+    tag: 'математик',
+    c: 'ui',
+    one: 'Собрал разрозненные формулы квантовой механики в одну строгую теорию.',
+    p: [
+      'К концу 1920-х годов существовало две версии квантовой механики — матричная механика Гейзенберга и волновое уравнение Шрёдингера. Физики знали, что они дают одинаковые ответы, но не могли объяснить, почему две настолько разные на вид математики описывают одно и то же.',
+      'В 1932 году фон Нейман опубликовал книгу «Математические основы квантовой механики», где показал: обе версии — это два разных языка описания одного и того же объекта, гильбертова пространства. Он же впервые чётко сформулировал, что такое измерение в квантовой механике на строгом математическом языке. Эта книга на десятилетия стала стандартом, по которому физики и математики учились понимать квантовую теорию.',
+      'Фон Нейман вообще редко занимался одной темой подолгу: после квантовой механики он успел заложить основы теории игр, поучаствовать в Манхэттенском проекте и придумать архитектуру, по которой устроен почти любой современный компьютер.'
+    ],
+    f: [
+      ['открытие', 'строгий математический фундамент квантовой механики'],
+      ['когда', '1932, книга «Математические основы квантовой механики»'],
+      ['показал', 'механика Гейзенберга и уравнение Шрёдингера — один и тот же объект'],
+      ['в быту', 'та же логика построения компьютеров лежит в основе почти всей вычислительной техники']
+    ],
+    a: 'Как если два человека описывали один и тот же город — один улицами и домами, другой координатами на карте — а потом кто-то доказал, что это буквально одна и та же карта, просто нарисованная по-разному.',
+  },
+  {
+    id: 'feynman',
+    name: 'Ричард Фейнман',
+    years: '1918–1988',
+    where: 'США',
+    tag: 'физик-теоретик',
+    c: 'em',
+    one: 'Придумал рисовать взаимодействия частиц простыми диаграммами.',
+    p: [
+      'Расчёты в квантовой электродинамике — теории о том, как свет и заряженные частицы обмениваются фотонами, — превращались в чудовищно громоздкие формулы. В конце 1940-х Фейнман придумал способ рисовать эти процессы схематично: линии частиц, точки их встреч. Такая картинка — диаграмма Фейнмана — это одновременно и наглядная схема, и точный рецепт, как посчитать вероятность события.',
+      'За эту работу над квантовой электродинамикой Фейнман получил Нобелевскую премию в 1965 году вместе с Синъитиро Томонагой и Джулианом Швингером, которые пришли к тем же результатам другим, куда более громоздким математическим путём. Диаграммы Фейнмана с тех пор — стандартный язык физики частиц: на них можно увидеть, как рождается пара электрон-позитрон, как кварки обмениваются глюонами, и как рассчитывают почти любой процесс в Стандартной модели.',
+      'Фейнман описывал квантовую механику ещё и через идею «суммы по всем путям»: чтобы посчитать, куда попадёт частица, нужно, грубо говоря, сложить вклады от вообще всех мыслимых траекторий, которыми она могла бы туда добраться — а не только от одной, самой очевидной.'
+    ],
+    f: [
+      ['открытие', 'диаграммы Фейнмана и переформулировка квантовой электродинамики'],
+      ['когда', 'конец 1940-х'],
+      ['Нобель', '1965, вместе с Томонагой и Швингером'],
+      ['в быту', 'диаграммы Фейнмана — рабочий инструмент любого современного расчёта в физике частиц']
+    ],
+    a: 'Диаграмма Фейнмана — как схема метро для физического процесса: не фотография настоящих путей частиц, а условная карта, по которой, тем не менее, можно точно посчитать «время в пути».',
+    l: 'В схеме метро линии — это реальные тоннели. В диаграмме Фейнмана линии — не траектории в пространстве, а условное обозначение частиц во времени; рисовать их как реальный путь буквально не стоит.'
+  },
+  {
+    id: 'bell',
+    name: 'Джон Белл',
+    years: '1928–1990',
+    where: 'Северная Ирландия',
+    tag: 'физик-теоретик',
+    c: 'higgs',
+    one: 'Придумал, как экспериментально проверить, есть ли у частиц «скрытые» свойства.',
+    p: [
+      'Эйнштейн считал, что у квантовой механики должны быть «скрытые параметры» — некая недостающая информация, которая на самом деле определяет поведение частиц, просто мы её не видим. Долгое время это звучало как чисто философский спор, который невозможно проверить на опыте. В 1964 году Белл нашёл способ превратить его в конкретное измеримое число: он вывел неравенство, которому подчиняются любые теории со скрытыми параметрами.',
+      'Смысл в том, что если измерять свойства двух запутанных частиц — частиц, которые когда-то провзаимодействовали и с тех пор остаются странно связаны, — то обычная, «локальная» физика предсказывает одни числа, а квантовая механика — другие, большие. Это и есть неравенства Белла: их нарушение означает, что скрытых параметров в привычном смысле нет, а связь между частицами не объяснить простой заранее заданной программой.',
+      'Сам Белл умер в 1990 году, так и не увидев главного признания: в 2022 году Нобелевскую премию дали Алену Аспе, Джону Клаузеру и Антону Цайлингеру — за эксперименты, которые как раз проверили неравенства Белла и подтвердили, что нарушаются они именно так, как предсказывает квантовая механика. Нобелевские премии посмертно не присуждают, поэтому сам автор идеи премии не получил.'
+    ],
+    f: [
+      ['открытие', 'неравенства Белла — проверка квантовой запутанности на опыте'],
+      ['когда', '1964'],
+      ['подтвердилось', 'экспериментально начиная с 1970-х, окончательно — опытами 1980–2010-х'],
+      ['Нобель', '2022, за опыты — Аспе, Клаузеру и Цайлингеру; сам Белл умер в 1990 году']
+    ],
+    a: 'Как если бы двое друзей всегда одинаково выбирали орла или решку, даже подбрасывая монеты в разных городах. Можно подумать, что они заранее сговорились. Неравенства Белла — это способ проверить: сговор объясняет результат или нет.',
+    l: 'В примере с монетами сговор — это заранее переданная информация. У запутанных частиц опыты показывают, что заранее записанной «инструкции» быть не может: связь возникает не из-за скрытого сговора, а из самой природы квантовой запутанности.'
+  },
+  {
+    id: 'gellmann',
+    name: 'Марри Гелл-Ман',
+    years: '1929–2019',
+    where: 'США',
+    tag: 'физик-теоретик',
+    c: 'strong',
+    one: 'Предположил, что протоны и нейтроны сделаны из ещё более мелких кварков.',
+    p: [
+      'К началу 1960-х физики открывали десятки новых частиц-адронов, и в этом зоопарке не было никакого порядка. Гелл-Ман — вместе с Юваль Нееманом — разложил их по симметричным группам, назвав схему «восьмеричным путём», и она точно предсказала существование ещё не найденных частиц.',
+      'В 1964 году Гелл-Ман (и независимо от него Джордж Цвейг) пошёл дальше и предположил: сами адроны — протон, нейтрон и все остальные — это не элементарные частицы, а составные, слепленные из ещё более мелких деталей. Он назвал их «кварками», позаимствовав слово из романа Джеймса Джойса. У кварков получились дробные электрические заряды — вещь, которую физика раньше просто не допускала.',
+      'Именно эти кварки — u и d — и есть те самые детали, из которых состоят протон и нейтрон в любом атоме, включая атомы вашего собственного тела: та же самая конструкция, что и на первой странице этого сайта. Экспериментально кварки внутри протона «нащупали» лишь в 1968 году в SLAC, а Нобелевскую премию Гелл-Ман получил в 1969 году — уже за общую классификацию частиц.'
+    ],
+    f: [
+      ['открытие', 'гипотеза кварков — составных частей протонов и нейтронов'],
+      ['когда', '1964'],
+      ['подтвердилось', '1968, эксперименты в SLAC нащупали кварки внутри протона'],
+      ['Нобель', '1969, «за классификацию элементарных частиц и их взаимодействий»'],
+      ['в быту', 'именно эти кварки u и d — детали каждого протона и нейтрона в мире']
+    ],
+    a: 'Как если бы считали атом неделимым «кирпичиком» вещества, а потом выяснили, что кирпичик сам сложен из более мелких блоков — только для протона такими блоками оказались кварки.',
+  }
+];
+
+
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var nb = (window.KV && KV.nb) ? KV.nb : function (s) { return s; };
+  var PEOPLE = (typeof window.PEOPLE !== 'undefined' && window.PEOPLE) ? window.PEOPLE : [];
+  var haveKV = !!(window.KV && typeof KV.add === 'function');
+
+  function animHTML(id) {
+    var tpl = document.getElementById('anim-' + id);
+    return tpl ? tpl.innerHTML : '';
+  }
+
+  if (haveKV && PEOPLE.length) {
+  /* ───── реестр всплывающих карточек ───── */
+  var reg = {};
+  PEOPLE.forEach(function (p) {
+    reg[p.id] = {
+      k: nb(p.tag + ' · ' + p.where + ' · ' + p.years),
+      t: nb(p.name),
+      p: p.p,
+      f: p.f,
+      a: p.a,
+      l: p.l,
+      icon: animHTML(p.id)
+    };
+  });
+  KV.add(reg);
+
+  /* ───── блок Дирака ───── */
+  var dirac = PEOPLE[0];
+  var others = PEOPLE.slice(1);
+
+  var dEl = $('#p-dirac');
+  if (dEl && dirac) {
+    dEl.classList.add('c-' + dirac.c);
+    var art = document.createElement('div');
+    art.className = 'p-anim-box p-dirac-art';
+    art.innerHTML = animHTML(dirac.id);
+
+    var txt = document.createElement('div');
+    txt.className = 'p-dirac-txt';
+
+    var tag = document.createElement('p');
+    tag.className = 'p-tag';
+    tag.textContent = nb(dirac.tag + ' · ' + dirac.where);
+    txt.appendChild(tag);
+
+    var h3 = document.createElement('h3');
+    h3.textContent = dirac.name;
+    txt.appendChild(h3);
+
+    var years = document.createElement('p');
+    years.className = 'p-years';
+    years.textContent = dirac.years;
+    txt.appendChild(years);
+
+    var one = document.createElement('p');
+    one.className = 'p-one';
+    one.innerHTML = nb(dirac.one || '');
+    txt.appendChild(one);
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'nd btn-more c-' + dirac.c;
+    btn.dataset.info = dirac.id;
+    btn.dataset.group = 'people';
+    btn.textContent = 'Подробнее';
+    txt.appendChild(btn);
+
+    dEl.appendChild(art);
+    dEl.appendChild(txt);
+  }
+
+  /* ───── сетка остальных 13 ───── */
+  var grid = $('#people');
+  if (grid) {
+    others.forEach(function (p) {
+      var card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'nd p-card c-' + p.c;
+      card.dataset.info = p.id;
+      card.dataset.group = 'people';
+
+      var art = document.createElement('div');
+      art.className = 'p-anim-box';
+      art.innerHTML = animHTML(p.id);
+      card.appendChild(art);
+
+      var name = document.createElement('span');
+      name.className = 'p-name';
+      name.textContent = p.name;
+      card.appendChild(name);
+
+      var years = document.createElement('span');
+      years.className = 'p-years';
+      years.textContent = (p.tag ? p.tag + ' · ' : '') + p.years;
+      card.appendChild(years);
+
+      var one = document.createElement('span');
+      one.className = 'p-one';
+      one.innerHTML = nb(p.one || '');
+      card.appendChild(one);
+
+      grid.appendChild(card);
+    });
+  }
+  }
+
+  if (haveKV && typeof KV.init === 'function') { KV.init(); }
+})();
+</script>
+</body>
+</html>

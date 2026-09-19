@@ -2,22 +2,15 @@
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nb = KV.nb;
 
-  /* неразрывные пробелы: короткие слова не повисают в конце строки */
-  function nb(s) {
-    var NB = String.fromCharCode(160);
-    var short = /(^|[\s(«>])([А-Яа-яёЁ]{1,2})\s+(?=[^\s<])/g;
-    return s.replace(short, '$1$2' + NB).replace(short, '$1$2' + NB)
-      .replace(/\s+—/g, NB + '—')
-      .replace(/(\d)\s+(?=\d{3}(?!\d)|МэВ|ГэВ|ТэВ|эВ|фм|км|лет|млрд|млн|%|[мс](?![а-яёА-ЯЁ]))/g, '$1' + NB);
-  }
+  KV.add(INFO);
 
   /* ───── Словарик: чипы из данных ───── */
   var gl = $('#gloss');
   GLOSS.forEach(function (g, i) {
     var id = 'gl-' + i;
-    INFO[id] = { k: 'словарик', t: g[0], p: [g[1]] };
+    KV.info[id] = { k: 'словарик', t: g[0], p: [g[1]] };
     var b = document.createElement('button');
     b.type = 'button';
     b.className = 'nd g-chip c-em';
@@ -25,62 +18,6 @@
     b.dataset.group = 'gloss';
     b.textContent = g[0];
     gl.appendChild(b);
-  });
-
-  /* ───── Всплывающая карточка ───── */
-  var pop = $('#pop'), popBody = $('#pop-body'), popIc = $('#pop-ic');
-  var group = [], at = 0;
-
-  function fill(trigger, swap) {
-    var d = INFO[trigger.dataset.info];
-    if (!d) return;
-    var c = getComputedStyle(trigger).getPropertyValue('--c').trim();
-    pop.style.setProperty('--c', c || 'var(--c-weak)');
-    popIc.innerHTML = '';
-    var art = trigger.querySelector('svg');
-    if (art && !trigger.classList.contains('force') && !trigger.closest('.compo')) {
-      var cl = art.cloneNode(true);
-      cl.removeAttribute('class');
-      if (trigger.querySelector('.gl')) cl.setAttribute('class', 'gl');
-      popIc.appendChild(cl);
-    }
-    $('#pop-kick').innerHTML = nb(d.k);
-    $('#pop-title').innerHTML = nb(d.t);
-    var h = d.p.map(function (x) { return '<p>' + nb(x) + '</p>'; }).join('');
-    if (d.f) h += '<dl class="pop-facts">' + d.f.map(function (x) { return '<dt>' + x[0] + '</dt><dd>' + nb(x[1]) + '</dd>'; }).join('') + '</dl>';
-    if (d.a) h += '<div class="pop-ana"><span class="tag">Аналогия</span><p>' + nb(d.a) + '</p>' + (d.l ? '<span class="tag">Где хромает</span><p class="limp">' + nb(d.l) + '</p>' : '') + '</div>';
-    popBody.innerHTML = h;
-    popBody.scrollTop = 0;
-    $('#pop-count').textContent = (at + 1) + ' / ' + group.length;
-    $('#pop-prev').disabled = $('#pop-next').disabled = group.length < 2;
-    if (swap && !calm) {
-      [popBody, $('.pop-head', pop)].forEach(function (el) { el.classList.remove('pop-swap'); void el.offsetWidth; el.classList.add('pop-swap'); });
-    }
-  }
-  function open(trigger) {
-    group = $$('[data-info][data-group="' + trigger.dataset.group + '"]');
-    at = Math.max(0, group.indexOf(trigger));
-    fill(trigger, false);
-    if (!pop.open) {
-      if (pop.showModal) pop.showModal(); else pop.setAttribute('open', '');
-    }
-  }
-  function step(n) {
-    if (group.length < 2) return;
-    at = (at + n + group.length) % group.length;
-    fill(group[at], true);
-  }
-  document.addEventListener('click', function (e) {
-    var t = e.target.closest ? e.target.closest('[data-info]') : null;
-    if (t && !pop.contains(t)) open(t);
-  });
-  $('#pop-x').addEventListener('click', function () { pop.close(); });
-  $('#pop-prev').addEventListener('click', function () { step(-1); });
-  $('#pop-next').addEventListener('click', function () { step(1); });
-  pop.addEventListener('click', function (e) { if (e.target === pop) pop.close(); });
-  pop.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
-    if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
   });
 
   /* ───── Кто какую силу чувствует ───── */
@@ -250,90 +187,13 @@
     });
   });
 
-  /* ───── Появление сцен ───── */
-  var reveals = $$('.reveal');
-  if ('IntersectionObserver' in window && !calm) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        en.target.classList.add('in');
-        if (en.target.id === 'proc') play($('.tab[aria-selected="true"]').dataset.proc);
-        io.unobserve(en.target);
-      });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
-    reveals.forEach(function (el) { io.observe(el); });
-    // страховка: если наблюдатель по какой-то причине молчит, показываем всё
-    setTimeout(function () { if (!$('.reveal.in')) reveals.forEach(function (el) { el.classList.add('in'); }); }, 2500);
-  } else {
-    reveals.forEach(function (el) { el.classList.add('in'); });
+  /* ───── Повтор анимации превращений при появлении сцены ───── */
+  var procScene = $('#proc');
+  if (procScene) {
+    procScene.addEventListener('kv:reveal', function () {
+      play($('.tab[aria-selected="true"]').dataset.proc);
+    });
   }
 
-  /* ───── Навигация: прогресс и активный раздел ───── */
-  var links = $$('#nav-links a'), bar = $('#progress');
-  var targets = links.map(function (a) { return $(a.getAttribute('href')); });
-  var ticking = false;
-  function onScroll() {
-    ticking = false;
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.setProperty('--p', (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + '%');
-    var line = window.innerHeight * 0.35, cur = -1;
-    targets.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) cur = i; });
-    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
-  }
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  onScroll();
-
-  /* ───── Звёздное небо ───── */
-  var cv = $('#stars'), ctx = cv.getContext && cv.getContext('2d');
-  if (ctx) {
-    var W = 0, H = 0, stars = [], comet = null, last = 0, raf = 0;
-    var TINT = ['#ffffff', '#cfd6ff', '#b9a4ff', '#8fc4ff', '#ffb8ec'];
-    var resize = function () {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = window.innerWidth; H = Math.min(window.innerHeight, 1400);
-      cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var n = Math.round(Math.min(260, W * H / 5200));
-      stars = [];
-      for (var i = 0; i < n; i++) {
-        stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.25 + .25, p: Math.random() * 6.28, s: Math.random() * .8 + .3, v: Math.random() * .05 + .01, c: TINT[i % TINT.length] });
-      }
-      draw(0);
-    };
-    var draw = function (t) {
-      ctx.clearRect(0, 0, W, H);
-      for (var i = 0; i < stars.length; i++) {
-        var st = stars[i];
-        ctx.globalAlpha = calm ? .7 : .35 + .65 * Math.abs(Math.sin(st.p + t * .001 * st.s));
-        ctx.fillStyle = st.c;
-        ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 6.2832); ctx.fill();
-        if (!calm) { st.y -= st.v; if (st.y < -2) { st.y = H + 2; st.x = Math.random() * W; } }
-      }
-      if (comet) {
-        comet.x += comet.dx; comet.y += comet.dy; comet.life -= 1;
-        var g = ctx.createLinearGradient(comet.x, comet.y, comet.x - comet.dx * 16, comet.y - comet.dy * 16);
-        g.addColorStop(0, 'rgba(255,255,255,.9)'); g.addColorStop(1, 'rgba(168,139,255,0)');
-        ctx.globalAlpha = Math.min(1, comet.life / 20); ctx.strokeStyle = g; ctx.lineWidth = 1.6;
-        ctx.beginPath(); ctx.moveTo(comet.x, comet.y); ctx.lineTo(comet.x - comet.dx * 16, comet.y - comet.dy * 16); ctx.stroke();
-        if (comet.life <= 0) comet = null;
-      }
-      ctx.globalAlpha = 1;
-    };
-    var loop = function (t) {
-      raf = requestAnimationFrame(loop);
-      if (t - last < 33) return; // ~30 кадров в секунду достаточно
-      last = t;
-      if (!comet && Math.random() < .004) comet = { x: Math.random() * W * .8, y: Math.random() * H * .4, dx: 5 + Math.random() * 3, dy: 2 + Math.random() * 2, life: 60 };
-      draw(t);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-    if (!calm) {
-      raf = requestAnimationFrame(loop);
-      document.addEventListener('visibilitychange', function () {
-        cancelAnimationFrame(raf);
-        if (!document.hidden) raf = requestAnimationFrame(loop);
-      });
-    }
-  }
+  KV.init();
 })();

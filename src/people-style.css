@@ -1,0 +1,181 @@
+/* ═════════ Люди кванта: стили только этой страницы ═════════ */
+
+/* ───── общая графика значков (аналог .gl/.sh с первой страницы) ───── */
+.p-ic { display: block; width: 100%; height: 100%; overflow: visible; }
+.p-ln { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+  vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px color-mix(in oklab, var(--c) 70%, transparent)); }
+.p-dash { stroke-dasharray: 5 5; }
+.p-dot { fill: var(--c); stroke: none; filter: drop-shadow(0 0 6px color-mix(in oklab, var(--c) 75%, transparent)); }
+.p-txt { font: 700 15px var(--mono); fill: #fff; text-anchor: middle; dominant-baseline: central; }
+
+.p-anim-box { position: relative; border-radius: 14px; background: rgba(160, 170, 255, .06); border: 1px solid var(--line); aspect-ratio: 16 / 10; overflow: hidden; }
+.p-anim-box .p-ic { padding: .5rem; }
+
+/* ───── блок Дирака ───── */
+.p-dirac { padding: clamp(1.25rem, 3vw, 2rem); display: grid; gap: 1.5rem; --c: var(--c-strong); }
+@media (min-width: 860px) { .p-dirac { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 2.5rem; } }
+.p-dirac-art { min-height: 12rem; }
+.p-dirac-txt { display: grid; gap: .6rem; align-content: center; }
+.p-dirac-txt .p-tag { font: 600 .78rem/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.p-dirac-txt h3 { font: 800 clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem)/1.12 var(--display); letter-spacing: -.02em; }
+.p-dirac-txt .p-years { font: 500 .8125rem/1.4 var(--mono); color: var(--mut-2); }
+.p-dirac-txt .p-one { color: var(--mut); font-size: 1.0625rem; line-height: 1.5; max-width: 34rem; }
+.p-dirac-txt .btn-more { justify-self: start; margin-top: .4rem; min-height: 44px; padding: .6rem 1.2rem; font: 600 .875rem/1.2 var(--display); }
+
+/* ───── сетка карточек учёных ───── */
+.people { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .people { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1040px) { .people { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.p-card { padding: 1rem 1.1rem 1.2rem; display: grid; gap: .7rem; width: 100%; }
+.p-card .p-name { font: 800 1.125rem/1.2 var(--display); letter-spacing: -.01em; color: #fff; }
+.p-card .p-years { font: 500 .78rem/1.3 var(--mono); color: var(--mut-2); }
+.p-card .p-one { font-size: .9375rem; line-height: 1.45; color: var(--mut); }
+
+/* ───── раздел «как всё сложилось» ───── */
+.p-how { display: grid; gap: 1.1rem; max-width: 46rem; }
+.p-how p { font-size: 1.0625rem; line-height: 1.6; color: var(--mut); }
+.p-how .btn { justify-self: start; margin-top: .5rem; --c: var(--c-ui); color: var(--c-ui); border-color: color-mix(in oklab, var(--c-ui) 50%, transparent); }
+
+/* ═════════ анимации: покой = осмысленное конечное положение ═════════ */
+
+/* Дирак: зеркало e⁻ / e⁺ */
+.pa-dirac-pos { opacity: 1; }
+.pa-dirac-spark { opacity: .55; }
+
+/* Планк: лесенка порций */
+.pa-planck-q { opacity: 1; }
+
+/* Эйнштейн: волна выбивает электрон */
+.pa-einstein-eject { opacity: 1; }
+
+/* Бор: перескок электрона */
+.pa-bohr-e { opacity: 1; }
+.pa-bohr-ph { opacity: .6; }
+
+/* Нётер: симметрия ↔ сохранение */
+.pa-noether-pulse { opacity: 1; }
+
+/* де Бройль: частица ↔ волна ↔ кольцо */
+.pa-broglie-ball, .pa-broglie-wave, .pa-broglie-ring { opacity: 1; }
+
+/* Гейзенберг: неопределённость */
+.pa-heis-x, .pa-heis-p { transform-box: fill-box; transform-origin: center; }
+
+/* Шрёдингер: волновой пакет */
+.pa-schrod-wave { transform-box: fill-box; transform-origin: center; }
+
+/* Борн: вероятностные попадания */
+.pa-born-hit { opacity: .85; }
+
+/* Паули: запрет */
+.pa-pauli-out { opacity: 1; transform-box: fill-box; transform-origin: center; }
+
+/* фон Нейман: хаос → каркас */
+.pa-neu { transform-box: fill-box; transform-origin: center; }
+
+/* Фейнман: диаграмма */
+.pa-feyn-photon { stroke-dasharray: 4 5; }
+
+/* Белл: спутанность */
+.pa-bell-flash { opacity: .9; }
+
+/* Гелл-Ман: кварки слипаются в протон */
+.pa-gm-q { transform-box: fill-box; transform-origin: center; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pa-dirac-pos { animation: pa-k-dirac-pos 5.5s var(--ease) infinite; }
+  .pa-dirac-spark { animation: pa-k-dirac-spark 5.5s var(--ease) infinite; }
+
+  .pa-planck-q1 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: 0s; }
+  .pa-planck-q2 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: .3s; }
+  .pa-planck-q3 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: .6s; }
+  .pa-planck-q4 { animation: pa-k-planck-q 4.8s var(--ease) infinite; animation-delay: .9s; }
+
+  .pa-einstein-wave { animation: pa-k-einstein-wave 4.4s linear infinite; }
+  .pa-einstein-eject { animation: pa-k-einstein-eject 4.4s var(--ease) infinite; }
+
+  .pa-bohr-e { animation: pa-k-bohr-e 5s var(--ease) infinite; }
+  .pa-bohr-ph { animation: pa-k-bohr-ph 5s var(--ease) infinite; }
+
+  .pa-noether-hex { animation: pa-k-noether-rot 6s linear infinite; transform-box: fill-box; transform-origin: center; }
+  .pa-noether-pulse { animation: pa-k-noether-pulse 6s var(--ease) infinite; }
+
+  .pa-broglie-ball { animation: pa-k-broglie-ball 5.5s var(--ease) infinite; }
+  .pa-broglie-wave { animation: pa-k-broglie-wave 5.5s var(--ease) infinite; }
+  .pa-broglie-ring { animation: pa-k-broglie-ring 5.5s var(--ease) infinite; }
+
+  .pa-heis-x { animation: pa-k-heis-x 4.6s ease-in-out infinite; }
+  .pa-heis-p { animation: pa-k-heis-p 4.6s ease-in-out infinite; }
+
+  .pa-schrod-wave { animation: pa-k-schrod 5s ease-in-out infinite; }
+
+  .pa-born-h1 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 0s; }
+  .pa-born-h2 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 1s; }
+  .pa-born-h3 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 2s; }
+  .pa-born-h4 { animation: pa-k-born-hit 4.2s ease-in-out infinite; animation-delay: 3s; }
+
+  .pa-pauli-out { animation: pa-k-pauli 4.6s var(--ease) infinite; }
+
+  .pa-neu1 { animation: pa-k-neu1 6.5s var(--ease) infinite; }
+  .pa-neu2 { animation: pa-k-neu2 6.5s var(--ease) infinite; }
+  .pa-neu3 { animation: pa-k-neu3 6.5s var(--ease) infinite; }
+  .pa-neu4 { animation: pa-k-neu4 6.5s var(--ease) infinite; }
+  .pa-neu5 { animation: pa-k-neu5 6.5s var(--ease) infinite; }
+  .pa-neu6 { animation: pa-k-neu6 6.5s var(--ease) infinite; }
+
+  .pa-feyn-photon { animation: pa-k-feyn-dash 1.6s linear infinite; }
+
+  .pa-bell-flash { animation: pa-k-bell-flash 4.5s ease-in-out infinite; }
+
+  .pa-gm-1 { animation: pa-k-gm-1 5.2s var(--ease) infinite; }
+  .pa-gm-2 { animation: pa-k-gm-2 5.2s var(--ease) infinite; }
+  .pa-gm-3 { animation: pa-k-gm-3 5.2s var(--ease) infinite; }
+}
+
+@keyframes pa-k-dirac-pos { 0%, 55% { opacity: 1; transform: scale(1); } 70% { opacity: .12; transform: scale(.5); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes pa-k-dirac-spark { 0%, 55% { opacity: .55; } 70% { opacity: 1; } 100% { opacity: .55; } }
+
+@keyframes pa-k-planck-q { 0%, 100% { opacity: 1; transform: scale(1); } 30% { opacity: .25; transform: scale(.4); } 55% { opacity: 1; transform: scale(1.3); } }
+
+@keyframes pa-k-einstein-wave { 0% { transform: translateX(-24px); } 45% { transform: translateX(0); } 100% { transform: translateX(-24px); } }
+@keyframes pa-k-einstein-eject { 0%, 45% { transform: translate(0, 0); opacity: 1; } 75% { transform: translate(18px, -16px); opacity: 1; } 100% { transform: translate(0, 0); opacity: 1; } }
+
+@keyframes pa-k-bohr-e { 0%, 40% { transform: translateX(0); } 55%, 85% { transform: translateX(-38px); } 100% { transform: translateX(0); } }
+@keyframes pa-k-bohr-ph { 0%, 50% { opacity: 0; } 58% { opacity: 1; } 78%, 100% { opacity: 0; } }
+
+@keyframes pa-k-noether-rot { to { transform: rotate(360deg); } }
+@keyframes pa-k-noether-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: .7; } }
+
+@keyframes pa-k-broglie-ball { 0%, 30% { opacity: 1; transform: translateX(0); } 45%, 100% { opacity: 0; transform: translateX(20px); } }
+@keyframes pa-k-broglie-wave { 0%, 30% { opacity: 0; } 45%, 70% { opacity: 1; } 85%, 100% { opacity: 0; } }
+@keyframes pa-k-broglie-ring { 0%, 65% { opacity: 0; transform: scale(.7); } 85%, 100% { opacity: 1; transform: scale(1); } }
+
+@keyframes pa-k-heis-x { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.35); } }
+@keyframes pa-k-heis-p { 0%, 100% { transform: scaleX(.35); } 50% { transform: scaleX(1); } }
+
+@keyframes pa-k-schrod { 0%, 100% { transform: scaleX(1) scaleY(1); opacity: 1; } 50% { transform: scaleX(1.5) scaleY(.6); opacity: .55; } }
+
+@keyframes pa-k-born-hit { 0%, 92%, 100% { opacity: .2; transform: scale(.6); } 96% { opacity: 1; transform: scale(1.6); } }
+
+@keyframes pa-k-pauli { 0%, 20% { transform: translate(0, 0); } 45% { transform: translate(-24px, -18px); } 70% { transform: translate(-6px, -4px); } 100% { transform: translate(0, 0); } }
+
+@keyframes pa-k-neu1 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(-14px, 8px); } }
+@keyframes pa-k-neu2 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(10px, -12px); } }
+@keyframes pa-k-neu3 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(-8px, -6px); } }
+@keyframes pa-k-neu4 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(12px, 10px); } }
+@keyframes pa-k-neu5 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(-10px, 6px); } }
+@keyframes pa-k-neu6 { 0%, 100% { transform: translate(0, 0); } 45%, 55% { transform: translate(6px, -10px); } }
+
+@keyframes pa-k-feyn-dash { to { stroke-dashoffset: -18; } }
+
+@keyframes pa-k-bell-flash { 0%, 40%, 100% { opacity: .3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.4); } }
+
+@keyframes pa-k-gm-1 { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(-20px, -14px); } }
+@keyframes pa-k-gm-2 { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(20px, 16px); } }
+@keyframes pa-k-gm-3 { 0%, 100% { transform: translate(0, 0); } 40% { transform: translate(-18px, 16px); } }
+
+@media (max-width: 400px) {
+  .p-dirac { padding: 1rem; }
+  .people { gap: .8rem; }
+}
