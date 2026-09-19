@@ -18,11 +18,15 @@ function faviconTag() {
 // потому что этим файлом владеет другой агент.
 const NAV_CSS = `
 .nav-links a.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   border: 1px solid color-mix(in oklab, var(--c-ui) 45%, transparent);
   background: rgba(95,227,255,.1);
   color: var(--ink);
   border-radius: 9px;
-  padding: .35em .8em;
+  padding: .5625rem 1rem;
   font-family: var(--mono, inherit);
 }
 .nav-links a.page-link:hover,

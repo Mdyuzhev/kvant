@@ -678,11 +678,15 @@ dialog.pop::backdrop { background: rgba(4, 5, 16, .72); -webkit-backdrop-filter:
 
 
 .nav-links a.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   border: 1px solid color-mix(in oklab, var(--c-ui) 45%, transparent);
   background: rgba(95,227,255,.1);
   color: var(--ink);
   border-radius: 9px;
-  padding: .35em .8em;
+  padding: .5625rem 1rem;
   font-family: var(--mono, inherit);
 }
 .nav-links a.page-link:hover,
@@ -703,7 +707,7 @@ dialog.pop::backdrop { background: rgba(4, 5, 16, .72); -webkit-backdrop-filter:
       <a href="#s-dirac">Дирак</a>
       <a href="#s-people">Кто придумал</a>
       <a href="#s-how">Как сложилось</a>
-      <a class="page-link" href="kvant.html">Конструктор материи →</a>
+      <a class="page-link" href="kvant.html">Конструктор материи</a>
     </div>
   </div>
   <div class="progress" aria-hidden="true"><i id="progress"></i></div>
